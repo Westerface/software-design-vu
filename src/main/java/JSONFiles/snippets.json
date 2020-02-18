@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Snippet 1",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "25/02/2020",
+    "content": "function(){\n\tprint(\"Hello World\");\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 2",
+    "programingLanguage": "Java",
+    "dateCreated": "26/02/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}",
+    "categories": "cat4,cat5,cat6"
+  },
+  {
+    "name": "Snippet 3",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "27/02/2020",
+    "content": "function(){\n\tprint(\"Hello World\");\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 4",
+    "programingLanguage": "Java",
+    "dateCreated": "28/02/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}",
+    "categories": "cat4,cat5,cat6"
+  },
+  {
+    "name": "Snippet 5",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "29/02/2020",
+    "content": "function(){\n\tprint(\"Hello World\");\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 6",
+    "programingLanguage": "Java",
+    "dateCreated": "01/03/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}",
+    "categories": "cat4,cat5,cat6"
+  },
+  {
+    "name": "Snippet 7",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "02/03/2020",
+    "content": "function(){\n\tprint(\"Hello World\");\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 8",
+    "programingLanguage": "Java",
+    "dateCreated": "03/03/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}",
+    "categories": "cat4,cat5,cat6"
+  }
+]
