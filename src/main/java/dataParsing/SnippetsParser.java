@@ -16,20 +16,20 @@ public class SnippetsParser {
 
     private Gson gson;
     private String filePath;
-    Type snipperListType;
+    Type snippetListType;
     ArrayList<Snippet> snippetList;
 
     public SnippetsParser() {
         this.gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
         this.filePath = "src/main/java/JSONFiles/snippets.json";
-        this.snipperListType = new TypeToken<ArrayList<Snippet>>(){}.getType();
+        this.snippetListType = new TypeToken<ArrayList<Snippet>>(){}.getType();
         this.snippetList = new ArrayList<>();
     }
 
     public ArrayList<Snippet> getAllSnippets(){
 
         try {
-            this.snippetList = this.gson.fromJson(new FileReader(this.filePath), this.snipperListType);
+            this.snippetList = this.gson.fromJson(new FileReader(this.filePath), this.snippetListType);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class SnippetsParser {
 
         try {
 
-            String jsonString = this.gson.toJson(updatedSnippets, this.snipperListType);
+            String jsonString = this.gson.toJson(updatedSnippets, this.snippetListType);
 
             FileWriter fw = new FileWriter(this.filePath);
             fw.write(jsonString);

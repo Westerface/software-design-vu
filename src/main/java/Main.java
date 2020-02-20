@@ -1,11 +1,11 @@
 import classes.State;
 import globals.Globals;
+import views.DashboardForm;
 
 public class Main {
     public static void main (String[] args) {
 
         Globals.currentState = State.STATE_DASHBOARD;
-        new State().changeState(Globals.currentState);
-
+        Globals.setFrame(new DashboardForm().mainPanel);
     }
 }

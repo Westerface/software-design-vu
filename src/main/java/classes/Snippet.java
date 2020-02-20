@@ -1,7 +1,5 @@
 package classes;
 
-import globals.Globals;
-
 import java.util.Date;
 
 public class Snippet {

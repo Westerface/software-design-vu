@@ -13,10 +13,12 @@ public class State {
     public void changeState(String newState){
 
         Globals.currentState = newState;
-
         switch (newState){
             case STATE_DASHBOARD:
-                Globals.setFrame(new DashboardForm().mainPanel);
+                Globals.mainFrame.getContentPane().removeAll();
+                Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);
+                Globals.mainFrame.getContentPane().revalidate();
+                Globals.mainFrame.getContentPane().repaint();
                 break;
             case STATE_ADD_SNIPPET:
                 //Globals.setFrame(new AddSnippetFrame().mainPanel);
