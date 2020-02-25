@@ -10,6 +10,8 @@ public class Snippet {
     private String content;
     private String categories;
 
+    public Snippet(){}
+
     public Snippet(String name, String programingLanguage, Date dateCreated, String content, String categories) {
         this.name = name;
         this.programingLanguage = programingLanguage;

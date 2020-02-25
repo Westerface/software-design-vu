@@ -29,7 +29,10 @@
       </grid>
       <grid id="32d86" binding="dashboardPannel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
-        <properties/>
+        <properties>
+          <background color="-991003"/>
+          <opaque value="true"/>
+        </properties>
         <border type="none">
           <font/>
         </border>
@@ -39,6 +42,7 @@
             <constraints border-constraint="North"/>
             <properties>
               <minimumSize width="0" height="250"/>
+              <opaque value="false"/>
               <preferredSize width="0" height="250"/>
               <requestFocusEnabled value="false"/>
             </properties>
@@ -112,7 +116,9 @@
           </grid>
           <grid id="4470d" binding="listWrapper" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
             <border type="empty">
               <size top="0" left="500" bottom="100" right="500"/>
             </border>
@@ -120,6 +126,7 @@
               <component id="76ffd" class="javax.swing.JList" binding="recentlyAddedListView">
                 <constraints border-constraint="Center"/>
                 <properties>
+                  <opaque value="true"/>
                   <selectionMode value="0"/>
                   <valueIsAdjusting value="false"/>
                 </properties>
@@ -128,7 +135,7 @@
                 <constraints border-constraint="North"/>
                 <properties>
                   <minimumSize width="0" height="40"/>
-                  <opaque value="false"/>
+                  <opaque value="true"/>
                   <preferredSize width="0" height="40"/>
                 </properties>
                 <border type="none">

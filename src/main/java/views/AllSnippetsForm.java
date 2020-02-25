@@ -1,10 +1,17 @@
 package views;
 
+import classes.Snippet;
 import globals.Globals;
 import org.fife.ui.rsyntaxtextarea.*;
+import views.listCellRenderers.AllSnippetsCellRenderer;
 import views.listCellRenderers.FilterListCellRenderer;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Date;
 
 public class AllSnippetsForm {
     public JPanel mainPanel;
@@ -27,7 +34,7 @@ public class AllSnippetsForm {
     public JLabel orderByLabel;
     public JLabel searchLabel;
     public JTextField searchTextField;
-    public JList allSnippets;
+    public JList<Snippet> allSnippets;
     public JPanel snippetOptionsWrapper;
     public JPanel snippetOptions;
     public JPanel snippetWrapper;
@@ -41,19 +48,43 @@ public class AllSnippetsForm {
     public JTextField categoryTextField;
     public JPanel filters;
     public JList<String> programingLanguagesFilterList;
-    public JList categoriesFilterList;
+    public JList<String> categoriesFilterList;
     public JLabel programingLanguagesFilerLabel;
     public JLabel categoriesFilerLabel;
+    public JScrollPane allSnippetsScrollPane;
+    public JScrollPane programinLanguageFilterScrollPane;
+    public JScrollPane categoriesFilterScrollPane;
 
     private RSyntaxTextArea textArea = new RSyntaxTextArea(20, 60);
+    private DefaultListModel<Snippet> allSnippetsModel = new DefaultListModel<>();
 
     public AllSnippetsForm() {
 
        createTextArea();
        addProgramingLanguages();
        createFilters();
+       createAllSnippetsList();
 
-       snippetLangaugeDropdown.addActionListener(e -> changeProgramingLanguage());
+       snippetLangaugeDropdown.addActionListener(e -> changeProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem())));
+       saveSnippetButton.addActionListener(e -> handleSaveSnippet());
+       allSnippets.addListSelectionListener(e -> handleSelectSnippet());
+
+       searchTextField.getDocument().addDocumentListener(new DocumentListener() {
+           @Override
+           public void insertUpdate(DocumentEvent documentEvent) {
+               search();
+           }
+
+           @Override
+           public void removeUpdate(DocumentEvent documentEvent) {
+               search();
+           }
+
+           @Override
+           public void changedUpdate(DocumentEvent documentEvent) {
+               search();
+           }
+       });
     }
 
     private void createTextArea(){
@@ -72,6 +103,28 @@ public class AllSnippetsForm {
 
         snippetContent.add(textArea);
 
+    }
+
+    private void handleSelectSnippet(){
+
+        Snippet snippetToDisplay = Globals.snippetHelper.getAllSnippets().get(allSnippets.getSelectedIndex());
+        snippetNameTextField.setText(snippetToDisplay.getName());
+        categoryTextField.setText(snippetToDisplay.getCategories());
+        textArea.setText(snippetToDisplay.getContent());
+        snippetLangaugeDropdown.setSelectedItem(snippetToDisplay.getProgramingLanguage());
+        changeProgramingLanguage(snippetToDisplay.getProgramingLanguage());
+    }
+
+    private void createAllSnippetsList(){
+
+        for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending()){
+            allSnippetsModel.addElement(snippet);
+        }
+
+        //Setting list view and selection mode
+        allSnippets.setCellRenderer(new AllSnippetsCellRenderer());
+        allSnippets.setModel(allSnippetsModel);
+        allSnippets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void addProgramingLanguages(){
@@ -124,9 +177,9 @@ public class AllSnippetsForm {
         });
     }
 
-    private void changeProgramingLanguage(){
+    private void changeProgramingLanguage(String programingLanguage){
 
-        switch (String.valueOf(this.snippetLangaugeDropdown.getSelectedItem())){
+        switch (programingLanguage){
             case "Text":
                 this.textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
                 break;
@@ -165,5 +218,63 @@ public class AllSnippetsForm {
                 break;
             default: break;
         }
+    }
+
+    private void handleSaveSnippet(){
+        this.valudateData();
+        boolean newSnippet = true;
+        for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
+
+            if(snippet.getName().equals(this.snippetNameTextField.getText())){
+
+                snippet.setContent(this.textArea.getText());
+                snippet.setCategories(this.categoryTextField.getText());
+                snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
+                Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
+                newSnippet = false;
+                break;
+            }
+        }
+
+        if(newSnippet){
+            Snippet snippet = new Snippet();
+            snippet.setName(this.snippetNameTextField.getText());
+            snippet.setDateCreated(new Date());
+            snippet.setContent(this.textArea.getText());
+            snippet.setCategories(this.categoryTextField.getText());
+            snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
+            Globals.snippetHelper.getAllSnippets().add(snippet);
+            Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
+            update();
+        }
+    }
+
+    private void valudateData(){
+
+    }
+
+    private void update(){
+
+        allSnippetsModel = new DefaultListModel<>();
+
+        for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
+            allSnippetsModel.addElement(snippet);
+        }
+
+        this.allSnippets.setModel(allSnippetsModel);
+    }
+
+    private void search(){
+
+        allSnippetsModel = new DefaultListModel<>();
+
+        for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
+            if(snippet.getName().contains(searchTextField.getText())) {
+
+                allSnippetsModel.addElement(snippet);
+            }
+        }
+
+        this.allSnippets.setModel(allSnippetsModel);
     }
 }

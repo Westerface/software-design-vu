@@ -1,3 +1,4 @@
+import classes.ColorTheme;
 import classes.Settings;
 import classes.State;
 import globals.Globals;
@@ -8,6 +9,7 @@ public class Main {
 
         // TODO: PARSE SETTINGS
         Settings settings = new Settings();
+        settings.setColorTheme(new ColorTheme());
         settings.setCategories("functions, formulas, custom, school, work, tutorial");
         Globals.settings = settings;
 

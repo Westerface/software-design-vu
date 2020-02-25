@@ -37,31 +37,31 @@ public class ColorTheme {
     private Color snippetScreenSaveButtonHoverTextColor;
 
     public ColorTheme(){
-//        this.backgroundColor = backgroundColor;
-//        this.headerBackgroundColor = headerBackgroundColor;
-//        this.headerTextColor = headerTextColor;
-//        this.headerButtonBackgroundColor = headerButtonBackgroundColor;
-//        this.headerButtonHoverBackgroundColor = headerButtonHoverBackgroundColor;
-//        this.dashboardButtonBackgroundColor = dashboardButtonBackgroundColor;
-//        this.dashboardButtonTextColor = dashboardButtonTextColor;
-//        this.dashboardButtonBorderColor = dashboardButtonBorderColor;
-//        this.dashboardButtonHoverBackgroundColor = dashboardButtonHoverBackgroundColor;
-//        this.dashboardButtonHoverTextColor = dashboardButtonHoverTextColor;
-//        this.dashboardButtonHoverBorderColor = dashboardButtonHoverBorderColor;
-//        this.panelBackgroundColor = panelBackgroundColor;
-//        this.panelTextColor = panelTextColor;
-//        this.panelItemSelectedColor = panelItemSelectedColor;
-//        this.optionsButtonBackgroundColor = optionsButtonBackgroundColor;
-//        this.optionsButtonTextColor = optionsButtonTextColor;
-//        this.optionsButtonBorderColor = optionsButtonBorderColor;
-//        this.optionsButtonHoverBackgroundColor = optionsButtonHoverBackgroundColor;
-//        this.optionsButtonHoverTextColor = optionsButtonHoverTextColor;
-//        this.optionsButtonHoverBorderColor = optionsButtonHoverBorderColor;
-//        this.snippetScreenSplitBorderColor = snippetScreenSplitBorderColor;
-//        this.snippetScreenSaveButtonBackgroundColor = snippetScreenSaveButtonBackgroundColor;
-//        this.snippetScreenSaveButtonTextColor = snippetScreenSaveButtonTextColor;
-//        this.snippetScreenSaveButtonHoverBackgroundColor = snippetScreenSaveButtonHoverBackgroundColor;
-//        this.snippetScreenSaveButtonHoverTextColor = snippetScreenSaveButtonHoverTextColor;
+        this.backgroundColor = new Color(240, 224, 229);
+        this.headerBackgroundColor = new Color(72, 35, 46);
+        this.headerTextColor = new Color(227, 211, 216);
+        this.headerButtonBackgroundColor = new Color(72, 35, 46);
+        this.headerButtonHoverBackgroundColor = new Color(198, 147, 178);
+        this.dashboardButtonBackgroundColor = new Color(58, 30, 39);
+        this.dashboardButtonTextColor = new Color(255, 255, 255);
+        this.dashboardButtonBorderColor = new Color(72, 35, 46);
+        this.dashboardButtonHoverBackgroundColor = new Color(98, 27, 57);
+        this.dashboardButtonHoverTextColor = new Color(255, 255, 255);
+        this.dashboardButtonHoverBorderColor = new Color(0,0,0);
+        this.panelBackgroundColor = new Color(255, 255, 255);
+        this.panelTextColor = new Color(0,0,0);
+        this.panelItemSelectedColor = new Color(198, 147, 178);
+        this.optionsButtonBackgroundColor = new Color(58, 30, 39);
+        this.optionsButtonTextColor = new Color(255, 255, 255);
+        this.optionsButtonBorderColor = new Color(72, 35, 46);
+        this.optionsButtonHoverBackgroundColor = new Color(98, 27, 57);
+        this.optionsButtonHoverTextColor = new Color(255, 255, 255);
+        this.optionsButtonHoverBorderColor = new Color(0,0,0);
+        this.snippetScreenSplitBorderColor = new Color(72, 35, 46);
+        this.snippetScreenSaveButtonBackgroundColor = new Color(58, 30, 39);
+        this.snippetScreenSaveButtonTextColor = new Color(255, 255, 255);
+        this.snippetScreenSaveButtonHoverBackgroundColor = new Color(98, 27, 57);
+        this.snippetScreenSaveButtonHoverTextColor = new Color(255, 255, 255);
     }
     public ColorTheme(Color backgroundColor,
                       Color headerBackgroundColor,
