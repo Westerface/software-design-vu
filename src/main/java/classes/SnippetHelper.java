@@ -10,17 +10,17 @@ import java.util.Comparator;
 public class SnippetHelper {
 
     private SnippetsParser parser;
-    private ArrayList<Snippet> allSnipptets;
+    private ArrayList<Snippet> allSnippets;
 
     public SnippetHelper(){
 
         this.parser = new SnippetsParser();
-        this.allSnipptets = parser.getAllSnippets();
+        this.allSnippets = parser.getAllSnippets();
     }
 
     public ArrayList<Snippet> getAllSnippets(){
 
-        return this.allSnipptets;
+        return this.allSnippets;
     }
 
     public void updateSnippets(ArrayList<Snippet> updatedSnipptes){
@@ -30,7 +30,7 @@ public class SnippetHelper {
 
     public void deleteSnippet(Snippet snippetToBeRemoved){
 
-        this.allSnipptets.remove(snippetToBeRemoved);
+        this.allSnippets.remove(snippetToBeRemoved);
         System.out.println("SnippetRemoved");
     }
 
@@ -38,7 +38,6 @@ public class SnippetHelper {
 
 
     }
-
 
     /*
     *
@@ -48,7 +47,7 @@ public class SnippetHelper {
     */
     public ArrayList<Snippet> getSnippetsOrderByDateAscending(){
 
-        ArrayList<Snippet> snippetsOrderedByDateAscending = this.allSnipptets;
+        ArrayList<Snippet> snippetsOrderedByDateAscending = this.allSnippets;
         Collections.sort(snippetsOrderedByDateAscending, new Comparator<Snippet>() {
             public int compare(Snippet o1, Snippet o2) {
                 if (o1.getDateCreated() == null || o2.getDateCreated() == null)
@@ -69,7 +68,7 @@ public class SnippetHelper {
 
     public ArrayList<Snippet> getSnippetsOrderByName(){
 
-        return this.allSnipptets;
+        return this.allSnippets;
     }
 
     /*
@@ -80,12 +79,12 @@ public class SnippetHelper {
      */
     public ArrayList<Snippet> getSnippetsFilteredByLanguage(String filterLanguage){
 
-        return this.allSnipptets;
+        return this.allSnippets;
     }
 
     public ArrayList<Snippet> getSnippetsFilteredByCategory(ArrayList<String> categories){
 
-        return this.allSnipptets;
+        return this.allSnippets;
     }
 
 

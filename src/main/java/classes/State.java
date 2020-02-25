@@ -1,8 +1,11 @@
 package classes;
 
 import globals.Globals;
+import views.AllSnippetsForm;
 import views.DashboardForm;
 import views.SettingsForm;
+
+import java.io.FileNotFoundException;
 
 public class State {
 
@@ -10,7 +13,7 @@ public class State {
     public static final String STATE_SETTINGS       = "STATE_SETTINGS";
     public static final String STATE_ADD_SNIPPET    = "STATE_ADD_SNIPPET";
 
-    public void changeState(String newState){
+    public void changeState(String newState) {
 
         Globals.currentState = newState;
         switch (newState){
@@ -22,6 +25,10 @@ public class State {
                 break;
             case STATE_ADD_SNIPPET:
                 //Globals.setFrame(new AddSnippetFrame().mainPanel);
+                Globals.mainFrame.getContentPane().removeAll();
+                Globals.mainFrame.getContentPane().add(new AllSnippetsForm().mainPanel);
+                Globals.mainFrame.getContentPane().revalidate();
+                Globals.mainFrame.getContentPane().repaint();
                 break;
             case STATE_SETTINGS:
                 Globals.mainFrame.getContentPane().removeAll();

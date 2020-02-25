@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
+import java.io.FileNotFoundException;
 
 public class DashboardForm {
     public JPanel mainPanel;
@@ -49,6 +50,7 @@ public class DashboardForm {
 
         allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),120, 120));
         setupDashboadButton(allSnippetsButton);
+        allSnippetsButton.addActionListener(e -> handleAllSnippetsButton());
 
         addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),120, 120));
         setupDashboadButton(addSnippetButton);
@@ -56,6 +58,7 @@ public class DashboardForm {
         settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),120, 120));
         setupDashboadButton(settingsButton);
         settingsButton.addActionListener(e -> handleSettingsButtonClicked());
+
         for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending()){
             recentlyAddedListModel.addElement(snippet);
         }
@@ -132,7 +135,7 @@ public class DashboardForm {
         dashboardButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 dashboardButton.setBackground(Colors.PANELS_COLOR);
-                dashboardButton.setBorder(BorderFactory.createLineBorder(Colors.BUTTON_COLOR, 4));;
+                dashboardButton.setBorder(BorderFactory.createLineBorder(Colors.BUTTON_COLOR, 4));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -158,7 +161,7 @@ public class DashboardForm {
         optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 optionButton.setBackground(Colors.OPTIONS_BUTTON_HOVER_COLOR);
-                optionButton.setBorder(BorderFactory.createLineBorder(Colors.BUTTON_COLOR, 2));;
+                optionButton.setBorder(BorderFactory.createLineBorder(Colors.BUTTON_COLOR, 2));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -215,9 +218,15 @@ public class DashboardForm {
         optionsDialog.dispose();
     }
 
-    private void handleSettingsButtonClicked(){
+    private void handleSettingsButtonClicked() {
 
         Globals.currentState = State.STATE_SETTINGS;
+        new State().changeState( Globals.currentState);
+    }
+
+    private void handleAllSnippetsButton() {
+
+        Globals.currentState = State.STATE_ADD_SNIPPET;
         new State().changeState( Globals.currentState);
     }
 
