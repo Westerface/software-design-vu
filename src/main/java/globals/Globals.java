@@ -1,9 +1,7 @@
 package globals;
 
-import classes.Settings;
-import classes.Snippet;
 import classes.SnippetHelper;
-import views.DashboardForm;
+import dataParsing.SettingsParser;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
@@ -15,9 +13,8 @@ public class Globals {
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     public static String currentState = "";
     public static SnippetHelper snippetHelper = new SnippetHelper();
-
+    public static SettingsParser settingsParser = new SettingsParser();
     public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
-    public static Settings settings = new Settings();
 
     public static void setFrame(JPanel panel){
         mainFrame.setContentPane(panel);
@@ -32,9 +29,9 @@ public class Globals {
 
         ArrayList<String> categories = new ArrayList<>();
 
-        for(int i = 0; i < settings.getCategories().split(",").length; i++) {
+        for(int i = 0; i < settingsParser.getSettings().getCategories().split(",").length; i++) {
 
-            categories.add(settings.getCategories().split(",")[i].trim());
+            categories.add(settingsParser.getSettings().getCategories().split(",")[i].trim());
         }
 
         return categories;

@@ -5,8 +5,6 @@ import views.AllSnippetsForm;
 import views.DashboardForm;
 import views.SettingsForm;
 
-import java.io.FileNotFoundException;
-
 public class State {
 
     public static final String STATE_DASHBOARD      = "STATE_DASHBOARD";

@@ -9,8 +9,8 @@ import views.listCellRenderers.FilterListCellRenderer;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 public class AllSnippetsForm {
@@ -93,13 +93,13 @@ public class AllSnippetsForm {
         textArea.setCodeFoldingEnabled(true);
         textArea.setAutoIndentEnabled(true);
 
-//        InputStream in = getClass().getResourceAsStream("src/main/assets/textAreaThemes/dark.xml");
-//        try {
-//            Theme theme = Theme.load(in);
-//            theme.apply(textArea);
-//        } catch (IOException ioe) { // Never happens
-//            ioe.printStackTrace();
-//        }
+        InputStream in = getClass().getResourceAsStream("src/main/assets/textAreaThemes/dark.xml");
+        try {
+            Theme theme = Theme.load(in);
+            theme.apply(textArea);
+        } catch (IOException ioe) { // Never happens
+            ioe.printStackTrace();
+        }
 
         snippetContent.add(textArea);
 
@@ -221,7 +221,7 @@ public class AllSnippetsForm {
     }
 
     private void handleSaveSnippet(){
-        this.valudateData();
+        this.validateData();
         boolean newSnippet = true;
         for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
 
@@ -249,7 +249,7 @@ public class AllSnippetsForm {
         }
     }
 
-    private void valudateData(){
+    private void validateData(){
 
     }
 

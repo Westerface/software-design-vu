@@ -41,7 +41,7 @@ public class SettingsForm {
         backToDashboardButton.addActionListener(e -> {
             try {
                 handleBackToDashboardButton();
-            } catch (FileNotFoundException ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
@@ -54,7 +54,7 @@ public class SettingsForm {
         }
     }
 
-    private void handleBackToDashboardButton() throws FileNotFoundException {
+    private void handleBackToDashboardButton() {
 
         Globals.currentState = State.STATE_DASHBOARD;
         new State().changeState(Globals.currentState);

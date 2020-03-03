@@ -1,1 +1,93 @@
-[{"name":"Snippet 8","programingLanguage":"CSS","dateCreated":"03/03/2020","content":"main(){\n\tmain goes here\n}\n","categories":"gagaga"},{"name":"Snippet 7","programingLanguage":"JavaScript","dateCreated":"02/03/2020","content":"function(){\n\tprint(\"Hello World\");\n}","categories":"cat1,cat2,cat3"},{"name":"Snippet 6","programingLanguage":"Java","dateCreated":"01/03/2020","content":"public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}","categories":"cat4,cat5,cat6"},{"name":"Snippet 5","programingLanguage":"JavaScript","dateCreated":"29/02/2020","content":"function(){\n\tprint(\"Hello World\");\n}","categories":"cat1,cat2,cat3"},{"name":"Snippet 4","programingLanguage":"Java","dateCreated":"28/02/2020","content":"public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}","categories":"cat4,cat5,cat6"},{"name":"Snippet 3","programingLanguage":"JavaScript","dateCreated":"27/02/2020","content":"function(){\n\tprint(\"Hello World\");\n\tdsadsadasdasdasdas\n}","categories":"cat1,cat2,cat3"},{"name":"Snippet 2","programingLanguage":"Java","dateCreated":"26/02/2020","content":"public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n\tasdasdassad\n}","categories":"cat4,cat5,cat6"},{"name":"Snippet 1","programingLanguage":"Python","dateCreated":"25/02/2020","content":"main()","categories":"gagaga"},{"name":"Test 1","programingLanguage":"Java","dateCreated":"25/02/2020","content":"public static void main(){\n\tSystem.out.println(\"Hello World\");\n\treturn 0;\n}\n","categories":"asdsadasd"},{"name":"asdafaf","programingLanguage":"Java","dateCreated":"25/02/2020","content":"public static void main(){\n\tString \n}\n","categories":"asdsadasd"},{"name":"Snippet 8123","programingLanguage":"C++","dateCreated":"25/02/2020","content":"main(){\nsnippetToDisplay.getProgramingLanguage()snippetToDisplay.getProgramingLanguage()}\n","categories":"gagaga"},{"name":"Snippet 812","programingLanguage":"C++","dateCreated":"25/02/2020","content":"main(){\n\tmain goes here\tmain goes here\tmain goes here\tmain goes here\n}\n","categories":"gagaga"},{"name":"Snippet 1asdasdas","programingLanguage":"JavaScript","dateCreated":"25/02/2020","content":"as dasdfasfsaas dasdfasfsaas dasdfasfsaas dasdfasfsaas dasdfasfsaas dasdfasfsa\nas dasdfasfsaas dasdfasfsaas dasdfasfsaas dasdfasfsa\nas dasdfasfsaas dasdfasfsaas dasdfasfsaas dasdfasfsa\nas dasdfasfsaas dasdfasfsaas dasdfasfsa","categories":"asdsadasdgagaga"}]
+[
+  {
+    "name": "Snippet 8",
+    "programingLanguage": "CSS",
+    "dateCreated": "03/03/2020",
+    "content": "main(){\n\tmain goes here asasdasdasd\n}\n",
+    "categories": "gagaga"
+  },
+  {
+    "name": "Snippet 7",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "02/03/2020",
+    "content": "function(){\n\tprint(\"Hello World freom here!~!!!!\");\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 6",
+    "programingLanguage": "Java",
+    "dateCreated": "01/03/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n}",
+    "categories": "cat4,cat5,cat6"
+  },
+  {
+    "name": "Snippet 5",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "29/02/2020",
+    "content": "function(){\n\tprint(\"Hello World\");\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 4",
+    "programingLanguage": "Java",
+    "dateCreated": "28/02/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World from here\");\n}",
+    "categories": "cat4,cat5,cat6"
+  },
+  {
+    "name": "Snippet 3",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "27/02/2020",
+    "content": "function(){\n\tprint(\"Hello World\");\n\tdsadsadasdasdasdas\n}",
+    "categories": "cat1,cat2,cat3"
+  },
+  {
+    "name": "Snippet 2",
+    "programingLanguage": "Java",
+    "dateCreated": "26/02/2020",
+    "content": "public void printHelloWorld(){\n\tSystem.out.println(\"Hello World\");\n\tasdasdassad\n}",
+    "categories": "cat4,cat5,cat6"
+  },
+  {
+    "name": "Snippet 1",
+    "programingLanguage": "Python",
+    "dateCreated": "25/02/2020",
+    "content": "main()",
+    "categories": "gagaga"
+  },
+  {
+    "name": "Test 1",
+    "programingLanguage": "Java",
+    "dateCreated": "25/02/2020",
+    "content": "public static void main(){\n\tSystem.out.println(\"Hello World\");\n\treturn 0;\n}\n",
+    "categories": "asdsadasd"
+  },
+  {
+    "name": "asdafaf",
+    "programingLanguage": "Java",
+    "dateCreated": "25/02/2020",
+    "content": "public static void main(){\n\tString \n}\n",
+    "categories": "asdsadasd"
+  },
+  {
+    "name": "Snippet 8123",
+    "programingLanguage": "C++",
+    "dateCreated": "25/02/2020",
+    "content": "main(){\nsnippetToDisplay.getProgramingLanguage()snippetToDisplay.getProgramingLanguage()}\n",
+    "categories": "gagaga"
+  },
+  {
+    "name": "Snippet 812",
+    "programingLanguage": "C++",
+    "dateCreated": "25/02/2020",
+    "content": "main(){\n\tmain goes here\tmain goes here\tmain goes here\tmain goes here\n}\n",
+    "categories": "gagaga"
+  },
+  {
+    "name": "Snippet 1asdasdas",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "25/02/2020",
+    "content": "as dasdfasfsaa",
+    "categories": "asdsadasdgagaga"
+  }
+]

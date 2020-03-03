@@ -1,5 +1,6 @@
 package views;
 
+import classes.Settings;
 import classes.SingleClickCopy;
 import classes.Snippet;
 import classes.State;
@@ -32,14 +33,16 @@ public class DashboardForm {
 
     public DefaultListModel<Snippet> recentlyAddedListModel;
 
+    Settings settings = Globals.settingsParser.getSettings();
+
     public DashboardForm(){
 
-        headerPannel.setBackground(Globals.settings.getColorTheme().getHeaderBackgroundColor());
-        dashboardPannel.setBackground(Globals.settings.getColorTheme().getBackgroundColor());
+        headerPannel.setBackground(settings.getColorTheme().getHeaderBackgroundColor());
+        dashboardPannel.setBackground(settings.getColorTheme().getBackgroundColor());
 
-        recentlyAddedListView.setBackground(Globals.settings.getColorTheme().getPanelBackgroundColor());
+        recentlyAddedListView.setBackground(settings.getColorTheme().getPanelBackgroundColor());
         applicationName.setText(Globals.APPLICATION_NAME);
-        applicationName.setForeground(Globals.settings.getColorTheme().getHeaderTextColor());
+        applicationName.setForeground(settings.getColorTheme().getHeaderTextColor());
 
         recentlyAddedListModel = new DefaultListModel<>();
 
@@ -48,7 +51,7 @@ public class DashboardForm {
 
     public void setupDashboard(){
 
-        dashboardPannel.setBackground(Globals.settings.getColorTheme().getPanelBackgroundColor());
+        dashboardPannel.setBackground(settings.getColorTheme().getPanelBackgroundColor());
 
         allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),120, 120));
         setupDashboadButton(allSnippetsButton);
@@ -126,49 +129,49 @@ public class DashboardForm {
 
     private void setupDashboadButton(JButton dashboardButton){
 
-        dashboardButton.setBackground(Globals.settings.getColorTheme().getDashboardButtonBackgroundColor());
+        dashboardButton.setBackground(settings.getColorTheme().getDashboardButtonBackgroundColor());
         dashboardButton.setHorizontalTextPosition(JLabel.CENTER);
         dashboardButton.setVerticalTextPosition(JLabel.BOTTOM);
-        dashboardButton.setForeground(Globals.settings.getColorTheme().getDashboardButtonTextColor());
+        dashboardButton.setForeground(settings.getColorTheme().getDashboardButtonTextColor());
         dashboardButton.setFocusPainted(false);
         dashboardButton.setBorderPainted(true);
-        dashboardButton.setBorder(BorderFactory.createLineBorder(Globals.settings.getColorTheme().getDashboardButtonBorderColor(), 4));
+        dashboardButton.setBorder(BorderFactory.createLineBorder(settings.getColorTheme().getDashboardButtonBorderColor(), 4));
 
         dashboardButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dashboardButton.setBackground(Globals.settings.getColorTheme().getDashboardButtonHoverBackgroundColor());
-                dashboardButton.setBorder(BorderFactory.createLineBorder(Globals.settings.getColorTheme().getDashboardButtonHoverBorderColor(), 4));
+                dashboardButton.setBackground(settings.getColorTheme().getDashboardButtonHoverBackgroundColor());
+                dashboardButton.setBorder(BorderFactory.createLineBorder(settings.getColorTheme().getDashboardButtonHoverBorderColor(), 4));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                dashboardButton.setBackground(Globals.settings.getColorTheme().getDashboardButtonBackgroundColor());
-                dashboardButton.setBorder(BorderFactory.createLineBorder(Globals.settings.getColorTheme().getDashboardButtonBorderColor(), 4));
+                dashboardButton.setBackground(settings.getColorTheme().getDashboardButtonBackgroundColor());
+                dashboardButton.setBorder(BorderFactory.createLineBorder(settings.getColorTheme().getDashboardButtonBorderColor(), 4));
             }
         });
     }
 
     private void setupOptionsButton(JButton optionButton){
 
-        optionButton.setBackground(Globals.settings.getColorTheme().getOptionsButtonBackgroundColor());
+        optionButton.setBackground(settings.getColorTheme().getOptionsButtonBackgroundColor());
         optionButton.setHorizontalTextPosition(JLabel.CENTER);
         optionButton.setVerticalTextPosition(JLabel.BOTTOM);
-        optionButton.setForeground(Globals.settings.getColorTheme().getOptionsButtonTextColor());
+        optionButton.setForeground(settings.getColorTheme().getOptionsButtonTextColor());
         optionButton.setFocusPainted(false);
         optionButton.setBorderPainted(true);
         optionButton.setFont(new Font("Andale Mono", Font.BOLD, 14));
-        optionButton.setBorder(BorderFactory.createLineBorder(Globals.settings.getColorTheme().getOptionsButtonBorderColor(), 2));
+        optionButton.setBorder(BorderFactory.createLineBorder(settings.getColorTheme().getOptionsButtonBorderColor(), 2));
         optionButton.setMinimumSize(new Dimension(80,80));
         optionButton.setPreferredSize(new Dimension(80,80));
 
         optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Globals.settings.getColorTheme().getOptionsButtonHoverBackgroundColor());
-                optionButton.setBorder(BorderFactory.createLineBorder(Globals.settings.getColorTheme().getOptionsButtonHoverBorderColor(), 2));
+                optionButton.setBackground(settings.getColorTheme().getOptionsButtonHoverBackgroundColor());
+                optionButton.setBorder(BorderFactory.createLineBorder(settings.getColorTheme().getOptionsButtonHoverBorderColor(), 2));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Globals.settings.getColorTheme().getOptionsButtonBackgroundColor());
-                optionButton.setBorder(BorderFactory.createLineBorder(Globals.settings.getColorTheme().getOptionsButtonBorderColor(), 2));
+                optionButton.setBackground(settings.getColorTheme().getOptionsButtonBackgroundColor());
+                optionButton.setBorder(BorderFactory.createLineBorder(settings.getColorTheme().getOptionsButtonBorderColor(), 2));
             }
         });
     }

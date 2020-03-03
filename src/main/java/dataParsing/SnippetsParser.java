@@ -14,13 +14,13 @@ import java.util.ArrayList;
 
 public class SnippetsParser {
 
-    private Gson gson;
+    private Gson gsonObject;
     private String filePath;
     Type snippetListType;
     ArrayList<Snippet> snippetList;
 
     public SnippetsParser() {
-        this.gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        this.gsonObject = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
         this.filePath = "src/main/java/JSONFiles/snippets.json";
         this.snippetListType = new TypeToken<ArrayList<Snippet>>(){}.getType();
         this.snippetList = new ArrayList<>();
@@ -29,7 +29,7 @@ public class SnippetsParser {
     public ArrayList<Snippet> getAllSnippets(){
 
         try {
-            this.snippetList = this.gson.fromJson(new FileReader(this.filePath), this.snippetListType);
+            this.snippetList = this.gsonObject.fromJson(new FileReader(this.filePath), this.snippetListType);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class SnippetsParser {
 
         try {
 
-            String jsonString = this.gson.toJson(updatedSnippets, this.snippetListType);
+            String jsonString = this.gsonObject.toJson(updatedSnippets, this.snippetListType);
 
             FileWriter fw = new FileWriter(this.filePath);
             fw.write(jsonString);
