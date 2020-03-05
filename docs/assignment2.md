@@ -1,25 +1,47 @@
 # Assignment 2
 
-Maximum number of words for this document: 12000
+### Group 14 - CodeSnippetManager - “Coniunx”
+<br>Dimitar Georgiev - dgv500
+<br>Klimis Tsakiridis - kts480
+<br>Iva Dimitrova - ida460
+<br>Stoyan Tsinov - stv500
 
-**IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is strongly suggested to used different colors for the prescriptive and descriptive parts of your models (this helps you in better reasoning on the level of detail needed in each part of the models and the instructors in knowing how to assess your models).   
-
-**Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
 
 ### Implemented feature
 
+We have already implemented the following features. The implemented features can be seen in the `code` branch in our repository. The way we have implemented the features is explain below by the Class Diagram section. Some of the states and or sequences can be seen in the appropriate sections.
+
 | ID  | Short name  | Description  |
-|---|---|---|
-| F1  | Tags | Code snippets can be tagged via freely-defined labels called tags  |
+|-----|-------------|--------------|
+| F1  | Add snippet  | Provide the user with the option to add snippets. When a snippets is added the option to set categories and programing language will be available.  |
+| F2  | Update snippet  | Update an existing snippet |
+| F3  | Delete snippet  | Delete an existing snippet |
+| F5  | Order snippets |For ease of use an ordering functionality will be introduced. This will help the user to easily locate the desired snipped faster <br>1.  By name - order the snippets per name <br> 2. By date - order the snippets per date|
+| F7  | Syntax highlight | When user in inserting text in the snippet the text area will highlight the code |
+| F8  | Programing language support | The software will provide the following programing languages syntax recognition. Depending on the user choice of the language all reserved commands will be highlighted.|
+| F9  | Search snippets | The user will be able to search in the list with snippets. The search will search only in the name of a snippet |
+| F10 | Single-click copy | Single click functionality will provide a dedicated button where with single click you can copy the whole snippet |
+
+In some of the features we have a known error (not using the appropriate snippet list in order to update/delete a snippet) which will be solved with the next code iteration.
+ 
+ Here is the list with the features still to be implemented. 
+
+| ID  | Short name  | Description  |
+|-----|-------------|--------------|
+| F4  | Save as file | Provide the option to download the snippet as file |
+| F6  | Change settigns  | This feature will provide the user with the opportunity to:<br>- Change the colors of the system <br>- Add categories<br>- Set default programing language  |
+| F11 | Filter sippets | Filtering snippets has the aim to keep the working environment more organize when showing only snippets from desired programing language or category or both:<br>- By programing language - This feature will provide the option of filtering the snippets on programing language <br>- By category - This feature will provide the option of filtering the snippets on category|
+
 
 ### Used modeling tool
-Add here the name of the modeling tool you are using for your project.
+As modeling tool our group decided first to create the class diagram using the integrated UML tool of Intellij for a base class diagram. This tool helped us to clearly see the connection between the classes we have. On later stage we recreated and updated the diagram in `draw.io`. We decided to use `draw.io` since they provide a plug-in for Google Docs where we all can work on the diagrams together.
+
 
 ## Class diagram									
-Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsiniov, Iva Dimitrova`
+Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 `Figure representing the UML class diagram`
-![Image of Yaktocat](./diagrams/ClassDiagram.png)
+![Image of ClassDiagram](./diagrams/ClassDiagram.png)
 
 ###Main.java (introduced v1.0 still alive) 
 
@@ -212,7 +234,6 @@ The class constructs a single list view that will be populated in the list. Espe
 The whole application UI will be created using Swing Forms. We will have one main Swing Frame that can be repainted with different Forms. Every application state will have its own form. The following classes will explain how the components in this Forms will be handled in the different states.
 
 
-
 ###AllSnippetsForm.java (introduced v1.1 still alive) 
 This class will paint the all snippets screen. We will have a text area that will handle the content insertion/edition, a filter panel that will contain all the filters and snippets list that will contain the current existing snippets. Furthermore, we will have a dedicated button to add a snippet that basically will empty the text area and provide the possibility to the user to insert a new information about the snippet. All of the different parts mentioned will be placed in wrapper panels for ease of placement on the screen. A navigation will be provided on the left hand side for ease of access to all  of the other screens. Using the Globals.java we can access all of needed information with combination of  the SnippetHelper we can manipulate the snippets. A search box is present here which has a onKeyUp listener that will change the datamodel dynamically in order to see the results immediately in the snippets list located on the same screen. The filters will have the same functionality using again the SnippetHelper class.
 
@@ -296,19 +317,41 @@ Applies the settings.
 
 
 ## Object diagrams								
-Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsiniov, Iva Dimitrova`
-
-This chapter contains the description of a "snapshot" of the status of your system during its execution. 
-This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
+Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 `Figure representing the UML class diagram`
+![Image of Object Diagram](./diagrams/ObjectDiagram.png)
   
-`Textual description`
+Above you can find our object diagram. In in some cases such as in the `State` class we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg: 
 
-Maximum number of words for this section: 1000
+```java
+Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);
+```
+Here we are just using the main panel in order to repaint the current main from panel. Since the `mainPanel` is public and we can access it like that we decided that storing it in the memory is a bit of overkill. 
+
+
+Furthermore, in the following paragraphs we will explain the logic behind why do we create and how do we use the created objects.
+
+The main method is usi  the `State` class in order to change the view and show the Dashboard screen. As discussed in Assignment 1 this will be our starting point. The `State` class is using the `changeState` method to display the freshly created Dashboard panel.
+
+The Dashboard screen is contains a JList that will be populated with the `RecentlyAddedCellRenderer`. This object will draw the item per list row. When we make double click we will get the option to edit/delete/copy a snippet. Both edit and copy functions are part of the `SnippetHelper` class which is instantiated only once in the `Globals` as static so we can use it any time we need to perform manipulations of the snippets, Since we have the copy to clipboard feature moved to different class we also create an object from it in order to use the copy method,
+
+The `State` class is referenced by all of the views classes since any of the classes have the possibility to navigate trough the application. When changing the state this class also setting the `currentState` object in `Globals` which is used in order to determine where are we at any point of the application process.
+ 
+The `Globals` class contain all object and methods that are used more than once but ned to ne initialised only once in order to prevent any confusions of the system. It contains objects from type: SnippetParser, SnippetHelper, SimpleDateFormat and JFrame. All of the mentioned object are accessed more than once, thus the access is `static`.
+
+The `SnippetHelper` class contains a `SnippetParser` which will provide all of the snippets. The `SnippetParser` is initialised only once in order to make sure that we have only one instance of the snippets list. The helper contains a single instance of an `ArrayList<Snippet>`. This list is used in order to complete the desired snippet manipulations. When a manipulation is requested this list will be the base for it, Depending on the manipulation a new updated list will be returned as a result. The new list will be used from the GUI to display the result from the search for example. The only exception is when we add/delete/edit snippets that we will use the object selected from the new list and add/edit/delete from the original list fetched from the parser. Doing so we will synchronise both lsit to contain up to date objects as well as keep the `snippets.json` file up to date, since to reduce teh chanced of data loss we will update teh file on every add/edit/delete request.
+
+The `SettingsForm` contains an instance if the settings that are located in the `Globals`. When the user changes the settings we will use this reference and access the `SettingsParser` in order to update the new settings.
+
+The `AllSnippetsForm` class contains `DefaultListModel` from type `Snippet` that wil provide the data for the `AllSnippetCellRenderer` to create the all snippets list. The snippets will be taken from the `Globals.snippetHelper.getAllSnippets()` and will be populated in the `JList`. Moreover, The filters used have a custom made cell render as well in order to for the items to selectable more than one at the time without refreshing the whole JList. The lsi is using the an instance of `AllSnippetsCallRenderer` to accomplish this. 
+
+The `SnippetParser` will use teh Gson object that is part from the Gson library and serialize or deserialize the snippets. The `gsonObject` uses the `dateFormat` object that will set the date format to which the date of the snipept will be formatted. Since we are sure the `snippets.json` file will contain a lit with snippets we have to make sure that we note that to the Gson object in order to be able to parse the data properly. This is done by extracting the class type form the list using the `snippetListType` object.  
+
+The `SettingsParser` has the same logic as the `SnippetParser` with the difference that we do not use the type object since the settings can be only one. The data is handled with the same Gson library.
 
 ## State machine diagrams									
-Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsiniov, Iva Dimitrova`
+Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
 
@@ -322,7 +365,7 @@ The goal of your state machine diagrams is both descriptive and prescriptive, so
 Maximum number of words for this section: 3000
 
 ## Sequence diagrams									
-Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsiniov, Iva Dimitrova`
+Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 This chapter contains the specification of at least 2 UML sequence diagrams of your system, together with a textual description of all its elements. Here you have to focus on specific situations you want to describe. For example, you can describe the interaction of player when performing a key part of the videogame, during a typical execution scenario, in a special case that may happen (e.g., an error situation), when finalizing a fantasy soccer game, etc.
 
@@ -336,7 +379,7 @@ The goal of your sequence diagrams is both descriptive and prescriptive, so put 
 Maximum number of words for this section: 3000
 
 ## Implementation									
-Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsiniov, Iva Dimitrova`
+Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 In this chapter you will describe the following aspects of your project:
 - the strategy that you followed when moving from the UML models to the implementation code;
