@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class SnippetHelper {
+public class SnippetHelper{
 
     private SnippetsParser parser;
     private ArrayList<Snippet> allSnippets;
