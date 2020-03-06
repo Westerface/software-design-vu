@@ -215,27 +215,27 @@ Used to get all of the supported programming language.
 `public static String[] colorThemesNames = {"Light","Dark","Moonlight"};`\
 Used to populate the drop-down list in the Settings screen. Depending on the choice we will change the theme accordingly.
 
-When we notice a repetitive code we put it here as static variable/function for ease of use and access. It is possible more methods and/or variables to be moved here.
+When we notice a repetitive code we put it here as a static variable/function for ease of use and access. More methods and/or variables can be moved here.
 
 #### GlobalsViews.java (introduced v1.1 still alive) 
-All button styling that we used will be created here. Setting colors, icons and text. This class will hold all the repetitive code for the visual parts of the application. Currently most of the methods are in the From classes themselves but we will refactor it and make sure that the repetitive methods will be here. 
+All the button styling that we used will be created here. Setting colors, icons, and text. This class will hold all the repetitive code for the visual parts of the application. Currently, most of the methods are in the From classes themselves but we will refactor it and make sure that the repetitive methods will be here. 
 
-The only case where we have to set the listeners of the button we consider to keep it in the Form classes itself since this will give us more flexibility to make the button per form not general.
+The only case where we have to set the listeners of the button we consider to keep it in the Form classes itself since this will give us more flexibility to make the button perform not general.
 
 #### AllSnippetCellRenderer.java (introduced v1.0 still alive) 
 The class constructs a single list view that will be populated in the list. Especially this case  the class is setting the list to contain the name of the snippet plus the extension of the file, which basically will be the filename.
 
 #### FilterListCellRenderer.java (introduced v1.0 still alive) 
-The class constructs a single list view that will be populated in the list. Especially this case the class is making a list of checkboxes with the categories or programing language filter. The class is used in both cases. Setting some click listeners will allow us to to select multiple items and read back which item are selected. Using this items as parameters in the SnippetHelper class we can filter the snippet list.
+The class constructs a single list view that will be populated in the list. Especially this case the class is making a list of checkboxes with the categories or programing language filter. The class is used in both cases. Setting some click listeners will allow us to select multiple items and read back which items are selected. Using these items as parameters in the SnippetHelper class we can filter the snippet list.
 
 #### RecentlyAddedCellRenderer.java (introduced v1.0 still alive) 
 The class constructs a single list view that will be populated in the list. Especially this case the class is setting the item to have two text fields, one with the name and the second with the date created. Setting a double click listener to the item we get the option to edit/delete/copy the selected snippet.
 
-The whole application UI will be created using Swing Forms. We will have one main Swing Frame that can be repainted with different Forms. Every application state will have its own form. The following classes will explain how the components in this Forms will be handled in the different states.
+The whole application UI will be created using Swing Forms. We will have one main Swing Frame that can be repainted with different Forms. Every application state will have its own form. The following classes will explain how the components in these Forms will be handled in the different states.
 
 
 #### AllSnippetsForm.java (introduced v1.1 still alive) 
-This class will paint the all snippets screen. We will have a text area that will handle the content insertion/edition, a filter panel that will contain all the filters and snippets list that will contain the current existing snippets. Furthermore, we will have a dedicated button to add a snippet that basically will empty the text area and provide the possibility to the user to insert a new information about the snippet. All of the different parts mentioned will be placed in wrapper panels for ease of placement on the screen. A navigation will be provided on the left hand side for ease of access to all  of the other screens. Using the Globals.java we can access all of needed information with combination of  the SnippetHelper we can manipulate the snippets. A search box is present here which has a onKeyUp listener that will change the datamodel dynamically in order to see the results immediately in the snippets list located on the same screen. The filters will have the same functionality using again the SnippetHelper class.
+This class will paint the all snippets screen. We will have a text area that will handle the content insertion/edition, a filter panel that will contain all the filters and snippets list that will contain the current existing snippets. Furthermore, we will have a dedicated button to add a snippet that basically will empty the text area and provide the possibility to the user to insert new information about the snippet. All of the different parts mentioned will be placed in wrapper panels for ease of placement on the screen. Navigation will be provided on the left-hand side for ease of access to all of the other screens. Using the Globals.java we can access all of the needed information with a combination of the SnippetHelper we can manipulate the snippets. A search box is present here which has an onKeyUp listener that will change the data model dynamically in order to see the results immediately in the snippets list located on the same screen. The filters will have the same functionality using again the SnippetHelper class.
 
 `private void createTextArea()`\
 Creates a text-area that has a syntax highlighter.
@@ -247,19 +247,19 @@ Updates the visual content part with the selected snippet data.
 Populates the snippets list with the correct list render.
 
 `private void addProgramingLanguages()`\
-Populate the programing languages drop down menu
+Populate the programing languages drop-down menu
 
 `public void createFilters()`\
-Creates the filters chackboxes
+Creates the filters checkboxes
 
 `private void changeProgramingLanguage(String programingLanguage)`\
-When user choose a snippet from the menu we are changing the selected programming language accordingly.
+When a user chooses a snippet from the menu we are changing the selected programming language accordingly.
 
 `private void handleSaveSnippet()`\
-If new snippet, we add the new snippet. If existing we update it.
+If it is a new snippet, we add the new snippet. If it is existing, we update it.
 
 `private void validateData()`\
-Validate the data: if the name is empty or already exist, if content is empty give a warning message.
+Validate the data: if the name is empty or already exists, or if the content is empty, give a warning message.
 
 `private void update()`\
 This method will update the snippets list view
@@ -269,7 +269,7 @@ The search method will change the data model of the snippets list
 
 
 #### DashboardForm.java (introduced v1.0 still alive) 
-This class will paint the all dashboard screen. This will be the initial state of the application. In this screen we will have a list of the recently added snippets that will instantiates the AllSnippetsListRenderer in order to populate the list. Moreover, we will have the options to Add Snippet, see All Snippets and change Settings. This options will be provided with separated buttons in order to be able to change the state of the application so we can repaint the other screens. 
+This class will paint the all dashboard screen. This will be the initial state of the application. In this screen, we will have a list of the recently added snippets that will instantiate the AllSnippetsListRenderer in order to populate the list. Moreover, we will have the options to Add Snippet, see All Snippets and change Settings. These options will be provided with separate buttons in order to be able to change the state of the application so we can repaint the other screens. 
 
 `private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height)`\
 Get button icons
@@ -278,7 +278,7 @@ Get button icons
 Setting the dashboard button
 
 `private void setupOptionsButton(JButton optionButton)`\
-When double click a button a list item a dialog box will popup with three buttons. We use this to set their look and feel.
+When double click a button a list item, a dialog box will pop up with three buttons. We use this to set their look and feel.
 
 `private void setOptionsDialogSettings(JDialog optionsDialog)`\
 Creating the dialog box with the options per item such as edit/delete/copy
@@ -287,20 +287,20 @@ Creating the dialog box with the options per item such as edit/delete/copy
 Called when delete button is clicked. It will delete the selected snippet.
 
 `private void handleCopyButtonPressed(JDialog optionsDialog, int index)`\
-Called copy button is clicked. It will copy the content of the snippet.
+Called copy the button is clicked. It will copy the content of the snippet.
 
 `private void handleSettingsButtonClicked()`\
 Called when the settings button is clicked. It will go to the settings screen.
 
 `private void handleAllSnippetsButton() `\
-Called when the all snippets button is clicked. It will go to all snippets screen.
+Called when the all snippets button is clicked. It will go to the all snippets screen.
 
 `private void update()`\
 Used to update the Recently added list when an item is deleted.
 
 
 #### SttingsForm.java (introduced v1.0 still alive) 
-This class will paint the settings screen. In this screen the user can choose the color theme and the default programming language. What is more, he/she can add the categories here as well in a coma separated list. When pressing the save button the settings will be applied automatically and also will be parsed back to the settigns.json file. This will play the role of “saving” your settings for next time or until they change again.
+This class will paint the settings screen. In this screen, the user can choose the color theme and the default programming language. What is more, he/she can add the categories here as well in a comma-separated list. When pressing the save button the settings will be applied automatically and also will be parsed back to the settigns.json file. This will play the role of “saving” your settings for next time or until they change again.
 
 
 `private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height)`\
@@ -322,31 +322,31 @@ Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 `Figure representing the Object Diagram`
 ![Image of Object Diagram](./diagrams/ObjectDiagram.png)
   
-Above you can find our object diagram. In in some cases such as in the `State` class we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg: 
+Above you can find our object diagram. In some cases such as in the `State` class, we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg: 
 
 ```java
 Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);
 ```
-Here we are just using the main panel in order to repaint the current main from panel. Since the `mainPanel` is public and we can access it like that we decided that storing it in the memory is a bit of overkill. 
+Here we are just using the main panel in order to repaint the current main from the panel. Since the `mainPanel` is public and we can access it like that we decided that storing it in the memory is a bit of overkill. 
 
 
 Furthermore, in the following paragraphs we will explain the logic behind why do we create and how do we use the created objects.
 
-The main method is usi  the `State` class in order to change the view and show the Dashboard screen. As discussed in Assignment 1 this will be our starting point. The `State` class is using the `changeState` method to display the freshly created Dashboard panel.
+The main method is using the `State` class in order to change the view and show the Dashboard screen. As discussed in Assignment 1 this will be our starting point. The `State` class is using the `changeState` method to display the freshly created Dashboard panel.
 
-The Dashboard screen is contains a JList that will be populated with the `RecentlyAddedCellRenderer`. This object will draw the item per list row. When we make double click we will get the option to edit/delete/copy a snippet. Both edit and copy functions are part of the `SnippetHelper` class which is instantiated only once in the `Globals` as static so we can use it any time we need to perform manipulations of the snippets, Since we have the copy to clipboard feature moved to different class we also create an object from it in order to use the copy method,
+The Dashboard screen contains a JList that will be populated with the `RecentlyAddedCellRenderer`. This object will draw the item per list row. When we double click we will get the option to edit/delete/copy a snippet. Both edit and copy functions are part of the `SnippetHelper` class which is instantiated only once in the `Globals` as static so we can use it any time we need to perform manipulations of the snippets. Since we have the copy to clipboard feature moved to a different class, we also create an object from it in order to use the copy method.
 
-The `State` class is referenced by all of the views classes since any of the classes have the possibility to navigate trough the application. When changing the state this class also setting the `currentState` object in `Globals` which is used in order to determine where are we at any point of the application process.
+The `State` class is referenced by all of the views classes since any of the classes can navigate through the application. When changing the state this class also sets the `currentState` object in `Globals` which is used to determine where are we at any point in the application process.
  
-The `Globals` class contain all object and methods that are used more than once but ned to ne initialised only once in order to prevent any confusions of the system. It contains objects from type: SnippetParser, SnippetHelper, SimpleDateFormat and JFrame. All of the mentioned object are accessed more than once, thus the access is `static`.
+The `Globals` class contain all object and methods that are used more than once but need to be initialized only once in order to prevent any confusions of the system. It contains objects from type: SnippetParser, SnippetHelper, SimpleDateFormat and JFrame. All of the mentioned objects are accessed more than once, thus the access is `static`.
 
-The `SnippetHelper` class contains a `SnippetParser` which will provide all of the snippets. The `SnippetParser` is initialised only once in order to make sure that we have only one instance of the snippets list. The helper contains a single instance of an `ArrayList<Snippet>`. This list is used in order to complete the desired snippet manipulations. When a manipulation is requested this list will be the base for it, Depending on the manipulation a new updated list will be returned as a result. The new list will be used from the GUI to display the result from the search for example. The only exception is when we add/delete/edit snippets that we will use the object selected from the new list and add/edit/delete from the original list fetched from the parser. Doing so we will synchronise both lsit to contain up to date objects as well as keep the `snippets.json` file up to date, since to reduce teh chanced of data loss we will update teh file on every add/edit/delete request.
+The `SnippetHelper` class contains a `SnippetParser` which will provide all of the snippets. The `SnippetParser` is initialized only once in order to make sure that we have only one instance of the snippets list. The helper contains a single instance of an `ArrayList<Snippet>`. This list is used in order to complete the desired snippet manipulations. When manipulation is requested this list will be the base for it, Depending on the manipulation a new updated list will be returned as a result. The new list will be used from the GUI to display the result from the search for example. The only exception is when we add/delete/edit snippets which we will use the object selected from the new list and add/edit/delete from the original list fetched from the parser. Doing so we will synchronize both lists to contain up to date objects as well as keep the `snippets.json` file up to date, since to reduce the chance of data loss we will update the file on every add/edit/delete request.
 
 The `SettingsForm` contains an instance if the settings that are located in the `Globals`. When the user changes the settings we will use this reference and access the `SettingsParser` in order to update the new settings.
 
-The `AllSnippetsForm` class contains `DefaultListModel` from type `Snippet` that wil provide the data for the `AllSnippetCellRenderer` to create the all snippets list. The snippets will be taken from the `Globals.snippetHelper.getAllSnippets()` and will be populated in the `JList`. Moreover, The filters used have a custom made cell render as well in order to for the items to selectable more than one at the time without refreshing the whole JList. The lsi is using the an instance of `AllSnippetsCallRenderer` to accomplish this. 
+The `AllSnippetsForm` class contains `DefaultListModel` from type `Snippet` that will provide the data for the `AllSnippetCellRenderer` to create the all snippets list. The snippets will be taken from the `Globals.snippetHelper.getAllSnippets()` and will be populated in the `JList`. Moreover, The filters used have a custom made cell render as well in order for the items to selectable more than one at the time without refreshing the whole JList. The list is using an instance of `AllSnippetsCallRenderer` to accomplish this. 
 
-The `SnippetParser` will use teh Gson object that is part from the Gson library and serialize or deserialize the snippets. The `gsonObject` uses the `dateFormat` object that will set the date format to which the date of the snipept will be formatted. Since we are sure the `snippets.json` file will contain a lit with snippets we have to make sure that we note that to the Gson object in order to be able to parse the data properly. This is done by extracting the class type form the list using the `snippetListType` object.  
+The `SnippetParser` will use the Gson object that is part of the Gson library and serialize or deserialize the snippets. The `gsonObject` uses the `dateFormat` object that will set the date format to the date when the snippet is formatted. Since we are sure the `snippets.json` file will contain a list with snippets we have to make sure that we note that to the Gson object in order to be able to parse the data properly. This is done by extracting the class type from the list using the `snippetListType` object.  
 
 The `SettingsParser` has the same logic as the `SnippetParser` with the difference that we do not use the type object since the settings can be only one. The data is handled with the same Gson library.
 
@@ -358,21 +358,21 @@ Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 To enter any state in our program the user first needs to open the application. This will take him to the Dashboard screen which is populated with various elements. 
 
-In the Dashboard there is an option called ‘Add Snippet’. When the user presses it, the interface changes and the program enters a different state. 
+In the Dashboard, there is an option called ‘Add Snippet’. When the user presses it, the interface changes and the program enters a different state. 
 
-First we will describe what the interface looks like in this state. On the left side of the screen there is an empty searching bar, where the user can input the name of the snippet he is searching for. Underneath this bar there are two filter areas with click boxes. In the first table, the user has the option to use a programming language filter. Various commonly used programming languages are previewed here such as C++, Java, Python etc. Using this filter the user ensures that the corresponding results will be snippets written with one of these language formats. 
+First, we will describe what the interface looks like in this state. On the left side of the screen, there is an empty searching bar, where the user can input the name of the snippet he is searching for. Underneath this bar, there are two filter areas with click boxes. In the first table, the user has the option to use a programming language filter. Various commonly used programming languages are previewed here such as C++, Java, Python, etc. Using this filter the user ensures that the corresponding results will be snippets written with one of these language formats. 
 
-The second table, enables the user to filter his searching by category. This feature is a bit more vague. Upon creation of a snippet, the user is able to indicate what type of category his snippet is. Some examples could be formal, custom, tutorial etc. This is another way of making the user’s search more efficient and hassle-free. 
+The second table enables the user to filter his search by category. This feature is a bit vaguer. Upon creation of a snippet, the user is able to indicate what type of category his snippet is. Some examples could be formal, custom, tutorial, etc. This is another way of making the user’s search more efficient and hassle-free. 
 
-These two cover the left part of the screen. On their right side there is a table that lists the existing snippets. Using the searching bar changes the look of this table. Whenever the user clicks on a snippet, its content is expanded in the text editor.
+These two cover the left part of the screen. On their right side, there is a table that lists the existing snippets. Using the searching bar changes the look of this table. Whenever the user clicks on a snippet, its content is expanded in the text editor.
 
-The text editor covers more than half of the screen and exists in the right side of the screen. This is where the user can create new snippets, preview the contents of a selected snippet or edit an existing one. The text editor table has three empty bars at its top. These need to be filled in order for a new snippet to be created. The details the user has to fill are name, programming language and category. Underneath these bars there is an empty text editor field where the user can write his code. Our text editor also has text recognition (say something additional here). At the bottom of the text editor there is a wide ‘save’ button that saves the changes in the snippet; be it the creation of a new snippet or the editing of an already existing one.
+The text editor covers more than half of the screen and is positioned on the right side of the screen. This is where the user can create new snippets, preview the contents of a selected snippet or edit an existing one. The text editor table has three empty bars at its top. These need to be filled in order for a new snippet to be created. The details the user has to fill are name, programming language, and category. Underneath these bars, there is an empty text editor field where the user can write his code. Our text editor also has text recognition responding to the chosen language. At the bottom of the text editor there is a wide ‘save’ button that saves the changes in the snippet; be it the creation of a new snippet or the editing of an already existing one.
 
-To enter the ‘Add snippet’ state the user has to press on the corresponding button from the Dashboard. That will take him to the interface described above. All the snippets will be previewed in the snippet list and all the filters will be disabled. The text editing area is blank and there are two buttons at its bottom; cancel and save.
+To enter the ‘Add snippet’ state the user has to press on the corresponding button from the Dashboard. That will take him to the interface described above. All the snippets will be previewed in the snippet list and all the filters will be disabled. The text editing area will be blank and there will be two buttons at its bottom: 'cancel' and 'save'.
 
-For the creation of a new snippet, the details described above need to be filled. However, out of the three labels, only the name is mandatory at this point. Programming language as well as category can be left blank. If a certain programming language is not chosen then the program will be default select ‘TEXT’. After this step, the user enters the blank text editing area to implement his snippet. There needs to be something here as well. This area cannot be blank, as the program will check for it before saving the snippet and the process will not be completed. 
+For the creation of a new snippet, the details described above need to be filled. However, out of the three labels, only the name is mandatory at this point. Programming language, as well as category, can be left blank. If a certain programming language is not chosen then the program will be default select ‘TEXT’. After this step, the user enters the blank text editing area to implement his snippet. There needs to be something written here as well. This area cannot be left blank, as the program will check for it before saving the snippet and the process will not be completed. 
 
-Cancel is one of the two buttons on the bottom of the text editor. When it is pressed, both filter tables are activated. In addition to that, the snippets’ list is also activated. While writing in the text editor, these two features are deactivated and cannot be accessed. So, cancel removes all the previous work done; the name is removed and the name field is blank, programming language field resets and returns to ‘TEXT’ and the category as well as the text editing area are also cleared. It is important to note that the application does not crash when cancel is pressed. It keeps working as normal, certain features are just unlocked. 
+'Cancel' is one of the two buttons on the bottom of the text editor. When it is pressed, both filter tables are activated. In addition to that, the snippets list is also activated. While writing in the text editor, these two features are deactivated and cannot be accessed. So, cancel removes all the previous work done; the name is removed and the name field is blank, programming language field resets and returns to ‘TEXT’ and the category, as well as the text editing area, are also cleared. It is important to note that the application does not crash when cancel is pressed. It keeps working as normal, certain features are just unlocked. 
 
 The other button is ‘Save’. When clicking ‘Save’ the program initiates checking if the details needed are correctly filled. This means that it ensures that a name for the snippet exists as well as the content is not empty. Then a new snippet is created. This snippet carries the data that were filled in the previous procedure. After that, the public class Globals is invoked. This is done in order to access the SnippetHelper. Through the SnippetHelper the program accesses the SnippetParser. The SnippetParser is used to add the new snippet in the list, as well as to pass the updated list to the update function.  The update function then converts the snippet objects to a JSON format and saves the JSON converted snippet in the file.
 
@@ -382,21 +382,21 @@ The other button is ‘Save’. When clicking ‘Save’ the program initiates c
 
 The second state we are going to describe is ‘Edit Snippets’. 
 
-The first thing a user has to do is again, open the application. Doing so is getting him to the Dashboard state. Next, the user has to choose Add Snippet. This will enable the ‘All Snippets’ screen. Through the ‘All Snippets’ state the user can perform a series of activities such as sorting, searching, editing, adding or deleting a snippet. In that screen there are lists of filters as well as a list of Snippets. The text editor, which is on the left of the screen will be automatically filled with the chosen snippet. If the user chooses another snippet then its content as well as details (name, programing language) will be filled in the corresponding blank spaces on top of the text editor. Finally, at the bottom of the editor there is the ‘Save’ button. Any changes made, followed by a click on the save button will automatically update the current snippet. 
+The first thing a user has to do is, again, is open the application. Doing so is getting him to the Dashboard state. Next, the user has to choose Add Snippet. This will enable the ‘All Snippets’ screen. Through the ‘All Snippets’ state, the user can perform a series of activities such as sorting, searching, editing, adding or deleting a snippet. On that screen, there are lists of filters as well as a list of Snippets. The text editor, which is on the left of the screen will be automatically filled with the chosen snippet. If the user chooses another snippet then its content, as well as details (name, programing language), will be filled in the corresponding blank spaces on top of the text editor. Finally, at the bottom of the editor, there is the ‘Save’ button. Any changes made, followed by a click on the save button will automatically update the current snippet. 
 
-When editing a snippet there are certain steps that need to be followed in order for the process to be successfully completed.
+When editing a snippet certain steps need to be followed in order for the process to be successfully completed.
 
-Firstly, the name needs to be edited. This does not necessarily mean that the name needs to be changed. It means that the user has to make sure that a name for the snippet exists. Otherwise the process cannot be completed. 
+Firstly, the name needs to be edited. This does not necessarily mean that the name needs to be changed. It means that the user has to make sure that a name for the snippet exists. Otherwise, the process cannot be completed. 
 
-The next data field is programming language. As in the ‘Add snippets’ state, this field can be left blank, in which case it will automatically be filled with the option ‘TEXT’, or not changed and hence inherit the previous programming language preference stated in that snippet. 
+The next data field is the programming language. As in the ‘Add snippets’ state, this field can be left blank, in which case it will automatically be filled with the option ‘TEXT’, or not changed and hence inherit the previous programming language preference stated in that snippet. 
 
-In addition to programming language, category field can also be left unchanged. Again, the previous data will be preserved, if there was any.
+In addition to programming language, the category field can also be left unchanged. Again, the previous data will be preserved, if there was any.
 
-Finally, there is the content of the snippet. This is another mandatory field, that needs not be empty. So the user can either write new stuff down, edit some of the existing, or entirely change the content of the snippet. 
+Finally, there is the content of the snippet. This is another mandatory field, that needs not to be empty. So the user can either write new text down, edit some of the existing, or entirely change the content of the snippet. 
 
-When the user is done editing the snippet, the next he needs to do in order to complete the process is saving his changes. Pressing save will cause the program to go through a number of steps. Validation of the data is the first step. That means that a check will be performed in order to ensure that a name does exist for the snippet and the content is not empty. Then the selected snippet object is taken from the Datamodel of the JList and is passed as a parameter inside Globals’ SnippetHelper. SnippetHelper can perform various tasks through its functions such as add, search, delete edit or sort snippets. Sorting can be done by name (ascending or descending), date (ascending or descending), as well as date modified (ascending or descending). 
+When the user is done editing the snippet, the next thing he needs to do in order to complete the process is saving his changes. Pressing save will cause the program to go through several steps. Validation of the data is the first step. That means that a check will be performed in order to ensure that a name does exist for the snippet and the content is not empty. Then the selected snippet object is taken from the Datamodel of the JList and is passed as a parameter inside Globals’ SnippetHelper. SnippetHelper can perform various tasks through its functions such as add, search, delete edit or sort snippets. Sorting can be done by name (ascending or descending), date (ascending or descending), as well as date modified (ascending or descending). 
 
-In this state, though, we care about the editing method. So, through snippetHelper the program moves to the updateSnippet method. The program uses this method to update the passed object in the allSnippetsList and send it back to the SnippetParser. In the SnippetParser the now updated list is used in the update function. There a convertion takes place that translates the snippet oject to JSON format. After this is done, the new JSON-format outcome is saved in a file. Finally, in order to see the changes the data needs to be updated. So, the program updates the data model in the All Snippet Screen and the updated snippet becomes visible. 
+In this state, though, we care about the editing method. So, through snippetHelper, the program moves to the updateSnippet method. The program uses this method to update the passed object in the allSnippetsList and send it back to the SnippetParser. In the SnippetParser the now updated list is used in the update function. There a conversion takes place that translates the snippet object to JSON format. After this is done, the new JSON-format outcome is saved in a file. Finally, in order to see the changes, the data needs to be updated. So, the program updates the data model in the All Snippet Screen and the updated snippet becomes visible. 
 
 
 
