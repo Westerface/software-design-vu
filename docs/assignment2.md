@@ -563,3 +563,10 @@ out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.jar
 
 
 ![Video](./video/demo_group_14_snippet.mp4)
+
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="">
+    <source src="./video/demo_group_14_snippet.mp4" type="video/mp4">
+  </video>
+</figure>
