@@ -18,23 +18,23 @@ We have already implemented the following features. The implemented features can
 | F3  | Delete snippet  | Delete an existing snippet |
 | F5  | Order snippets |For ease of use, an ordering functionality will be introduced. This will help the user to easily locate the desired snipped faster <br>1.  By name - order the snippets per name <br> 2. By date - order the snippets per date|
 | F7  | Syntax highlight | When user in inserting text in the snippet the text area will highlight the code |
-| F8  | Programing language support | The software will provide the following programing languages syntax recognition. Depending on the user choice of the language all reserved commands will be highlighted.|
+| F8  | Programming language support | The software will provide the following programing languages syntax recognition. Depending on the user choice of the language all reserved commands will be highlighted.|
 | F9  | Search snippets | The user will be able to search in the list with snippets. The search will search only in the name of a snippet |
-| F10 | Single-click copy | Single click functionality will provide a dedicated button where with single click you can copy the whole snippet |
+| F10 | Single-click copy | Single click functionality will provide a dedicated button where with a single click you can copy the whole snippet |
 
-In some of the features we have a known error (not using the appropriate snippet list in order to update/delete a snippet) which will be solved with the next code iteration.
+In some of the features, we have a known error (not using the appropriate snippet list to update/delete a snippet) which will be solved with the next code iteration.
  
  Here is the list with the features still to be implemented. 
 
 | ID  | Short name  | Description  |
 |-----|-------------|--------------|
 | F4  | Save as file | Provide the option to download the snippet as file |
-| F6  | Change settigns  | This feature will provide the user with the opportunity to:<br>- Change the colors of the system <br>- Add categories<br>- Set default programing language  |
+| F6  | Change settings  | This feature will provide the user with the opportunity to:<br>- Change the colors of the system <br>- Add categories<br>- Set default programing language  |
 | F11 | Filter sippets | Filtering snippets has the aim to keep the working environment more organize when showing only snippets from desired programing language or category or both:<br>- By programing language - This feature will provide the option of filtering the snippets on programing language <br>- By category - This feature will provide the option of filtering the snippets on category|
 
 
 ### Used modeling tool
-As modeling tool our group decided first to create the class diagram using the integrated UML tool of Intellij for a base class diagram. This tool helped us to clearly see the connection between the classes we have. On later stage we recreated and updated the diagram in `draw.io`. We decided to use `draw.io` since they provide a plug-in for Google Docs where we all can work on the diagrams together.
+As a modeling tool, our group decided first to create the class diagram using the integrated UML tool of Intellij for a base class diagram. This tool helped us to clearly see the connection between the classes we have. At a later stage, we recreated and updated the diagram in `draw.io`. We decided to use `draw.io` since they provide a plug-in for Google Docs where we all can work on the diagrams together.
 
 
 ## Class diagram									
@@ -57,22 +57,22 @@ Since we are sure every time the user starts the application he/she will end in 
 
 #### ColorTheme.java (introduced v1.1 still alive)
 
-This class is used to set the color theme of the application. When the application is started an instance from this class is created which is parsed from the settings.json. This instance is available all the time since we need to se the colors for alll components and we cannot bbe sure at what time the user will request a different component. The class has an empty constructor that will take the default/last set color theme. When the user changes the settings for the color theme the new color theme will be dynamically injected in the instance and change the whole look and feel. We are aware that there are plenty of data fields present in this class but we wanted to make sure that when using a color we use the correct color instead of wondering which color goes where, hence we have fields such as: `snippetScreenSaveButtonHoverBackgroundColor`, `dashboardButtonHoverBackgroundColor` which will explicitly say for which element we use the given color. 
+This class is used to set the color theme of the application. When the application is started an instance from this class is created which is parsed from the settings.json. This instance is available all the time since we need to see the colors for all components and we cannot be sure at what time the user will request a different component. The class has an empty constructor that will take the default/last set color theme. When the user changes the settings for the color theme the new color theme will be dynamically injected in the instance and change the whole look and feel. We are aware that there are plenty of data fields present in this class but we wanted to make sure that when using a color we use the correct color instead of wondering which color goes where, hence we have fields such as: `snippetScreenSaveButtonHoverBackgroundColor`, `dashboardButtonHoverBackgroundColor` which will explicitly say for which element we use the given color. 
 
 #### Settings.java (introduced v1.0 still alive) 
 
-This class will hold/create the settings. The various settings will be hold in this class. The class contains information about the settings for the system such as: defaultProgramingLanguage, categories and colorTheme. The class is instantiated only once in the `Globlas.java` class from where the settings are read in the system. When we parse the settigns.json file an object is created from this type. The when the user changes a setting in the application the current settings object is updated and translated back to `JSON` and saved as such.
+This class will hold/create the settings. The various settings will be held in this class. The class contains information about the settings for the system such as: defaultProgramingLanguage, categories and colorTheme. The class is instantiated only once in the `Globlas.java` class from where the settings are read in the system. When we parse the settigns.json file an object is created from this type. When the user changes a setting in the application the current settings object is updated and translated back to `JSON` and saved as such.
 
 
 #### SingleClickCopy.java (introduced v1.0 still alive) 
 
-The class contains s single method `copy(Snippet snippet)` that will copy the content of the snippet passed as a parameter. The contented of the snippet will be set in the “copy buffer” of the system. So basically this copy method will perform `ctrl + c` for us so the user can paste it anywhere he/she wants. We are aware that having a class for one functionality is a bit of overkill but we also consider that maybe by the end of the project we will have to add some extra methods in order to make it flexible.
+The class contains s single method `copy(Snippet snippet)` that will copy the content of the snippet passed as a parameter. The content of the snippet will be set in the “copy buffer” of the system. So basically this copy method will perform `ctrl + c` for us so the user can paste it anywhere he/she wants. We are aware that having a class for one functionality is a bit of an overkill but we also consider that maybe by the end of the project we will have to add some extra methods in order to make it flexible.
 
 ***NB:** In case we keep it as it is and do not add extra functionality to it we will move it to the SnippetHelper.java class, where we keep all of the snippet manipulations.*
 
 #### Snippet.java (introduced v1.0 still alive) 
 
-The snippet class is the class that is used to create snippets. All if its variables are private. The snippet class is used when we parse the snippets.json file. The parser will create an ArrayList of snippets that we will use trough the system. The data fields of this class are:
+The snippet class is the class that is used to create snippets. All if its variables are private. The snippet class is used when we parse the snippets.json file. The parser will create an ArrayList of snippets that we will use through the system. The data fields of this class are:
 ```
 name
 programingLanguage
@@ -82,7 +82,7 @@ categories
 dateModified
 ```
 
-All of its data fields are private. In order to get/set any property of a snippet we use the provided getters and setters. Up until this point we think that this information about the snippets is enough. If by any chance we need an extra field we can easily add it and use it trough the system.
+All of its data fields are private. In order to get/set any property of a snippet, we use the provided getters and setters. Up until this point, we think that this information about the snippets is enough. If by any chance we need an extra field, we can easily add it and use it trough the system.
 
 
 #### SnippetHelper.java (introduced v1.0 still alive) 
@@ -90,7 +90,7 @@ All of its data fields are private. In order to get/set any property of a snippe
 The Snippet helper class is the class that manipulates the snippets. It instantiates the SnippetParser.java class which provides the data and is using this data according to our needs. We are using only one object (ArryList<Snippet>)containing all snippets and we used it to complete the needed manipulations. Here are the methods used in this class:
 
 `public SnippetHelper()`\
-A constructor without any arguments that creates an instange of the SnippetParser class and reads all of the snippets form it.
+A constructor without any arguments that creates an instance of the SnippetParser class and reads all of the snippets from it.
 
 `public ArrayList<Snippet> getAllSnippets()`\
 Returns a list with all of the snippets fetched form the parser. 
@@ -114,10 +114,10 @@ Returns a list with ordered snippets by dateCreated desscending order.
 Retruns a list with ordered snippets by name.
 
 `public ArrayList<Snippet> getSnippetsFilteredByLanguage(String filterLanguage)`\
-Returns a list containing snippets only from from a certain programming language.
+Returns a list containing snippets only from a certain programming language.
 
 `public ArrayList<Snippet> getSnippetsFilteredByCategory(ArrayList<String> categories)`\
-Returns a list containing snippets only from from a certain category.
+Returns a list containing snippets only from a certain category.
 
 `public String toString(Snippet snippet)`\
 Custom to string method, mainly for testing purposes to see if the data is passed correctly.
@@ -132,16 +132,16 @@ public static final String STATE_ADD_SNIPPET    = "STATE_ADD_SNIPPET";
 public static final String STATE_ALL_SNIPPETS    = "STATE_ALL_SNIPPETS";
 ```
 
-This static variables will determine the state of the application and populate the screen accordingly.
+These static variables will determine the state of the application and populate the screen accordingly.
 
 `public void changeState(String newState)`\
-This method will be used every time we change the state (switch a screen). This method will set the current state depending on what we pass as parameter and will show the appropriate screen depending on this parameter. For example:
+This method will be used every time we change the state (switch a screen). This method will set the current state depending on what we pass as a parameter and will show the appropriate screen depending on this parameter. For example:
 The user is on the AllSnippets screen, the current state is  `STATE_ALL_SNIPPETS`, that means that on the screen now we will see all snippets. The user clicks the navigation and he/she goes to Dashboard. When this click occurs we will trigger an event that will change the state to  `STATE_DASHBOARD` and call this method with parameter `STATE_DASHBOARD` which will change the screen to Dashboard.
 
 Doing so we can easily control the screens and changing a screen will not be so difficult.
 
 #### SnippetParser.java (introduced v1.0 still alive) 
-The snippet parser is the class that will read the snippets.json file and turn the json string into Snippet objects and vice versa. The class contains a constructor and two methods:
+The snippet parser is the class that will read the snippets.json file and turn the JSON string into Snippet objects and vice versa. The class contains a constructor and two methods:
 ```java
 public SnippetsParser() {
     this.gsonObject = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
@@ -153,13 +153,13 @@ public SnippetsParser() {
 Here we set the date format we use for the snippets, the path to the `snippets.json` file, the type we will use when we read the `Snippet` objects to `JSON` and we initialize the snippetsList.
 
 `public ArrayList<Snippet> getAllSnippets()`\
-In this method we basically read the json file and we create a list with `Snippets` objects from it. This is the only instance of this list that we use all the time. Doing so we make sure that we read the file only once since there is a possibility that this file becomes too big.
+In this method, we read the JSON file and we create a list with `Snippets` objects from it. This is the only instance of this list that we use all the time. Doing so we make sure that we read the file only once since there is a possibility that this file becomes too big.
 
 `public void updateSnippets(ArrayList<Snippet> updatedSnippets)`\
 This method updates/overrides the current file we have depending on the list that we pass. We use the `Type` created in the constructor to point out to the `Gson` library that we want to deserialize the object in a certain format. The method is called every time the user changes/adds/deletes a snippet to reduce the data loss in case of a crash.
 
 #### SettingsParser.java (introduced v1.1 still alive) 
-The settings parser have the same functionality as the snippet parser but it is parsing the `settings.json` file. The interesting part of the class comes where we parse the `Color` class that is used for setting the color theme. Because of the fact that we use a library to serialize and deserialize the json file this process is handled automatically. The output for the color theme is bit different than expected bit it is working so we are not planning to have different approach to it. The downside of this is that the data stored in the settings.json file is not fully readable for a human (only the color theme). Here a s small example:
+The settings parser have the same functionality as the snippet parser but it is parsing the `settings.json` file. The interesting part of the class comes where we parse the `Color` class that is used for setting the color theme. Since we use a library to serialize and deserialize the JSON file this process is handled automatically. The output for the color theme is a bit different than expected but it is working so we are not planning change our approach to it. The downside of this is that the data stored in the settings.json file is not fully readable for a human (only the color theme). Here is a small example:
 ```json
 "colorTheme": {
   "backgroundColor": {
@@ -187,7 +187,7 @@ Strangely enough when we read the `JSON` all of the color are translated properl
 
 
 #### Colors.java (introduced v1.0 NOT USED ANYMORE) 
-The class was used to suit the need of taking static colors from it, but since we decided to have different color themes as set color palettes it become useless. We will still keep it since maybe a custom color can be introduced. Moreover, another possibility of using the class is to make it as a factory for the color themes. This will reduce the length of the `ColorTheme` class and also will make it easier to create new color themes.
+The class was used to suit the need of taking static colors from it, but since we decided to have different color themes as set color palettes it becomes useless. We will still keep it since maybe a custom color can be introduced. Moreover, another possibility of using the class is to make it as a factory for the color themes. This will reduce the length of the `ColorTheme` class and also will make it easier to create new color themes.
 
 
 #### Globals.java (introduced v1.0 still alive) 
@@ -201,13 +201,13 @@ public static SettingsParser settingsParser = new SettingsParser();
 public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
 ```
 
-Static variables help us getting the currentState of the application as well as the name of the application. Here we also have an instance of the snippetHelper that will provide the snippet manipulations as well as the `settingParser` that will provide the settings. During the usage of the application this variables will change and we do not need to worry about is since thy are static and every time we need them we will get their current situation.
+Static variables help us getting the currentState of the application as well as the name of the application. Here we also have an instance of the snippetHelper that will provide the snippet manipulations as well as the `settingParser` that will provide the settings. During the usage of the application, these variables will change and we do not need to worry about is since they are static and every time we need them, we will get their current situation.
 
 `public static void setFrame(JPanel panel)`\
 Used to set the frame depending on the current state of the application.
 
 `public static ArrayList<String> getAllCategories()`\
-We use it in couple of places. This reduces the code length.
+We use it in a couple of places. This reduces the code length.
 
 `public static ArrayList<String> getAllProgramingLanguages()`\
 Used to get all of the supported programming language.
