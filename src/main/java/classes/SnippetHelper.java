@@ -32,6 +32,7 @@ public class SnippetHelper{
 
         this.allSnippets.remove(snippetToBeRemoved);
         System.out.println("SnippetRemoved");
+        this.parser.updateSnippets(this.allSnippets);
     }
 
     public void editSnippet(Snippet snippetToBeEdited){

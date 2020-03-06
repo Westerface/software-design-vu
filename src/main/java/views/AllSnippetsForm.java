@@ -89,7 +89,14 @@ public class AllSnippetsForm {
 
     private void createTextArea(){
 
-        textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        if(Globals.settingsParser.getSettings().getDefaultLanguage() != null && Globals.settingsParser.getSettings().getDefaultLanguage().length() > 0){
+
+            changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
+            addProgramingLanguages();
+            snippetLangaugeDropdown.setSelectedItem(Globals.settingsParser.getSettings().getDefaultLanguage());
+        } else {
+            changeProgramingLanguage(SyntaxConstants.SYNTAX_STYLE_LATEX);
+        }
         textArea.setCodeFoldingEnabled(true);
         textArea.setAutoIndentEnabled(true);
 

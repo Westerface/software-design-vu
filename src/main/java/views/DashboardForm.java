@@ -59,6 +59,7 @@ public class DashboardForm {
 
         addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),120, 120));
         setupDashboadButton(addSnippetButton);
+        addSnippetButton.addActionListener(e -> handleAllSnippetsButton());
 
         settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),120, 120));
         setupDashboadButton(settingsButton);

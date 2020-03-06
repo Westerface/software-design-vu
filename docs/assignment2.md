@@ -562,5 +562,4 @@ The JAR file is located in:\
 out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.jar
 
 
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
-
+![Video](./video/demo_group_14_snippet.mp4)
