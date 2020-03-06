@@ -403,80 +403,80 @@ In this state, though, we care about the editing method. So, through snippetHelp
 ## Sequence diagrams									
 Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
-Sequence diagrams are all about capturing the order of interactions between parts of your system. Using a sequence diagram, you can describe which interactions will be triggered when a particular use case is executed and in what order those interactions will occur. Sequence diagrams show plenty of other information about an interaction, but their flow is the simple and effective way in which they communicate the order of events within an interaction. They illustrate how the different parts of the system communicate with each other when a certain action should be executed and the order of the sub action that need to be done in between.
+Sequence diagrams are all about capturing the order of interactions between parts of your system. Using a sequence diagram, you can describe which interactions will be triggered when a particular use case is executed and in what order those interactions will occur. Sequence diagrams show plenty of other information about interaction, but their flow is a simple and effective way in which they communicate the order of events within an interaction. They illustrate how the different parts of the system communicate with each other when a certain action should be executed and the order of the sub-action that needs to be done in between.
  
-In our application, from the main dashboard 3 types of main interactions that could be done.
+In our application, from the main dashboard, there are 3 types of main interactions could be done.
  
 #### First main action:
-First one is “Add Snippet”. Although it has not been developed yet it will have the following sub action:  Since we are using JSON format, for the adding of a snippet we would need some information that the file should contain. To create the snippet, there are five in total sub actions:
-##### First sub action: Inserting the name of the snippet.
+The first one is “Add Snippet”. Although it has not been developed yet it will have the following sub-action:  Since we are using JSON format, for the adding of a snippet we would need some information that the file should contain. To create the snippet, there are five in total sub-actions:
+##### First sub-action: Entering the name of the snippet.
 This sub action is one of the necessary ones that the user should do in order to create a new snippet.
-##### Second sub action: Select programming language.
-There is a given option to choose a programming language. This one could be done by the system itself after the file is saved so therefore not a necessary action. Every snippet has a property called “programming language: String”. If the input from the user is empty, therefore not done filled with the language of the text that the person wants to save as a snippet, the program goes through the function changeProgramingLanguage that would check the syntax of the input and add the name of the programming language in the properties of the snippet.
-##### Third sub action: Insert category.
-Another useful feature that our system provides is performing the sub action “Category”. This one is not essential for the creation of a snippet file. By adding category to the file, later on the user could sort his/her snippets by the category used for the files.
-##### Fourth sub action: Add content.
-In the box given for this purpose the user should enter the text that would be later on saved as the actual snippet that the user wants.
-##### Fifth sub action: Save snippet.
-The final sub action is the actual saving of the snippet. After all the information is gathered from the user, the program first appends the snippet to the snippet list. Then sends a list containing the properties to a data parser which parse the given list to JSON format and save it as a file.
+##### Second sub-action: Select programming language.
+There is a given option to choose a programming language. This one could be done by the system itself after the file is saved so, therefore, not a necessary action. Every snippet has a property called “programming language: String”. If the input from the user is empty, hence not filled with the language of the text that the person wants to save as a snippet, the program goes through the function changeProgramingLanguage that would check the syntax of the input and add the name of the programming language in the properties of the snippet.
+##### Third sub-action: Insert category.
+Another useful feature that our system provides is performing the sub action “Category”. This one is not essential for the creation of a snippet file. By adding category to the file, later on, the user could sort his/her snippets by the category used for the files.
+##### Fourth sub-action: Add content.
+In the box given for this purpose, the user should enter the text that would be later on saved as the actual snippet that the user wants.
+##### Fifth sub-action: Save snippet.
+The final sub action is the actual saving of the snippet. After all the information is gathered from the user, the program first appends the snippet to the snippet list. Then sends a list containing the properties to a data parser that parses the given list to JSON format and save it as a file.
 #### Second main action:
-Second one is “Snippets”. This action changes the page to a new one. From that newly shown interface, there are five sub actions that could be performed.
-##### First sub action “View all snippets”.
+The second one is “Snippets”. This action changes the page to a new one. From that newly shown interface, there are five sub-actions that could be performed.
+##### First sub-action “View all snippets”.
 This property is enabled from the opening of the page – on the middle left side all the snippets of the user are shown in no specific order.
-##### Second sub action: Order snippets.
-In order to make the search of a certain snippet easier and more efficient, another sub action could be performed at this same page – showing the snippets in some convenient for the user order. There is a choice of two properties which would be used as a sorting tool – the name of the snippet or the date that the snippet has been created on.
-##### Third sub action: Search snippets.
+##### Second sub-action: Order snippets.
+In order to make the search of a certain snippet easier and more efficient, another sub action could be performed on this same page – showing the snippets in some convenient for the user order. There is a choice of two properties that would be used as a sorting tool – the name of the snippet or the date that the snippet has been created on.
+##### Third sub-action: Search snippets.
 For convenience, the user can perform another sub action on the same page that could ease the search of a snippet from the list – searching through the snippets. This search could be done by entering the name of the snippet. As the user is typing the name, the bar with the files gets updated, as it gets smaller the more specific the typing is to the name. The user is sending a synchronous message to the file waiting for a response containing the suggestion name (if the user didn’t type the full one yet) which after clicking on it again sends a synchronous message to the system, this time getting the full content of the snippet file.
-##### Fourth sub action: Edit snippets.
-After performing the previous actions, or at least those who lead to choosing a snippet file, on the same interface the user can also make some changes to the file, for example changing the programming language, editing the category, modifying the content of the snippet. After all that, a sub action of this sub action can be done – saving the snippet. It follows the same functionality as the “Save snippet” action from the first main action.
-##### Fifth sub action: Filter snippets.
-Another additional sub action is filtering the snippets – therefore displaying snippets according to a given filter. One could be depending on the preference of a programming language; another could be showing only snippets from a chosen category.
+##### Fourth sub-action: Edit snippets.
+After performing the previous actions, or at least those who lead to choosing a snippet file, on the same interface the user can also make some changes to the file, for example changing the programming language, editing the category, modifying the content of the snippet. After all that, a sub-action of this sub-action can be done - saving the snippet. It follows the same functionality as the “Save snippet” action from the first main action.
+##### Fifth sub-action: Filter snippets.
+Another additional sub action is filtering the snippets – therefore displaying snippets according to a given filter. One could be depending on the preference of a programming language; another could be showing only snippets from a certain chosen category.
 #### Third main action:
 The third main action is “Settings”.
-The third action allows the user to make some changes on the overall look and some behaviour of the program.
-#### First sub action: Set default programming language.
-The first sub action is choosing a default language. This would be helpful if the user needs only snippets from a chosen language.
-#### Second sub action:  Set colour theme.
-This sub action can change the colour of the background of the program’s interface for every page. The user has the possibility to choose a colour from a premade from the developers range of colours.
-#### Third sub action: Add categories.
-For this sub action, the program takes as an input the words that the user writes in the box separated by a comma for this purpose and creates a new category by taking the phrase or word.
+The third action allows the user to make some changes to the overall look and some behavior of the program.
+#### First sub-action: Set default programming language.
+The first sub action is choosing a default language. This would be helpful if the user needs only snippets from a certain chosen language.
+#### Second sub-action:  Set colour theme.
+This sub-action can change the colour of the background of the program’s interface for every page. The user has the possibility to choose a colour from a premade from the developer's range of colours.
+#### Third sub-action: Add categories.
+For this sub-action, the program takes as an input the words or phrases that the user writes in the box separated by commas which creates a new category by taking each phrase or word.
 Sub actions available from the dashboard.
-As well as performing actions, at the dashboard we can do 3 sub actions. On the screen the latest edited or added snippets are also shown. By double clicking on each of them a little menu is shown. Three types of sub action are available: 
+As well as performing actions, at the dashboard, we can do 3 sub-actions. On the screen, the latest edited or added snippets are also shown. By double-clicking on each of them a little menu is shown. Three types of sub action are available: 
  
-First sub action from the main dashboard: **EDIT**\
-This sub action leads to a main action by changing the screen, leading to a page allowing the user to make changes to the chosen snippet. It plays roles as a shortcut to the edit page.\
+First sub-action from the main dashboard: **EDIT**\
+This sub-action leads to a main action by changing the screen, leading to a page allowing the user to make changes to the chosen snippet. It plays roles as a shortcut to the edit page.\
 Second sub action from the main dashboard: **COPY**\
-This sub action takes the content of the snippet and copies it. \
-Third sub action from the main dashboard: **DELETE**\
+This sub-action takes the content of the snippet and copies it. \
+Third sub-action from the main dashboard: **DELETE**\
 
-With this sub action the user can remove a snippet from his list.
-Even though it has not been developed yet, future prospect would be to add a menu that would allow the user to do (almost) every action from any page. 
+With this sub-action, the user can remove a snippet from his list.
+Even though it has not been developed yet, a future prospect would be to add a menu that would allow the user to do (almost) every action from any page. 
  
-To explore in depth the processes in the application, we’ve created two sequence diagrams showing the actions and the sub actions that happen within every process. For example, if a user is looking for a diagram with a certain name but there is no existing diagram in the system with such a name. 
+To explore in-depth the processes in the application, we’ve created two sequence diagrams showing the actions and the sub-actions that happen within every process. For example, if a user is looking for a snippet with a certain name but there is no existing snippet in the system with such a name. 
 
 `Figure representing the Sequence Diagram 1`
 ![Image of Sequence Diagram 1](./diagrams/seq_1.png)
 
-The system goes into that sequence of actions. Since there is no condition under which a specific action would be taken if the user is looking for a non existing file, the bar that shows the search results remains empty.
+The system goes into that sequence of actions. Since there is no condition under which a specific action would be taken if the user is looking for a non-existing file, the bar that shows the search results remains empty.
 
 
-With the start of the program, the `Main` goes `Dashboard` which can handle the state of when the button is pressed`AllSnippetsForm`. The class when redirected, executes its methods createTextArea, addProgramingLanguages, createFilters and createAllSnippetsList and starts listening to events. 
+With the start of the program, the `Main` goes to `Dashboard` which can handle the state of when the button `AllSnippetsForm` is pressed. The class when redirected, executes its methods createTextArea, addProgramingLanguages, createFilters and createAllSnippetsList and starts listening to events. 
 
 
 The search for snippets is dynamic. It is implemented in the class SnippetHelper. The user starts writing the name of the snippet he wants to find and the program responds with all the snippets that correspond to what is currently written. This happens because of a loop, which on each cycle does the following: Firstly it gets all the snippets from the JSON file. Then it chooses only the ones that contain the current text in the searchTextField. Finally, it displays them in the `allSnippetsModel`. 
 When there is no snippet corresponding to the text written by the user, the allSnippetsModels will be empty.
  
-Second situation we would be looking into is a case where the user wants to create a snippet but the name picked for this snippet is also used for a file that is already amongst the ones that are created so far. 
+The second situation we would be looking into is a case where the user wants to create a snippet but the name picked for this snippet is also used for a file that is amongst the ones that are already created. 
 
 `Figure representing the Sequence Diagram 1`
 ![Image of Sequence Diagram 2](./diagrams/seq_2.png)
 
-From the dashboard the first main action is going to AllSnippetsForm class. From that, it goes to functions about creating the outlook of the page such as createTextArea, addProgrammingLanguage, createFiles, createAllSnippets. The difference with opening the page for viewing and editing snippets is that in this case the options to make changes on the snippets and using filters and list are enabled. The AllSnippetForm then does a self-call for gathering all the data needed for creating new snippet. Then again makes a self-call validating the needed data. In order to do that, a loop has been created checking if the data is suitable for saving the data in the `JSON` format that we are using, as well as checking if the information entered is overlapping with the one we already have. The piece of information we are interested in in this situation is the name, since the scenario is where the user wants to add a snippet with already existing name. Then it goes only through the first checking in the loop – checking if the desired for the file name is one that has been entered in the system. It goes to another class – `SnippetHelper`, that is responsible, in overall terms, for handling already existing information about the snippets. It goes through that part, checking if the name overlaps and in this case gives back an error message, not allowing the user to proceed with his action.
+From the dashboard, the first main action is going to AllSnippetsForm class. From there, it goes to functions about creating the outlook of the page such as createTextArea, addProgrammingLanguage, createFiles, createAllSnippets. The difference with opening the page for viewing and editing snippets is that in this case the options to make changes on the snippets and using filters and lists are enabled. The AllSnippetForm then does a self-call for gathering all the data needed for creating a new snippet. Then again makes a self-call validating the needed data. In order to do that, a loop has been created checking if the data is suitable for saving the data in the `JSON` format that we are using, as well as checking if the information entered is overlapping with the one we already have. The piece of information we are interested in in this situation is the name since the scenario is where the user wants to add a snippet with an already existing name. Then it goes only through the first checking in the loop – checking if the desired for the file name is one that has already been entered in the system. It goes to another class – `SnippetHelper`, that is responsible, in overall terms, for handling already existing information about the snippets. It goes through that part, checking if the name overlaps and in this case gives back an error message, not allowing the user to proceed with his action and asking for a different name.
 
 ## Implementation									
 Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
-After we finished all of the UML designs we reproduced teh same classes and objects in the system. After some rethinking we decided to split the classes in different `Packages` which will make teh code more logical and more readable. Here you can find the structure for our `Packages`:
+After we finished all of the UML designs we reproduced teh same classes and objects in the system. After some rethinking we decided to split the classes in different `Packages` which will make the code more logical and more readable. Here you can find the structure for our `Packages`:
 
 ./main\
 |----	./assets\
@@ -533,20 +533,20 @@ After we finished all of the UML designs we reproduced teh same classes and obje
 ##### Main features
 
 ***Text Highlighter:***\
-We are using the `RSyntaxTextArea` which provide us with a lot of nice options: default language, color theme, syntax highlight, etc, If we have enough time we can also include the auto complete feature. This feature is an extention that is provided by different library that extends the `RSyntaxTextArea`.
+We are using the `RSyntaxTextArea` which provides us with a lot of nice options: default language, color theme, syntax highlight, etc. If we have enough time we can also include the autocomplete feature. This feature is an extension that is provided by a different library that extends the `RSyntaxTextArea`.
 
 ***JSON Parsing:***\
-Instead of DataBase we decided to use a JSON files to keep our data. Using teh library Gson. We are using an instance from this library to read the `JSON` files and to parse the existing objects in the system back to `JSON`, The library give us teh flexibility to set any type of list object we desire and will translate the items accordingly. In combination with the local file reader/writer we are able to read/write the files that will hold the data for the snippets/settings.
+Instead of DataBase, we decided to use JSON files to keep our data. Using the library Gson. We are using an instance from this library to read the `JSON` files and to parse the existing objects in the system back to `JSON`, The library gives us the flexibility to set any type of list object we desire and will translate the items accordingly. In combination with the local file reader/writer, we are able to read/write the files that will hold the data for the snippets/settings.
 
 ***GUI Implementation***\
-For the GUI implementation we decided to go with `SWING`. \
-Since we will have three main views we split the GUI in three forms. Every form contains the needed components mentioned in the class-diagram. All of teh GUI classes have an instance to the `GlobalsView`. This "connection" will provide teh Views to create, style etc. and also use its functions. Every View class has an `JPanel` called `mainPanel`. This panel is used every time the user is changing the screen. The `State` is calling this `mainPanel` and replacing the current `mainPanel` with the requested one. Moreover, the `currentState` in the `Globals` class will be the variable telling us were the application is at the moment.
+For the GUI implementation, we decided to go with `SWING`. \
+Since we will have three main views we split the GUI into three forms. Every form contains the needed components mentioned in the class-diagram. All of the GUI classes have an instance to the `GlobalsView`. This "connection" will provide the Views to create, style, etc. and also use its functions. Every View class has a `JPanel` called `mainPanel`. This panel is used every time the user is changing the screen. The `State` is calling this `mainPanel` and replacing the current `mainPanel` with the requested one. Moreover, the `currentState` in the `Globals` class will be the variable telling us where the application is at the moment.
 
 ***State, Globals, GlobalsViews***\
-After some discussion we decided to crate this classes as our "helpers". The classes are crucial for our application. \
+After some discussion, we decided to create these classes as our "helpers". The classes are crucial for our application. \
 `State` class is changing the state and screen of the application. (The class is explained in GUI Implementation part)
 
-The `Globals` and `GlobalsView` are the classed that provide and control the data for the whole system. In `Globals` we can get and use the data from the `settings,json` and `snippets,json` files. Using this classes we will gain access to a single instance if teh `settingsParser` and `snippetParser`. Furthermore, the `Globals` also contains a `SnippetHelper` that will complete the snippet manipulation requests. 
+The `Globals` and `GlobalsView` are the classed that provide and control the data for the whole system. In `Globals` we can get and use the data from the `settings.json` and `snippets.json` files. Using these classes we will gain access to a single instance if the `settingsParser` and `snippetParser`. Furthermore, the `Globals` also contains a `SnippetHelper` that will complete the snippet manipulation requests. 
 ***
 The main fail of the application is located in:\
 /src/main/java/Main.java
