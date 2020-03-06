@@ -9,14 +9,14 @@
 
 ### Implemented feature
 
-We have already implemented the following features. The implemented features can be seen in the `code` branch in our repository. The way we have implemented the features is explain below by the Class Diagram section. Some of the states and or sequences can be seen in the appropriate sections.
+We have already implemented the following features. The implemented features can be seen in the `code` branch in our repository. The way we have implemented the features is explained below by the Class Diagram section. Some of the states and or sequences can be seen in the appropriate sections.
 
 | ID  | Short name  | Description  |
 |-----|-------------|--------------|
-| F1  | Add snippet  | Provide the user with the option to add snippets. When a snippets is added the option to set categories and programing language will be available.  |
+| F1  | Add snippet  | Provide the user with the option to add snippets. When a snippet is added the option to set categories and programing language will be available.  |
 | F2  | Update snippet  | Update an existing snippet |
 | F3  | Delete snippet  | Delete an existing snippet |
-| F5  | Order snippets |For ease of use an ordering functionality will be introduced. This will help the user to easily locate the desired snipped faster <br>1.  By name - order the snippets per name <br> 2. By date - order the snippets per date|
+| F5  | Order snippets |For ease of use, an ordering functionality will be introduced. This will help the user to easily locate the desired snipped faster <br>1.  By name - order the snippets per name <br> 2. By date - order the snippets per date|
 | F7  | Syntax highlight | When user in inserting text in the snippet the text area will highlight the code |
 | F8  | Programing language support | The software will provide the following programing languages syntax recognition. Depending on the user choice of the language all reserved commands will be highlighted.|
 | F9  | Search snippets | The user will be able to search in the list with snippets. The search will search only in the name of a snippet |
