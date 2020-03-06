@@ -542,9 +542,18 @@ Instead of DataBase we decided to use a JSON files to keep our data. Using teh l
 For the GUI implementation we decided to go with `SWING`. \
 Since we will have three main views we split the GUI in three forms. Every form contains the needed components mentioned in the class-diagram. All of teh GUI classes have an instance to the `GlobalsView`. This "connection" will provide teh Views to create, style etc. and also use its functions. Every View class has an `JPanel` called `mainPanel`. This panel is used every time the user is changing the screen. The `State` is calling this `mainPanel` and replacing the current `mainPanel` with the requested one. Moreover, the `currentState` in the `Globals` class will be the variable telling us were the application is at the moment.
 
+***State, Globals, GlobalsViews***\
+After some discussion we decided to crate this classes as our "helpers". The classes are crucial for our application. \
+`State` class is changing the state and screen of the application. (The class is explained in GUI Implementation part)
+
+The `Globals` and `GlobalsView` are the classed that provide and control the data for the whole system. In `Globals` we can get and use the data from the `settings,json` and `snippets,json` files. Using this classes we will gain access to a single instance if teh `settingsParser` and `snippetParser`. Furthermore, the `Globals` also contains a `SnippetHelper` that will complete the snippet manipulation requests. 
+***
 The main fail of the application is located in:\
 /src/main/java/Main.java
-- the location of the Jar file for directly executing your system;
+
+
+The JAR file is located in:\
+out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.jar
 - the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
 
 IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
