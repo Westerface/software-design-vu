@@ -356,6 +356,9 @@ Author(s): `Dimitar Georgiev, Klimis Tsakiridis, Stoyan Tsinov, Iva Dimitrova`
 
 #### Description of ‘Add Snippet’ state
 
+`Figure representing the Add Snippet State Diagram`
+![Image of Object Diagram](./diagrams/add_snippets.png)
+
 To enter any state in our program the user first needs to open the application. This will take him to the Dashboard screen which is populated with various elements. 
 
 In the Dashboard, there is an option called ‘Add Snippet’. When the user presses it, the interface changes and the program enters a different state. 
@@ -376,9 +379,12 @@ For the creation of a new snippet, the details described above need to be filled
 
 The other button is ‘Save’. When clicking ‘Save’ the program initiates checking if the details needed are correctly filled. This means that it ensures that a name for the snippet exists as well as the content is not empty. Then a new snippet is created. This snippet carries the data that were filled in the previous procedure. After that, the public class Globals is invoked. This is done in order to access the SnippetHelper. Through the SnippetHelper the program accesses the SnippetParser. The SnippetParser is used to add the new snippet in the list, as well as to pass the updated list to the update function.  The update function then converts the snippet objects to a JSON format and saves the JSON converted snippet in the file.
 
-
+9
 
 #### Description of Edit Snippets’ state:
+
+`Figure representing the Add Snippet State Diagram`
+![Image of Object Diagram](./diagrams/edit_snippets.png)
 
 The second state we are going to describe is ‘Edit Snippets’. 
 
@@ -554,12 +560,7 @@ The main fail of the application is located in:\
 
 The JAR file is located in:\
 out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.jar
+
+
 - the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
-
-Maximum number of words for this section: 2000
-
-## References
-
-References, if needed.
