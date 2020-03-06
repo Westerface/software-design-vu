@@ -17,8 +17,8 @@ We have already implemented the following features. The implemented features can
 | F2  | Update snippet  | Update an existing snippet |
 | F3  | Delete snippet  | Delete an existing snippet |
 | F5  | Order snippets |For ease of use, an ordering functionality will be introduced. This will help the user to easily locate the desired snipped faster <br>1.  By name - order the snippets per name <br> 2. By date - order the snippets per date|
-| F7  | Syntax highlight | When user in inserting text in the snippet the text area will highlight the code |
-| F8  | Programming language support | The software will provide the following programing languages syntax recognition. Depending on the user choice of the language all reserved commands will be highlighted.|
+| F7  | Syntax highlight | When user is inserting text in the snippet the text area will highlight the code |
+| F8  | Programing language support | The software will provide the following programing languages syntax recognition. Depending on the user choice of the language all reserved commands will be highlighted.|
 | F9  | Search snippets | The user will be able to search in the list with snippets. The search will search only in the name of a snippet |
 | F10 | Single-click copy | Single click functionality will provide a dedicated button where with a single click you can copy the whole snippet |
 
@@ -28,9 +28,9 @@ In some of the features, we have a known error (not using the appropriate snippe
 
 | ID  | Short name  | Description  |
 |-----|-------------|--------------|
-| F4  | Save as file | Provide the option to download the snippet as file |
+| F4  | Save as file | Provide the option to download the snippet as a file |
 | F6  | Change settings  | This feature will provide the user with the opportunity to:<br>- Change the colors of the system <br>- Add categories<br>- Set default programing language  |
-| F11 | Filter sippets | Filtering snippets has the aim to keep the working environment more organize when showing only snippets from desired programing language or category or both:<br>- By programing language - This feature will provide the option of filtering the snippets on programing language <br>- By category - This feature will provide the option of filtering the snippets on category|
+| F11 | Filter sippets | Filtering snippets has the aim to keep the working environment more organized when showing only snippets from desired programing language or category or both:<br>- By programing language - This feature will provide the option of filtering the snippets on programing language <br>- By category - This feature will provide the option of filtering the snippets on category|
 
 
 ### Used modeling tool
@@ -114,7 +114,7 @@ Returns a list with ordered snippets by dateCreated desscending order.
 Retruns a list with ordered snippets by name.
 
 `public ArrayList<Snippet> getSnippetsFilteredByLanguage(String filterLanguage)`\
-Returns a list containing snippets only from a certain programming language.
+Returns a list containing snippets only from a certain programing language.
 
 `public ArrayList<Snippet> getSnippetsFilteredByCategory(ArrayList<String> categories)`\
 Returns a list containing snippets only from a certain category.
@@ -210,7 +210,7 @@ Used to set the frame depending on the current state of the application.
 We use it in a couple of places. This reduces the code length.
 
 `public static ArrayList<String> getAllProgramingLanguages()`\
-Used to get all of the supported programming language.
+Used to get all of the supported programing language.
 
 `public static String[] colorThemesNames = {"Light","Dark","Moonlight"};`\
 Used to populate the drop-down list in the Settings screen. Depending on the choice we will change the theme accordingly.
@@ -253,7 +253,7 @@ Populate the programing languages drop-down menu
 Creates the filters checkboxes
 
 `private void changeProgramingLanguage(String programingLanguage)`\
-When a user chooses a snippet from the menu we are changing the selected programming language accordingly.
+When a user chooses a snippet from the menu we are changing the selected programing language accordingly.
 
 `private void handleSaveSnippet()`\
 If it is a new snippet, we add the new snippet. If it is existing, we update it.
@@ -300,7 +300,7 @@ Used to update the Recently added list when an item is deleted.
 
 
 #### SttingsForm.java (introduced v1.0 still alive) 
-This class will paint the settings screen. In this screen, the user can choose the color theme and the default programming language. What is more, he/she can add the categories here as well in a comma-separated list. When pressing the save button the settings will be applied automatically and also will be parsed back to the settigns.json file. This will play the role of “saving” your settings for next time or until they change again.
+This class will paint the settings screen. In this screen, the user can choose the color theme and the default programing language. What is more, he/she can add the categories here as well in a comma-separated list. When pressing the save button the settings will be applied automatically and also will be parsed back to the settigns.json file. This will play the role of “saving” your settings for next time or until they change again.
 
 
 `private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height)`\
