@@ -20,6 +20,7 @@ public class SnippetsParser {
     ArrayList<Snippet> snippetList;
 
     public SnippetsParser() {
+
         this.gsonObject = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
         this.filePath = "src/main/java/JSONFiles/snippets.json";
         this.snippetListType = new TypeToken<ArrayList<Snippet>>(){}.getType();
@@ -29,8 +30,10 @@ public class SnippetsParser {
     public ArrayList<Snippet> getAllSnippets(){
 
         try {
+
             this.snippetList = this.gsonObject.fromJson(new FileReader(this.filePath), this.snippetListType);
         } catch (FileNotFoundException e) {
+
             e.printStackTrace();
         }
 

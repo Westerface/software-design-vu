@@ -114,7 +114,7 @@ public class AllSnippetsForm {
 
     private void handleSelectSnippet(){
 
-        Snippet snippetToDisplay = Globals.snippetHelper.getAllSnippets().get(allSnippets.getSelectedIndex());
+        Snippet snippetToDisplay = allSnippets.getSelectedValue();
         snippetNameTextField.setText(snippetToDisplay.getName());
         categoryTextField.setText(snippetToDisplay.getCategories());
         textArea.setText(snippetToDisplay.getContent());
@@ -232,7 +232,8 @@ public class AllSnippetsForm {
         boolean newSnippet = true;
         for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
 
-            if(snippet.getName().equals(this.snippetNameTextField.getText())){
+            //if(snippet.getName().equals(this.snippetNameTextField.getText())){
+            if(snippet.getId() == this.allSnippets.getSelectedValue().getId()){
 
                 snippet.setContent(this.textArea.getText());
                 snippet.setCategories(this.categoryTextField.getText());

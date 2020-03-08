@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Snippet {
 
+    private int id;
     private String name;
     private String programingLanguage;
     private Date dateCreated;
@@ -12,12 +13,21 @@ public class Snippet {
 
     public Snippet(){}
 
-    public Snippet(String name, String programingLanguage, Date dateCreated, String content, String categories) {
+    public Snippet(int id, String name, String programingLanguage, Date dateCreated, String content, String categories) {
+        this.id = id;
         this.name = name;
         this.programingLanguage = programingLanguage;
         this.dateCreated = dateCreated;
         this.content = content;
         this.categories = categories;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
