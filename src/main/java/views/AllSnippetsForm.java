@@ -230,22 +230,11 @@ public class AllSnippetsForm {
     private void handleSaveSnippet(){
         this.validateData();
         boolean newSnippet = true;
-        for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
 
-            //if(snippet.getName().equals(this.snippetNameTextField.getText())){
-            if(snippet.getId() == this.allSnippets.getSelectedValue().getId()){
-
-                snippet.setContent(this.textArea.getText());
-                snippet.setCategories(this.categoryTextField.getText());
-                snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
-                Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
-                newSnippet = false;
-                break;
-            }
-        }
 
         if(newSnippet){
             Snippet snippet = new Snippet();
+            snippet.setId(1001 + Globals.snippetHelper.getAllSnippets().size());
             snippet.setName(this.snippetNameTextField.getText());
             snippet.setDateCreated(new Date());
             snippet.setContent(this.textArea.getText());
@@ -254,6 +243,20 @@ public class AllSnippetsForm {
             Globals.snippetHelper.getAllSnippets().add(snippet);
             Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
             update();
+        }else{
+            for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
+
+                //if(snippet.getName().equals(this.snippetNameTextField.getText())){
+                if(snippet.getId() == this.allSnippets.getSelectedValue().getId()){
+
+                    snippet.setContent(this.textArea.getText());
+                    snippet.setCategories(this.categoryTextField.getText());
+                    snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
+                    Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
+                    newSnippet = false;
+                    break;
+                }
+            }
         }
     }
 
