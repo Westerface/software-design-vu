@@ -1,6 +1,7 @@
 package views;
 
 import classes.Snippet;
+import classes.State;
 import globals.Globals;
 import org.fife.ui.rsyntaxtextarea.*;
 import views.listCellRenderers.AllSnippetsCellRenderer;
@@ -9,6 +10,7 @@ import views.listCellRenderers.FilterListCellRenderer;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -54,9 +56,18 @@ public class AllSnippetsForm {
     public JScrollPane allSnippetsScrollPane;
     public JScrollPane programinLanguageFilterScrollPane;
     public JScrollPane categoriesFilterScrollPane;
+    public JPanel addEditDeleteWrapper;
+    public JPanel addDeleteButtonWrapper;
+    public JButton addButton;
+    public JButton deleteButton;
+    public JButton copyButton;
+    public JPanel buttonsPanel;
+    public JPanel saveCnacelButtonWrapper;
+    public JButton cancelButton;
 
     private RSyntaxTextArea textArea = new RSyntaxTextArea(20, 60);
     private DefaultListModel<Snippet> allSnippetsModel = new DefaultListModel<>();
+    boolean newSnippet = false;
 
     public AllSnippetsForm() {
 
@@ -69,7 +80,12 @@ public class AllSnippetsForm {
        saveSnippetButton.addActionListener(e -> handleSaveSnippet());
        allSnippets.addListSelectionListener(e -> handleSelectSnippet());
 
-       searchTextField.getDocument().addDocumentListener(new DocumentListener() {
+        addButton.addActionListener(e -> handleAddButtonClicked());
+        cancelButton.addActionListener(e -> handleCancelButtonClicked());
+
+        cancelButton.setEnabled(false);
+
+        searchTextField.getDocument().addDocumentListener(new DocumentListener() {
            @Override
            public void insertUpdate(DocumentEvent documentEvent) {
                search();
@@ -100,13 +116,13 @@ public class AllSnippetsForm {
         textArea.setCodeFoldingEnabled(true);
         textArea.setAutoIndentEnabled(true);
 
-        InputStream in = getClass().getResourceAsStream("src/main/assets/textAreaThemes/dark.xml");
-        try {
-            Theme theme = Theme.load(in);
-            theme.apply(textArea);
-        } catch (IOException ioe) { // Never happens
-            ioe.printStackTrace();
-        }
+//        InputStream in = getClass().getResourceAsStream("src/main/assets/textAreaThemes/dark.xml");
+//        try {
+//            Theme theme = Theme.load(in);
+//            theme.apply(textArea);
+//        } catch (IOException ioe) { // Never happens
+//            ioe.printStackTrace();
+//        }
 
         snippetContent.add(textArea);
 
@@ -114,12 +130,19 @@ public class AllSnippetsForm {
 
     private void handleSelectSnippet(){
 
-        Snippet snippetToDisplay = allSnippets.getSelectedValue();
-        snippetNameTextField.setText(snippetToDisplay.getName());
-        categoryTextField.setText(snippetToDisplay.getCategories());
-        textArea.setText(snippetToDisplay.getContent());
-        snippetLangaugeDropdown.setSelectedItem(snippetToDisplay.getProgramingLanguage());
-        changeProgramingLanguage(snippetToDisplay.getProgramingLanguage());
+        if(allSnippets.getSelectedValue() != null){
+            Snippet snippetToDisplay = allSnippets.getSelectedValue();
+            snippetNameTextField.setText(snippetToDisplay.getName());
+            categoryTextField.setText(snippetToDisplay.getCategories());
+            textArea.setText(snippetToDisplay.getContent());
+            snippetLangaugeDropdown.setSelectedItem(snippetToDisplay.getProgramingLanguage());
+            changeProgramingLanguage(snippetToDisplay.getProgramingLanguage());
+
+            if(cancelButton.isEnabled() == false){
+
+                cancelButton.setEnabled(true);
+            }
+         }
     }
 
     private void createAllSnippetsList(){
@@ -228,12 +251,15 @@ public class AllSnippetsForm {
     }
 
     private void handleSaveSnippet(){
-        this.validateData();
-        boolean newSnippet = true;
 
+        if(!this.validateData()){
+
+            return;
+        }
+
+        Snippet snippet = new Snippet();
 
         if(newSnippet){
-            Snippet snippet = new Snippet();
             snippet.setId(1001 + Globals.snippetHelper.getAllSnippets().size());
             snippet.setName(this.snippetNameTextField.getText());
             snippet.setDateCreated(new Date());
@@ -242,33 +268,43 @@ public class AllSnippetsForm {
             snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
             Globals.snippetHelper.getAllSnippets().add(snippet);
             Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
-            update();
         }else{
-            for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
-
-                //if(snippet.getName().equals(this.snippetNameTextField.getText())){
-                if(snippet.getId() == this.allSnippets.getSelectedValue().getId()){
-
-                    snippet.setContent(this.textArea.getText());
-                    snippet.setCategories(this.categoryTextField.getText());
-                    snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
-                    Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
-                    newSnippet = false;
-                    break;
-                }
-            }
+            snippet.setId(this.allSnippets.getSelectedValue().getId());
+            snippet.setName(this.snippetNameTextField.getText());
+            snippet.setContent(this.textArea.getText());
+            snippet.setCategories(this.categoryTextField.getText());
+            snippet.setDateCreated(this.allSnippets.getSelectedValue().getDateCreated());
+            snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
+            Globals.snippetHelper.updateSnippet(snippet);
         }
+
+        if(!this.cancelButton.isEnabled()){
+
+            this.cancelButton.setEnabled(true);
+        }
+
+        this.allSnippets.setBackground(Color.WHITE);
+
+        update();
+        allSnippets.setSelectedIndex(allSnippetsModel.size()-1);
+//        if(allSnippets.isEnabled()){
+//
+//            allSnippets.setEnabled(false);
+//        }else{
+//            allSnippets.setEnabled(true);
+//        }
     }
 
-    private void validateData(){
+    private boolean validateData(){
 
+        return true;
     }
 
     private void update(){
 
         allSnippetsModel = new DefaultListModel<>();
-
         for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
+
             allSnippetsModel.addElement(snippet);
         }
 
@@ -287,5 +323,70 @@ public class AllSnippetsForm {
         }
 
         this.allSnippets.setModel(allSnippetsModel);
+    }
+
+    private void handleAddButtonClicked(){
+
+        Globals.currentSnippetState = State.SNIPPET_ADD;
+        checkCurrentSnippetState(Globals.currentSnippetState);
+    }
+
+    private void checkCurrentSnippetState(String snippetState){
+
+        switch (snippetState){
+            case State.SNIPPET_ADD:
+                this.newSnippet = true;
+                this.allSnippets.clearSelection();
+                this.allSnippets.setBackground(Color.LIGHT_GRAY);
+                this.allSnippets.setEnabled(false);
+                this.snippetNameTextField.setText("");
+                this.textArea.setText("");
+                this.categoryTextField.setText("");
+                this.cancelButton.setEnabled(true);
+
+                if(Globals.settingsParser.getSettings().getDefaultLanguage() != null || Globals.settingsParser.getSettings().getDefaultLanguage().equals("")){
+
+                    changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
+                }else{
+
+                    changeProgramingLanguage("Text");
+                }
+
+                break;
+            case State.SNIPPET_NORMAL:
+                cancelButton.setEnabled(false);
+                allSnippets.setEnabled(true);
+                break;
+            case State.SNIPPET_DELETE:
+                break;
+            case State.SNIPPET_EDIT:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void handleCancelButtonClicked(){
+
+        Globals.currentSnippetState = State.SNIPPET_NORMAL;
+        checkCurrentSnippetState(Globals.currentSnippetState);
+        this.allSnippets.setBackground(Color.WHITE);
+        this.allSnippets.setEnabled(true);
+        this.allSnippets.clearSelection();
+
+
+        this.snippetNameTextField.setText("");
+        this.textArea.setText("");
+        this.categoryTextField.setText("");
+
+        if(Globals.settingsParser.getSettings().getDefaultLanguage() != null || Globals.settingsParser.getSettings().getDefaultLanguage().equals("")){
+
+            changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
+        }else{
+
+            changeProgramingLanguage("Text");
+        }
+
+        update();
     }
 }

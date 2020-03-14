@@ -15,6 +15,7 @@ public class Globals {
     public static SnippetHelper snippetHelper = new SnippetHelper();
     public static SettingsParser settingsParser = new SettingsParser();
     public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
+    public static String currentSnippetState = "";
 
     public static void setFrame(JPanel panel){
         mainFrame.setContentPane(panel);

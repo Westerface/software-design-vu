@@ -35,9 +35,20 @@ public class SnippetHelper{
         this.parser.updateSnippets(this.allSnippets);
     }
 
-    public void editSnippet(Snippet snippetToBeEdited){
+    public void updateSnippet(Snippet snippetToBeEdited){
 
+        for(Snippet snippet : this.allSnippets){
 
+            //if(snippet.getName().equals(this.snippetNameTextField.getText())){
+            if(snippetToBeEdited.getId() == snippet.getId()){
+
+                allSnippets.remove(snippet);
+                this.allSnippets.add(snippetToBeEdited);
+                break;
+            }
+        }
+
+        this.updateSnippets(this.allSnippets);
     }
 
     /*
@@ -49,12 +60,10 @@ public class SnippetHelper{
     public ArrayList<Snippet> getSnippetsOrderByDateAscending(){
 
         ArrayList<Snippet> snippetsOrderedByDateAscending = this.allSnippets;
-        Collections.sort(snippetsOrderedByDateAscending, new Comparator<Snippet>() {
-            public int compare(Snippet o1, Snippet o2) {
-                if (o1.getDateCreated() == null || o2.getDateCreated() == null)
-                    return 0;
-                return o1.getDateCreated().compareTo(o2.getDateCreated());
-            }
+        snippetsOrderedByDateAscending.sort((snippet1, snippet2) -> {
+            if (snippet1.getDateCreated() == null || snippet2.getDateCreated() == null)
+                return 0;
+            return snippet1.getDateCreated().compareTo(snippet2.getDateCreated());
         });
 
         return snippetsOrderedByDateAscending;

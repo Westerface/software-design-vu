@@ -11,6 +11,11 @@ public class State {
     public static final String STATE_SETTINGS       = "STATE_SETTINGS";
     public static final String STATE_ADD_SNIPPET    = "STATE_ADD_SNIPPET";
 
+    public static final String SNIPPET_ADD          = "SNIPPET_ADD";
+    public static final String SNIPPET_EDIT         = "SNIPPET_EDIT";
+    public static final String SNIPPET_DELETE       = "SNIPPET_DELETE";
+    public static final String SNIPPET_NORMAL       = "SNIPPET_NORMAL";
+
     public void changeState(String newState) {
 
         Globals.currentState = newState;
