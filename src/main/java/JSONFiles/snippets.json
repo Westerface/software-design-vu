@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1001,
+    "name": "JavaScript snippet",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "07/03/2020",
+    "content": "function(){\n\n\tconsole.log();\n}\n",
+    "categories": ""
+  },
+  {
+    "id": 1002,
+    "name": "Hello Python",
+    "programingLanguage": "Python",
+    "dateCreated": "06/03/2020",
+    "content": "print(\"Hello from Python\")\nresult \u003d 2\nprint result",
+    "categories": "Cat 1"
+  },
+  {
+    "id": 1003,
+    "name": "Hello from Java",
+    "programingLanguage": "Java",
+    "dateCreated": "03/03/2020",
+    "content": "public void sayHello(){\n\tSystem.out.println(\"Hello from the Java!!!\");\n\tthis.test \u003d null;\n}\n",
+    "categories": "Category 1"
+  },
+  {
+    "id": 1004,
+    "name": "Hello from JavaScript",
+    "programingLanguage": "JavaScript",
+    "dateCreated": "02/03/2020",
+    "content": "function sayHello() {\n  document.getElementById(\"hello-div\").innerHTML \u003d \"Hello World!\";\n}",
+    "categories": "Category 4,Category 3"
+  },
+  {
+    "id": 1005,
+    "name": "This is new snippet",
+    "programingLanguage": "C++",
+    "dateCreated": "08/03/2020",
+    "content": "#include \u003ciostream\u003e\nusing namespace std;\n\nint main() \n{\n    cout \u003c\u003c \"Hello, World!\";\n    return 0;\n}",
+    "categories": "Category 1"
+  }
+]
