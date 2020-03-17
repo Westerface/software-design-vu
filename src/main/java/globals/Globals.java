@@ -1,6 +1,7 @@
 package globals;
 
 import classes.SnippetHelper;
+import classes.State;
 import dataParsing.SettingsParser;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class Globals {
     public static SnippetHelper snippetHelper = new SnippetHelper();
     public static SettingsParser settingsParser = new SettingsParser();
     public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
-    public static String currentSnippetState = "";
+    public static String currentSnippetState = State.SNIPPET_NORMAL;
 
     public static void setFrame(JPanel panel){
         mainFrame.setContentPane(panel);

@@ -71,19 +71,20 @@ public class AllSnippetsForm {
 
     public AllSnippetsForm() {
 
-       createTextArea();
-       addProgramingLanguages();
-       createFilters();
-       createAllSnippetsList();
+        createTextArea();
+        addProgramingLanguages();
+        createFilters();
+        createAllSnippetsList();
 
-       snippetLangaugeDropdown.addActionListener(e -> changeProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem())));
-       saveSnippetButton.addActionListener(e -> handleSaveSnippet());
-       allSnippets.addListSelectionListener(e -> handleSelectSnippet());
+        snippetLangaugeDropdown.addActionListener(e -> changeProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem())));
+        saveSnippetButton.addActionListener(e -> handleSaveSnippet());
+        allSnippets.addListSelectionListener(e -> handleSelectSnippet());
 
         addButton.addActionListener(e -> handleAddButtonClicked());
         cancelButton.addActionListener(e -> handleCancelButtonClicked());
 
         cancelButton.setEnabled(false);
+        checkCurrentSnippetState(Globals.currentSnippetState);
 
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
            @Override
@@ -101,6 +102,11 @@ public class AllSnippetsForm {
                search();
            }
        });
+
+        if(!newSnippet){
+
+            allSnippets.setSelectedIndex(0);
+        }
     }
 
     private void createTextArea(){
@@ -138,7 +144,7 @@ public class AllSnippetsForm {
             snippetLangaugeDropdown.setSelectedItem(snippetToDisplay.getProgramingLanguage());
             changeProgramingLanguage(snippetToDisplay.getProgramingLanguage());
 
-            if(cancelButton.isEnabled() == false){
+            if(!cancelButton.isEnabled()){
 
                 cancelButton.setEnabled(true);
             }
@@ -268,6 +274,7 @@ public class AllSnippetsForm {
             snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
             Globals.snippetHelper.getAllSnippets().add(snippet);
             Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
+            this.newSnippet = false;
         }else{
             snippet.setId(this.allSnippets.getSelectedValue().getId());
             snippet.setName(this.snippetNameTextField.getText());
@@ -278,24 +285,30 @@ public class AllSnippetsForm {
             Globals.snippetHelper.updateSnippet(snippet);
         }
 
-        if(!this.cancelButton.isEnabled()){
 
-            this.cancelButton.setEnabled(true);
-        }
+        Globals.currentSnippetState = State.SNIPPET_NORMAL;
+        checkCurrentSnippetState(Globals.currentSnippetState);
 
         this.allSnippets.setBackground(Color.WHITE);
 
         update();
         allSnippets.setSelectedIndex(allSnippetsModel.size()-1);
-//        if(allSnippets.isEnabled()){
-//
-//            allSnippets.setEnabled(false);
-//        }else{
-//            allSnippets.setEnabled(true);
-//        }
+
     }
 
     private boolean validateData(){
+
+        if(this.snippetNameTextField.getText() == null || this.snippetNameTextField.getText().equals("")){
+
+            JOptionPane.showMessageDialog(null, "Please make sure the name of the snippet is not empty!");
+            return false;
+        }
+
+        if(this.textArea.getText() == null || this.textArea.getText().equals("")){
+
+            JOptionPane.showMessageDialog(null, "Please make sure the content of the snippet is not empty!");
+            return false;
+        }
 
         return true;
     }
@@ -311,12 +324,12 @@ public class AllSnippetsForm {
         this.allSnippets.setModel(allSnippetsModel);
     }
 
-    private void search(){
+    private void search() {
 
         allSnippetsModel = new DefaultListModel<>();
 
-        for(Snippet snippet : Globals.snippetHelper.getAllSnippets()){
-            if(snippet.getName().contains(searchTextField.getText())) {
+        for (Snippet snippet : Globals.snippetHelper.getAllSnippets()) {
+            if (snippet.getName().contains(searchTextField.getText())) {
 
                 allSnippetsModel.addElement(snippet);
             }
@@ -325,6 +338,7 @@ public class AllSnippetsForm {
         this.allSnippets.setModel(allSnippetsModel);
     }
 
+    
     private void handleAddButtonClicked(){
 
         Globals.currentSnippetState = State.SNIPPET_ADD;
@@ -335,27 +349,10 @@ public class AllSnippetsForm {
 
         switch (snippetState){
             case State.SNIPPET_ADD:
-                this.newSnippet = true;
-                this.allSnippets.clearSelection();
-                this.allSnippets.setBackground(Color.LIGHT_GRAY);
-                this.allSnippets.setEnabled(false);
-                this.snippetNameTextField.setText("");
-                this.textArea.setText("");
-                this.categoryTextField.setText("");
-                this.cancelButton.setEnabled(true);
-
-                if(Globals.settingsParser.getSettings().getDefaultLanguage() != null || Globals.settingsParser.getSettings().getDefaultLanguage().equals("")){
-
-                    changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
-                }else{
-
-                    changeProgramingLanguage("Text");
-                }
-
+                addSnippetState();
                 break;
             case State.SNIPPET_NORMAL:
-                cancelButton.setEnabled(false);
-                allSnippets.setEnabled(true);
+                normalState();
                 break;
             case State.SNIPPET_DELETE:
                 break;
@@ -364,6 +361,49 @@ public class AllSnippetsForm {
             default:
                 break;
         }
+    }
+
+    public void addSnippetState(){
+        this.newSnippet = true;
+        this.allSnippets.clearSelection();
+        this.allSnippets.setBackground(Color.LIGHT_GRAY);
+        this.allSnippets.setEnabled(false);
+        this.snippetNameTextField.setText("");
+        this.textArea.setText("");
+        this.categoryTextField.setText("");
+        this.cancelButton.setEnabled(true);
+
+        this.programingLanguagesFilterList.setEnabled(false);
+        this.programingLanguagesFilterList.setBackground(Color.LIGHT_GRAY);
+        this.categoriesFilterList.setEnabled(false);
+        this.categoriesFilterList.setBackground(Color.LIGHT_GRAY);
+
+        this.searchTextField.setEnabled(false);
+        this.orderByDropdown.setEnabled(false);
+
+
+        if(Globals.settingsParser.getSettings().getDefaultLanguage() != null || Globals.settingsParser.getSettings().getDefaultLanguage().equals("")){
+
+            changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
+        }else{
+
+            changeProgramingLanguage("Text");
+        }
+    }
+
+    public void normalState(){
+        cancelButton.setEnabled(false);
+        allSnippets.setEnabled(true);
+
+        this.programingLanguagesFilterList.setEnabled(true);
+        this.programingLanguagesFilterList.setBackground(Color.WHITE);
+
+        this.categoriesFilterList.setEnabled(true);
+        this.categoriesFilterList.setBackground(Color.WHITE);
+
+        this.searchTextField.setEnabled(true);
+        this.orderByDropdown.setEnabled(true);
+
     }
 
     private void handleCancelButtonClicked(){
@@ -386,6 +426,9 @@ public class AllSnippetsForm {
 
             changeProgramingLanguage("Text");
         }
+
+        Globals.currentSnippetState = State.SNIPPET_NORMAL;
+        checkCurrentSnippetState(Globals.currentSnippetState);
 
         update();
     }

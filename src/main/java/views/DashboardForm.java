@@ -59,7 +59,7 @@ public class DashboardForm {
 
         addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),120, 120));
         setupDashboadButton(addSnippetButton);
-        addSnippetButton.addActionListener(e -> handleAllSnippetsButton());
+        addSnippetButton.addActionListener(e -> handleAddSnippetsButton());
 
         settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),120, 120));
         setupDashboadButton(settingsButton);
@@ -233,6 +233,14 @@ public class DashboardForm {
     private void handleAllSnippetsButton() {
 
         Globals.currentState = State.STATE_ADD_SNIPPET;
+        Globals.currentSnippetState = State.SNIPPET_NORMAL;
+        new State().changeState( Globals.currentState);
+    }
+
+    private void handleAddSnippetsButton() {
+
+        Globals.currentState = State.STATE_ADD_SNIPPET;
+        Globals.currentSnippetState = State.SNIPPET_ADD;
         new State().changeState( Globals.currentState);
     }
 
