@@ -33,6 +33,9 @@ public class SettingsForm {
     public JButton saveButton;
     public JPanel saveButtonWrapper;
 
+    //added so we can keep up with the current color theme since it will change when we change it in settings
+    ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
+
     public SettingsForm(){
 
         applicationName.setText(Globals.APPLICATION_NAME);
@@ -67,6 +70,8 @@ public class SettingsForm {
         categoriesTextArea.setWrapStyleWord(true);
 
         this.saveButton.addActionListener(e -> handleSaveButtonClick());
+
+        setCurrentElements();
     }
 
     private void handleSaveButtonClick(){
@@ -113,5 +118,23 @@ public class SettingsForm {
                 optionButton.setBackground(Globals.colorTheme.getOptionsButtonBackgroundColor());
             }
         });
+    }
+
+    private void setCurrentElements(){
+        this.categoriesTextArea.setText(Globals.settingsParser.getSettings().getCategories());
+        this.defaultLanguageComboBox.setSelectedItem(Globals.settingsParser.getSettings().getDefaultLanguage());
+        switch (Globals.settingsParser.getSettings().getColorTheme()){
+            case "THE_PINK":
+                this.defaultColorThemeComboBox.setSelectedItem("The Pink");
+                break;
+            case "THE_ORANGE":
+                this.defaultColorThemeComboBox.setSelectedItem("The Orange");
+                break;
+            case "THE_GREEN":
+                this.defaultColorThemeComboBox.setSelectedItem("The Green");
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + Globals.settingsParser.getSettings().getColorTheme());
+        }
     }
 }

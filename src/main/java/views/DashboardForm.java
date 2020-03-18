@@ -1,9 +1,7 @@
 package views;
 
-import classes.Settings;
-import classes.SingleClickCopy;
-import classes.Snippet;
-import classes.State;
+import classes.*;
+import globals.ColorThemes;
 import globals.Globals;
 import views.listCellRenderers.RecentlyAddedCellRenderer;
 
@@ -30,15 +28,16 @@ public class DashboardForm {
     public JLabel recentlyAddedLabel;
 
     public DefaultListModel<Snippet> recentlyAddedListModel;
+    ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
 
     public DashboardForm(){
 
-        headerPannel.setBackground(Globals.colorTheme.getHeaderBackgroundColor());
-        dashboardPannel.setBackground(Globals.colorTheme.getBackgroundColor());
+        headerPannel.setBackground(colorTheme.getHeaderBackgroundColor());
+        dashboardPannel.setBackground(colorTheme.getBackgroundColor());
 
-        recentlyAddedListView.setBackground(Globals.colorTheme.getPanelBackgroundColor());
+        recentlyAddedListView.setBackground(colorTheme.getPanelBackgroundColor());
         applicationName.setText(Globals.APPLICATION_NAME);
-        applicationName.setForeground(Globals.colorTheme.getHeaderTextColor());
+        applicationName.setForeground(colorTheme.getHeaderTextColor());
 
         recentlyAddedListModel = new DefaultListModel<>();
 
@@ -47,7 +46,7 @@ public class DashboardForm {
 
     public void setupDashboard(){
 
-        dashboardPannel.setBackground(Globals.colorTheme.getPanelBackgroundColor());
+        dashboardPannel.setBackground(colorTheme.getPanelBackgroundColor());
 
         allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),120, 120));
         setupDashboadButton(allSnippetsButton);
@@ -126,49 +125,49 @@ public class DashboardForm {
 
     private void setupDashboadButton(JButton dashboardButton){
 
-        dashboardButton.setBackground(Globals.colorTheme.getDashboardButtonBackgroundColor());
+        dashboardButton.setBackground(colorTheme.getDashboardButtonBackgroundColor());
         dashboardButton.setHorizontalTextPosition(JLabel.CENTER);
         dashboardButton.setVerticalTextPosition(JLabel.BOTTOM);
-        dashboardButton.setForeground(Globals.colorTheme.getDashboardButtonTextColor());
+        dashboardButton.setForeground(colorTheme.getDashboardButtonTextColor());
         dashboardButton.setFocusPainted(false);
         dashboardButton.setBorderPainted(true);
-        dashboardButton.setBorder(BorderFactory.createLineBorder(Globals.colorTheme.getDashboardButtonBorderColor(), 4));
+        dashboardButton.setBorder(BorderFactory.createLineBorder(colorTheme.getDashboardButtonBorderColor(), 4));
 
         dashboardButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dashboardButton.setBackground(Globals.colorTheme.getDashboardButtonHoverBackgroundColor());
-                dashboardButton.setBorder(BorderFactory.createLineBorder(Globals.colorTheme.getDashboardButtonHoverBorderColor(), 4));
+                dashboardButton.setBackground(colorTheme.getDashboardButtonHoverBackgroundColor());
+                dashboardButton.setBorder(BorderFactory.createLineBorder(colorTheme.getDashboardButtonHoverBorderColor(), 4));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                dashboardButton.setBackground(Globals.colorTheme.getDashboardButtonBackgroundColor());
-                dashboardButton.setBorder(BorderFactory.createLineBorder(Globals.colorTheme.getDashboardButtonBorderColor(), 4));
+                dashboardButton.setBackground(colorTheme.getDashboardButtonBackgroundColor());
+                dashboardButton.setBorder(BorderFactory.createLineBorder(colorTheme.getDashboardButtonBorderColor(), 4));
             }
         });
     }
 
     private void setupOptionsButton(JButton optionButton){
 
-        optionButton.setBackground(Globals.colorTheme.getOptionsButtonBackgroundColor());
+        optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
         optionButton.setHorizontalTextPosition(JLabel.CENTER);
         optionButton.setVerticalTextPosition(JLabel.BOTTOM);
-        optionButton.setForeground(Globals.colorTheme.getOptionsButtonTextColor());
+        optionButton.setForeground(colorTheme.getOptionsButtonTextColor());
         optionButton.setFocusPainted(false);
         optionButton.setBorderPainted(true);
         optionButton.setFont(new Font("Andale Mono", Font.BOLD, 14));
-        optionButton.setBorder(BorderFactory.createLineBorder(Globals.colorTheme.getOptionsButtonBorderColor(), 2));
+        optionButton.setBorder(BorderFactory.createLineBorder(colorTheme.getOptionsButtonBorderColor(), 2));
         optionButton.setMinimumSize(new Dimension(80,80));
         optionButton.setPreferredSize(new Dimension(80,80));
 
         optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Globals.colorTheme.getOptionsButtonHoverBackgroundColor());
-                optionButton.setBorder(BorderFactory.createLineBorder(Globals.colorTheme.getOptionsButtonHoverBorderColor(), 2));
+                optionButton.setBackground(colorTheme.getOptionsButtonHoverBackgroundColor());
+                optionButton.setBorder(BorderFactory.createLineBorder(colorTheme.getOptionsButtonHoverBorderColor(), 2));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Globals.colorTheme.getOptionsButtonBackgroundColor());
-                optionButton.setBorder(BorderFactory.createLineBorder(Globals.colorTheme.getOptionsButtonBorderColor(), 2));
+                optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
+                optionButton.setBorder(BorderFactory.createLineBorder(colorTheme.getOptionsButtonBorderColor(), 2));
             }
         });
     }
