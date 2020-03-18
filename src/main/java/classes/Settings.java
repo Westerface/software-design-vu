@@ -5,17 +5,17 @@ import java.awt.*;
 public class Settings {
 
     private String defaultLanguage;
-    private ColorTheme colorTheme;
+    private String colorTheme;
     private String categories;
 
     public Settings(){
 
         this.defaultLanguage = "";
-        this.colorTheme = new ColorTheme();
+        this.colorTheme = "thePink";
         this.categories = "";
     }
 
-    public Settings(String defaultLanguage, ColorTheme colorTheme, String categories) {
+    public Settings(String defaultLanguage, String colorTheme, String categories) {
         this.defaultLanguage = defaultLanguage;
         this.colorTheme = colorTheme;
         this.categories = categories;
@@ -29,11 +29,11 @@ public class Settings {
         this.defaultLanguage = defaultLanguage;
     }
 
-    public ColorTheme getColorTheme() {
+    public String getColorTheme() {
         return colorTheme;
     }
 
-    public void setColorTheme(ColorTheme colorTheme) {
+    public void setColorTheme(String colorTheme) {
         this.colorTheme = colorTheme;
     }
 

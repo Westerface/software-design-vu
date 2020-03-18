@@ -1,5 +1,6 @@
 package globals;
 
+import classes.ColorTheme;
 import classes.SnippetHelper;
 import classes.State;
 import dataParsing.SettingsParser;
@@ -17,6 +18,8 @@ public class Globals {
     public static SettingsParser settingsParser = new SettingsParser();
     public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
     public static String currentSnippetState = State.SNIPPET_NORMAL;
+    public static String currentColorTheme = settingsParser.getSettings().getColorTheme();
+    public static ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
 
     public static void setFrame(JPanel panel){
         mainFrame.setContentPane(panel);
@@ -60,5 +63,5 @@ public class Globals {
         return langauges;
     }
 
-    public static String[] colorThemesNames = {"Light","Dark","Moonlight"};
+    public static String[] colorThemesNames = {"The Pink","The Orange","The Green"};
 }

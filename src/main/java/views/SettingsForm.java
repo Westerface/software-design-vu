@@ -1,12 +1,13 @@
 package views;
 
+import classes.ColorTheme;
+import classes.Settings;
 import classes.State;
-import globals.Colors;
+import globals.ColorThemes;
 import globals.Globals;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 
 public class SettingsForm {
     public JPanel mainPanel;
@@ -25,18 +26,20 @@ public class SettingsForm {
     public JLabel defaultLanguageLabel;
     public JLabel defaultColorLabel;
     public JPanel defaultThemeComboBoxWrapper;
-    public JComboBox defaultColorThemeComboBox;
+    public JComboBox<String> defaultColorThemeComboBox;
     public JLabel categoriesLabel;
     public JPanel categoriesTextBoxWrapper;
     public JTextArea categoriesTextArea;
+    public JButton saveButton;
+    public JPanel saveButtonWrapper;
 
     public SettingsForm(){
 
         applicationName.setText(Globals.APPLICATION_NAME);
-        applicationName.setForeground(Colors.TEXT_COLOR);
-
-        headerPanel.setBackground(Colors.HEADER_COLOR);
-        headerPanel.setForeground(Colors.TEXT_COLOR);
+//        applicationName.setForeground(ColorThemes.TEXT_COLOR);
+//
+//        headerPanel.setBackground(ColorThemes.HEADER_COLOR);
+//        headerPanel.setForeground(ColorThemes.TEXT_COLOR);
 
         backToDashboardButton.addActionListener(e -> {
             try {
@@ -52,6 +55,32 @@ public class SettingsForm {
         for(String language : Globals.getAllProgramingLanguages()) {
             defaultLanguageComboBox.addItem(language);
         }
+
+
+        for(String colorThemes : Globals.colorThemesNames) {
+
+            this.defaultColorThemeComboBox.addItem(colorThemes);
+        }
+
+        categoriesTextArea.setText(Globals.settingsParser.getSettings().getCategories());
+        categoriesTextArea.setLineWrap(true);
+        categoriesTextArea.setWrapStyleWord(true);
+
+        this.saveButton.addActionListener(e -> handleSaveButtonClick());
+    }
+
+    private void handleSaveButtonClick(){
+
+        Settings updatedSettings = new Settings();
+        updatedSettings.setDefaultLanguage(String.valueOf(this.defaultLanguageComboBox.getSelectedItem()));
+
+        String colorTheme = String.valueOf(this.defaultColorThemeComboBox.getSelectedItem()).toUpperCase().replace(" ", "_");
+        updatedSettings.setColorTheme(colorTheme);
+        updatedSettings.setCategories(this.categoriesTextArea.getText());
+
+        Globals.settingsParser.setSettings(updatedSettings);
+        Globals.currentColorTheme = colorTheme;
+        ColorThemes.getCurrentSelectedColorTheme();
     }
 
     private void handleBackToDashboardButton() {
@@ -77,11 +106,11 @@ public class SettingsForm {
 
         optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Colors.OPTIONS_BUTTON_HOVER_COLOR);
+                optionButton.setBackground(Globals.colorTheme.getOptionsButtonHoverBackgroundColor());
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Colors.OPTIONS_BUTTON_COLOR);
+                optionButton.setBackground(Globals.colorTheme.getOptionsButtonBackgroundColor());
             }
         });
     }
