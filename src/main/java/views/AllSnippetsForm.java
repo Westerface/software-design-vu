@@ -11,8 +11,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AllSnippetsForm {
@@ -26,7 +25,7 @@ public class AllSnippetsForm {
     public JPanel addSnippetWrapper;
     public JPanel filtersWrapper;
     public JPanel allSnippetsPanel;
-    public JButton dshboardButton;
+    public JButton dashboardButton;
     public JButton addSnippetButton;
     public JButton allSnippetsButton;
     public JButton settingsButton;
@@ -41,7 +40,7 @@ public class AllSnippetsForm {
     public JPanel snippetOptions;
     public JPanel snippetWrapper;
     public JTextField snippetNameTextField;
-    public JComboBox<String> snippetLangaugeDropdown;
+    public JComboBox<String> snippetLanguageDropdown;
     public JLabel snippetNameLabel;
     public JLabel snippetLanguageLabel;
     public JPanel snippetContent;
@@ -54,7 +53,7 @@ public class AllSnippetsForm {
     public JLabel programingLanguagesFilerLabel;
     public JLabel categoriesFilerLabel;
     public JScrollPane allSnippetsScrollPane;
-    public JScrollPane programinLanguageFilterScrollPane;
+    public JScrollPane programingLanguageFilterScrollPane;
     public JScrollPane categoriesFilterScrollPane;
     public JPanel addEditDeleteWrapper;
     public JPanel addDeleteButtonWrapper;
@@ -62,7 +61,7 @@ public class AllSnippetsForm {
     public JButton deleteButton;
     public JButton copyButton;
     public JPanel buttonsPanel;
-    public JPanel saveCnacelButtonWrapper;
+    public JPanel saveCancelButtonWrapper;
     public JButton cancelButton;
 
     private RSyntaxTextArea textArea = new RSyntaxTextArea(20, 60);
@@ -76,14 +75,17 @@ public class AllSnippetsForm {
         createFilters();
         createAllSnippetsList();
 
-        snippetLangaugeDropdown.addActionListener(e -> changeProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem())));
-        saveSnippetButton.addActionListener(e -> handleSaveSnippet());
-        allSnippets.addListSelectionListener(e -> handleSelectSnippet());
+        this.snippetLanguageDropdown.addActionListener(e -> changeProgramingLanguage(String.valueOf(this.snippetLanguageDropdown.getSelectedItem())));
+        this.saveSnippetButton.addActionListener(e -> handleSaveSnippet());
+        this.allSnippets.addListSelectionListener(e -> handleSelectSnippet());
 
-        addButton.addActionListener(e -> handleAddButtonClicked());
-        cancelButton.addActionListener(e -> handleCancelButtonClicked());
+        this.addButton.addActionListener(e -> handleAddButtonClicked());
+        this.cancelButton.addActionListener(e -> handleCancelButtonClicked());
 
-        cancelButton.setEnabled(false);
+        this.categoriesFilterList.addListSelectionListener(e -> handleCategoryFilterSelected());
+        this.programingLanguagesFilterList.addListSelectionListener(e -> handleProgrammingLanguageFilterSelected());
+
+        this.cancelButton.setEnabled(false);
         checkCurrentSnippetState(Globals.currentSnippetState);
 
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
@@ -115,7 +117,7 @@ public class AllSnippetsForm {
 
             changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
             addProgramingLanguages();
-            snippetLangaugeDropdown.setSelectedItem(Globals.settingsParser.getSettings().getDefaultLanguage());
+            snippetLanguageDropdown.setSelectedItem(Globals.settingsParser.getSettings().getDefaultLanguage());
         } else {
             changeProgramingLanguage(SyntaxConstants.SYNTAX_STYLE_LATEX);
         }
@@ -141,7 +143,7 @@ public class AllSnippetsForm {
             snippetNameTextField.setText(snippetToDisplay.getName());
             categoryTextField.setText(snippetToDisplay.getCategories());
             textArea.setText(snippetToDisplay.getContent());
-            snippetLangaugeDropdown.setSelectedItem(snippetToDisplay.getProgramingLanguage());
+            snippetLanguageDropdown.setSelectedItem(snippetToDisplay.getProgramingLanguage());
             changeProgramingLanguage(snippetToDisplay.getProgramingLanguage());
 
             if(!cancelButton.isEnabled()){
@@ -166,7 +168,7 @@ public class AllSnippetsForm {
     private void addProgramingLanguages(){
 
         for(String language : Globals.getAllProgramingLanguages()) {
-            this.snippetLangaugeDropdown.addItem(language);
+            this.snippetLanguageDropdown.addItem(language);
         }
     }
 
@@ -271,7 +273,7 @@ public class AllSnippetsForm {
             snippet.setDateCreated(new Date());
             snippet.setContent(this.textArea.getText());
             snippet.setCategories(this.categoryTextField.getText());
-            snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
+            snippet.setProgramingLanguage(String.valueOf(this.snippetLanguageDropdown.getSelectedItem()));
             Globals.snippetHelper.getAllSnippets().add(snippet);
             Globals.snippetHelper.updateSnippets(Globals.snippetHelper.getAllSnippets());
             this.newSnippet = false;
@@ -281,7 +283,7 @@ public class AllSnippetsForm {
             snippet.setContent(this.textArea.getText());
             snippet.setCategories(this.categoryTextField.getText());
             snippet.setDateCreated(this.allSnippets.getSelectedValue().getDateCreated());
-            snippet.setProgramingLanguage(String.valueOf(this.snippetLangaugeDropdown.getSelectedItem()));
+            snippet.setProgramingLanguage(String.valueOf(this.snippetLanguageDropdown.getSelectedItem()));
             Globals.snippetHelper.updateSnippet(snippet);
         }
 
@@ -326,16 +328,20 @@ public class AllSnippetsForm {
 
     private void search() {
 
-        allSnippetsModel = new DefaultListModel<>();
+        DefaultListModel<Snippet> newModel = new DefaultListModel<>();
 
-        for (Snippet snippet : Globals.snippetHelper.getAllSnippets()) {
-            if (snippet.getName().contains(searchTextField.getText())) {
+        if (searchTextField.getText() != null && !searchTextField.getText().equals("")){
+            for (int i = 0; i < allSnippets.getModel().getSize(); i++) {
+                if (allSnippets.getModel().getElementAt(i).getName().contains(searchTextField.getText())) {
 
-                allSnippetsModel.addElement(snippet);
+                    newModel.addElement(allSnippets.getModel().getElementAt(i));
+                }
             }
-        }
 
-        this.allSnippets.setModel(allSnippetsModel);
+            this.allSnippets.setModel(newModel);
+        }else {
+            this.allSnippets.setModel(allSnippetsModel);
+        }
     }
 
     
@@ -431,5 +437,70 @@ public class AllSnippetsForm {
         checkCurrentSnippetState(Globals.currentSnippetState);
 
         update();
+    }
+
+    private void handleCategoryFilterSelected(){
+        DefaultListModel<Snippet> newModel = new DefaultListModel<>();
+        //DefaultListModel<Snippet> oldModel = (DefaultListModel<Snippet>) allSnippets.getModel();
+        ArrayList<String> selectedCategories = new ArrayList<>();
+
+        if(this.categoriesFilterList.getSelectedValue() != null) {
+
+            selectedCategories = (ArrayList<String>) this.categoriesFilterList.getSelectedValuesList();
+        }
+
+        if(!selectedCategories.isEmpty()){
+
+            for(int i=0; i < allSnippetsModel.getSize(); i++){
+
+                if(allSnippetsModel.getElementAt(i).getCategories().length()>0){
+
+                    for(String selectedCategory : selectedCategories){
+
+                        if(allSnippetsModel.getElementAt(i).getCategories().contains(selectedCategory)){
+
+                            newModel.addElement(allSnippetsModel.getElementAt(i));
+                        }
+                    }
+                }
+            }
+
+            allSnippets.setModel(newModel);
+        }else {
+
+            //allSnippets.setModel(oldModel);
+            update();
+        }
+    }
+
+    private void handleProgrammingLanguageFilterSelected(){
+        DefaultListModel<Snippet> newModel = new DefaultListModel<>();
+        //DefaultListModel<Snippet> oldModel = (DefaultListModel<Snippet>) allSnippets.getModel();
+        ArrayList<String> selectedLanguages = new ArrayList<>();
+
+        if(this.programingLanguagesFilterList.getSelectedValue() != null) {
+
+            selectedLanguages = (ArrayList<String>) this.programingLanguagesFilterList.getSelectedValuesList();
+        }
+
+        if(!selectedLanguages.isEmpty()){
+
+            for(int i=0; i < allSnippetsModel.getSize(); i++){
+
+                for(String selectedLanguage : selectedLanguages){
+
+                    if(allSnippetsModel.getElementAt(i).getProgramingLanguage().equals(selectedLanguage)){
+
+                        newModel.addElement(allSnippetsModel.getElementAt(i));
+                    }
+                }
+            }
+            
+            allSnippets.setModel(newModel);
+        }else {
+
+            //allSnippets.setModel(oldModel);
+            update();
+        }
     }
 }
