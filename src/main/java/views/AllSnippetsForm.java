@@ -31,7 +31,7 @@ public class AllSnippetsForm {
     public JButton settingsButton;
     public JPanel searchPanel;
     public JPanel orderByWrapper;
-    public JComboBox orderByDropdown;
+    public JComboBox<String> orderByDropdown;
     public JLabel orderByLabel;
     public JLabel searchLabel;
     public JTextField searchTextField;
@@ -66,6 +66,10 @@ public class AllSnippetsForm {
 
     private RSyntaxTextArea textArea = new RSyntaxTextArea(20, 60);
     private DefaultListModel<Snippet> allSnippetsModel = new DefaultListModel<>();
+    private DefaultListModel<Snippet> allSnippetsModelBackup = new DefaultListModel<>();
+    private int snippetsCategoryCount = 0; //@TODO change to normal name
+    private int snippetsLanguagesCount = 0; //@TODO change to normal name
+
     boolean newSnippet = false;
 
     public AllSnippetsForm() {
@@ -438,69 +442,87 @@ public class AllSnippetsForm {
 
         update();
     }
+    private ArrayList<String> selectedCategories = new ArrayList<>();
+    private ArrayList<String> selectedLanguages = new ArrayList<>();
 
-    private void handleCategoryFilterSelected(){
+    private void updateList(){
         DefaultListModel<Snippet> newModel = new DefaultListModel<>();
-        //DefaultListModel<Snippet> oldModel = (DefaultListModel<Snippet>) allSnippets.getModel();
-        ArrayList<String> selectedCategories = new ArrayList<>();
 
-        if(this.categoriesFilterList.getSelectedValue() != null) {
+        if(!selectedCategories.isEmpty()  || !selectedLanguages.isEmpty()){
 
-            selectedCategories = (ArrayList<String>) this.categoriesFilterList.getSelectedValuesList();
-        }
+            ArrayList<Snippet> matchedSnippets = new ArrayList<>();
+            ArrayList<Snippet> snippetsToShow = new ArrayList<>();
 
-        if(!selectedCategories.isEmpty()){
+            for(int i=0; i < allSnippetsModel.getSize(); i++) {
 
-            for(int i=0; i < allSnippetsModel.getSize(); i++){
+                if (allSnippetsModel.getElementAt(i).getCategories().length() > 0) {
 
-                if(allSnippetsModel.getElementAt(i).getCategories().length()>0){
+                    System.out.println(allSnippetsModel.getElementAt(i).getName());
+                    for (String selectedCategory : selectedCategories) {
 
-                    for(String selectedCategory : selectedCategories){
-
-                        if(allSnippetsModel.getElementAt(i).getCategories().contains(selectedCategory)){
-
-                            newModel.addElement(allSnippetsModel.getElementAt(i));
+                        System.out.println("Category selected: " + selectedCategory);
+                        if (allSnippetsModel.getElementAt(i).getCategories().contains(selectedCategory)) {
+                            matchedSnippets.add(allSnippetsModel.getElementAt(i));
+                            System.out.println(allSnippetsModel.getElementAt(i).getCategories() + "::::" + selectedCategory + ":::: IN");
                         }
                     }
                 }
             }
+            if(!selectedLanguages.isEmpty()) {
+                if (matchedSnippets.isEmpty()) {
+                    for (int k = 0; k < allSnippetsModel.getSize(); k++) {
+                        matchedSnippets.add(allSnippetsModel.getElementAt(k));
+                    }
+                }
+                for (Snippet snippet : matchedSnippets) {
+                    for (String selectedLanguage : selectedLanguages) {
+                        System.out.println("Category selected: " + selectedLanguage);
+                        if (snippet.getProgramingLanguage().equals(selectedLanguage)) {
+                            snippetsToShow.add(snippet);
+                        }
+                    }
+
+                }
+                if(!snippetsToShow.isEmpty()) {
+                    //System.out.println("HERE");
+                    for (Snippet snippet : snippetsToShow) {
+                        newModel.addElement(snippet);
+                    }
+                }
+            }else {
+                if(!matchedSnippets.isEmpty()) {
+                    //System.out.println("HERE");
+                    for (Snippet snippet : matchedSnippets) {
+                        newModel.addElement(snippet);
+                    }
+                }
+            }
 
             allSnippets.setModel(newModel);
-        }else {
-
-            //allSnippets.setModel(oldModel);
+        }else{
             update();
         }
     }
 
-    private void handleProgrammingLanguageFilterSelected(){
-        DefaultListModel<Snippet> newModel = new DefaultListModel<>();
-        //DefaultListModel<Snippet> oldModel = (DefaultListModel<Snippet>) allSnippets.getModel();
-        ArrayList<String> selectedLanguages = new ArrayList<>();
 
+    private void handleCategoryFilterSelected(){
+
+        if(this.categoriesFilterList.getSelectedValue() != null) {
+            selectedCategories = (ArrayList<String>) this.categoriesFilterList.getSelectedValuesList();
+        }else{
+            selectedCategories = new ArrayList<>();
+        }
+
+        updateList();
+    }
+
+    private void handleProgrammingLanguageFilterSelected(){
         if(this.programingLanguagesFilterList.getSelectedValue() != null) {
 
             selectedLanguages = (ArrayList<String>) this.programingLanguagesFilterList.getSelectedValuesList();
+        }else{
+            selectedLanguages = new ArrayList<>();
         }
-
-        if(!selectedLanguages.isEmpty()){
-
-            for(int i=0; i < allSnippetsModel.getSize(); i++){
-
-                for(String selectedLanguage : selectedLanguages){
-
-                    if(allSnippetsModel.getElementAt(i).getProgramingLanguage().equals(selectedLanguage)){
-
-                        newModel.addElement(allSnippetsModel.getElementAt(i));
-                    }
-                }
-            }
-            
-            allSnippets.setModel(newModel);
-        }else {
-
-            //allSnippets.setModel(oldModel);
-            update();
-        }
+        updateList();
     }
 }
