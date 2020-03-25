@@ -2,7 +2,8 @@ package views;
 
 import classes.ColorTheme;
 import classes.Settings;
-import classes.State;
+import classes.ApplicationState;
+import classes.SnippetState;
 import globals.ColorThemes;
 import globals.Globals;
 
@@ -16,7 +17,6 @@ public class SettingsForm {
     public JPanel settingsWrapper;
     public JPanel settingsInfoWrapper;
     public JLabel settingsInfoLabel;
-    public JButton backToDashboardButton;
     public JPanel contentWrapper;
     public JPanel defaultLanguagePanel;
     public JPanel defaultColorPanel;
@@ -32,6 +32,11 @@ public class SettingsForm {
     public JTextArea categoriesTextArea;
     public JButton saveButton;
     public JPanel saveButtonWrapper;
+    public JPanel navigationWrapper;
+    public JButton dashboardButton;
+    public JButton addSnippetButton;
+    public JButton allSnippetsButton;
+    public JButton settingsButton;
 
     //added so we can keep up with the current color theme since it will change when we change it in settings
     ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
@@ -39,21 +44,14 @@ public class SettingsForm {
     public SettingsForm(){
 
         applicationName.setText(Globals.APPLICATION_NAME);
+
+        headerPanel.setBackground(colorTheme.getHeaderBackgroundColor());
+        applicationName.setForeground(colorTheme.getHeaderTextColor());
 //        applicationName.setForeground(ColorThemes.TEXT_COLOR);
 //
 //        headerPanel.setBackground(ColorThemes.HEADER_COLOR);
 //        headerPanel.setForeground(ColorThemes.TEXT_COLOR);
 
-        backToDashboardButton.addActionListener(e -> {
-            try {
-                handleBackToDashboardButton();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-        backToDashboardButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),50, 50));
-        backToDashboardButton.setText("");
-        setupOptionsButton(backToDashboardButton);
 
         for(String language : Globals.getAllProgramingLanguages()) {
             defaultLanguageComboBox.addItem(language);
@@ -72,6 +70,27 @@ public class SettingsForm {
         this.saveButton.addActionListener(e -> handleSaveButtonClick());
 
         setCurrentElements();
+        setupNavigationButtons();
+    }
+
+    private void setupNavigationButtons(){
+
+        allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),30, 30));
+        setupOptionsButton(allSnippetsButton, 50, 50);
+
+        addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),30, 30));
+        setupOptionsButton(addSnippetButton, 50, 50);
+
+        settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),30, 30));
+        setupOptionsButton(settingsButton, 50, 50);
+
+        dashboardButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),30, 30));
+        setupOptionsButton(dashboardButton, 50, 50);
+
+        allSnippetsButton.addActionListener(e -> handleAllSnippetsButton());
+        addSnippetButton.addActionListener(e -> handleAddSnippetsButton());
+        settingsButton.addActionListener(e -> handleSettingsButtonClicked());
+        dashboardButton.addActionListener(e -> handleDashboardButtonClicked());
     }
 
     private void handleSaveButtonClick(){
@@ -88,37 +107,6 @@ public class SettingsForm {
         ColorThemes.getCurrentSelectedColorTheme();
     }
 
-    private void handleBackToDashboardButton() {
-
-        Globals.currentState = State.STATE_DASHBOARD;
-        new State().changeState(Globals.currentState);
-    }
-
-    private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height){
-
-        Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imageIcon = new ImageIcon(newimg);  // transform it back_
-        return imageIcon;
-    }
-    private void setupOptionsButton(JButton optionButton){
-
-        optionButton.setBackground(Color.LIGHT_GRAY);
-        optionButton.setFocusPainted(false);
-        optionButton.setBorderPainted(true);
-        optionButton.setMinimumSize(new Dimension(80,80));
-        optionButton.setPreferredSize(new Dimension(80,80));
-
-        optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Globals.colorTheme.getOptionsButtonHoverBackgroundColor());
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(Globals.colorTheme.getOptionsButtonBackgroundColor());
-            }
-        });
-    }
 
     private void setCurrentElements(){
         this.categoriesTextArea.setText(Globals.settingsParser.getSettings().getCategories());
@@ -136,5 +124,59 @@ public class SettingsForm {
             default:
                 throw new IllegalStateException("Unexpected value: " + Globals.settingsParser.getSettings().getColorTheme());
         }
+    }
+
+    private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height){
+
+        Image image = imageIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(newimg);  // transform it back_
+        return imageIcon;
+    }
+    private void setupOptionsButton(JButton optionButton, int width, int height){
+
+        optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
+        optionButton.setFocusPainted(false);
+        optionButton.setBorderPainted(true);
+        optionButton.setMinimumSize(new Dimension(width,height));
+        optionButton.setPreferredSize(new Dimension(width,height));
+
+        optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                optionButton.setBackground(colorTheme.getOptionsButtonHoverBackgroundColor());
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
+            }
+        });
+    }
+
+    private void handleSettingsButtonClicked() {
+
+        Globals.currentState = ApplicationState.STATE_SETTINGS;
+        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
+        new ApplicationState().changeState( Globals.currentState);
+    }
+
+    private void handleAllSnippetsButton() {
+
+        Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
+        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
+        new ApplicationState().changeState( Globals.currentState);
+    }
+
+    private void handleAddSnippetsButton() {
+
+        Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
+        Globals.currentSnippetState = SnippetState.SNIPPET_ADD;
+        new ApplicationState().changeState( Globals.currentState);
+    }
+
+    private void handleDashboardButtonClicked() {
+
+        Globals.currentState = ApplicationState.STATE_DASHBOARD;
+        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
+        new ApplicationState().changeState( Globals.currentState);
     }
 }

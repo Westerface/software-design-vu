@@ -1,4 +1,4 @@
-import classes.State;
+import classes.ApplicationState;
 import globals.Globals;
 import views.DashboardForm;
 
@@ -7,7 +7,7 @@ public class Main {
 
 
         System.out.println(Main.class.getName());
-        Globals.currentState = State.STATE_DASHBOARD;
+        Globals.currentState = ApplicationState.STATE_DASHBOARD;
         Globals.setFrame(new DashboardForm().mainPanel);
     }
 }

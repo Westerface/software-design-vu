@@ -23,9 +23,9 @@ public class SnippetHelper{
         return this.allSnippets;
     }
 
-    public void updateSnippets(ArrayList<Snippet> updatedSnipptes){
+    public void updateSnippets(ArrayList<Snippet> updatedSnippets){
 
-        this.parser.updateSnippets(updatedSnipptes);
+        this.parser.updateSnippets(updatedSnippets);
     }
 
     public void deleteSnippet(Snippet snippetToBeRemoved){
@@ -57,28 +57,48 @@ public class SnippetHelper{
     * Both methods will return otdered list with snippets
     *
     */
-    public ArrayList<Snippet> getSnippetsOrderByDateAscending(){
+    public ArrayList<Snippet> getSnippetsOrderByDateAscending(ArrayList<Snippet> listToSort){
 
-        ArrayList<Snippet> snippetsOrderedByDateAscending = this.allSnippets;
-        snippetsOrderedByDateAscending.sort((snippet1, snippet2) -> {
-            if (snippet1.getDateCreated() == null || snippet2.getDateCreated() == null)
+        listToSort.sort((snippet1, snippet2) -> {
+
+            if (snippet1.getDateCreated() == null || snippet2.getDateCreated() == null){
+
                 return 0;
+            }
             return snippet1.getDateCreated().compareTo(snippet2.getDateCreated());
         });
 
-        return snippetsOrderedByDateAscending;
+        return listToSort;
     }
 
-    public ArrayList<Snippet> getSnippetsOrderByDateDescending(){
+    public ArrayList<Snippet> getSnippetsOrderByDateDescending(ArrayList<Snippet> listToSort){
 
-        ArrayList<Snippet> snippetsOrderedByDateDescending = getSnippetsOrderByDateAscending();
-        Collections.reverse(snippetsOrderedByDateDescending);
-        return snippetsOrderedByDateDescending;
+        listToSort = getSnippetsOrderByDateAscending(listToSort);
+        Collections.reverse(listToSort);
+
+        return listToSort;
     }
 
-    public ArrayList<Snippet> getSnippetsOrderByName(){
+    public ArrayList<Snippet> getSnippetsOrderByNameAscending(ArrayList<Snippet> listToSort){
 
-        return this.allSnippets;
+        listToSort.sort((snippet1, snippet2) -> {
+
+            if (snippet1.getName() == null || snippet2.getName() == null){
+
+                return 0;
+            }
+            return snippet1.getName().compareTo(snippet2.getName());
+        });
+
+        return listToSort;
+    }
+
+    public ArrayList<Snippet> getSnippetsOrderByNameDescending(ArrayList<Snippet> listToSort){
+
+        listToSort = getSnippetsOrderByNameAscending(listToSort);
+        Collections.reverse(listToSort);
+
+        return listToSort;
     }
 
     /*

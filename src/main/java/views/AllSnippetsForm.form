@@ -77,7 +77,7 @@
                 <properties>
                   <maximumSize width="50" height="50"/>
                   <minimumSize width="50" height="50"/>
-                  <opaque value="false"/>
+                  <opaque value="true"/>
                   <preferredSize width="50" height="50"/>
                   <text value=""/>
                 </properties>

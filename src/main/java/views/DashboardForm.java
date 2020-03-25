@@ -60,7 +60,7 @@ public class DashboardForm {
         setupDashboadButton(settingsButton);
         settingsButton.addActionListener(e -> handleSettingsButtonClicked());
 
-        for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending()){
+        for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending(Globals.snippetHelper.getAllSnippets())){
             recentlyAddedListModel.addElement(snippet);
         }
 
@@ -221,29 +221,29 @@ public class DashboardForm {
 
     private void handleSettingsButtonClicked() {
 
-        Globals.currentState = State.STATE_SETTINGS;
-        new State().changeState( Globals.currentState);
+        Globals.currentState = ApplicationState.STATE_SETTINGS;
+        new ApplicationState().changeState( Globals.currentState);
     }
 
     private void handleAllSnippetsButton() {
 
-        Globals.currentState = State.STATE_ADD_SNIPPET;
-        Globals.currentSnippetState = State.SNIPPET_NORMAL;
-        new State().changeState( Globals.currentState);
+        Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
+        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
+        new ApplicationState().changeState( Globals.currentState);
     }
 
     private void handleAddSnippetsButton() {
 
-        Globals.currentState = State.STATE_ADD_SNIPPET;
-        Globals.currentSnippetState = State.SNIPPET_ADD;
-        new State().changeState( Globals.currentState);
+        Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
+        Globals.currentSnippetState = SnippetState.SNIPPET_ADD;
+        new ApplicationState().changeState( Globals.currentState);
     }
 
     private void update(){
 
         recentlyAddedListModel = new DefaultListModel<>();
 
-        for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending()){
+        for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending(Globals.snippetHelper.getAllSnippets())){
             recentlyAddedListModel.addElement(snippet);
         }
 
