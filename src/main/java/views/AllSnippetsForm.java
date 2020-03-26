@@ -1,9 +1,6 @@
 package views;
 
-import classes.ColorTheme;
-import classes.Snippet;
-import classes.ApplicationState;
-import classes.SnippetState;
+import classes.*;
 import globals.ColorThemes;
 import globals.Globals;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -108,6 +105,8 @@ public class AllSnippetsForm {
         this.cancelButton.setEnabled(false);
         this.orderByDropdown.addActionListener(e -> handleOrderBySelected(this.orderByDropdown.getSelectedIndex()));
         checkCurrentSnippetState(Globals.currentSnippetState);
+        this.deleteButton.addActionListener(e -> handleDeleteButtonClicked());
+        this.copyButton.addActionListener(e -> handleCopyButtonClicked());
 
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -402,6 +401,31 @@ public class AllSnippetsForm {
         return true;
     }
 
+    private void handleDeleteButtonClicked(){
+
+        if(allSnippets.getSelectedValue() != null){
+
+            Globals.snippetHelper.deleteSnippet(allSnippets.getSelectedValue());
+            update();
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Please select a snippet before trying to delete!");
+        }
+    }
+
+    private void handleCopyButtonClicked(){
+
+        if(allSnippets.getSelectedValue() != null){
+
+            SingleClickCopy copy = new SingleClickCopy();
+            copy.copy(allSnippets.getSelectedValue().getContent());
+            JOptionPane.showMessageDialog(null, "The " + allSnippets.getSelectedValue().getName() + " snippet content was copied to the CLIPBOARD. Use CTRL+V to paste it in convenient place for you.");
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Please select a snippet before trying to delete!");
+        }
+
+    }
     private void update(){
 
         allSnippetsModel = new DefaultListModel<>();
