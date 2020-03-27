@@ -85,7 +85,7 @@ public class AllSnippetsForm {
         setupListeners();
         setupNavigationButtons();
         setupOrderByDropdown();
-
+        setupAddCopyDeleteButtons();
 
         if(!newSnippet){
 
@@ -136,6 +136,25 @@ public class AllSnippetsForm {
         this.orderByDropdown.addItem("Order by date modified"); // 4
 
         this.orderByDropdown.setBackground(Color.WHITE);
+    }
+
+    private void setupAddCopyDeleteButtons(){
+
+        this.addButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_icon.png"),30, 30));
+        //setupActionButton(this.addButton, 50, 50);
+        setupOptionsButton(this.addButton, 50, 50);
+        this.addButton.setToolTipText("Add Snippet");
+
+        this.copyButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/copy_icon.png"),30, 30));
+        //setupActionButton(this.addButton, 50, 50);
+        setupOptionsButton(this.copyButton, 50, 50);
+        this.copyButton.setToolTipText("Copy Snippet");
+
+        this.deleteButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/delete_icon.png"),30, 30));
+        //setupActionButton(this.addButton, 50, 50);
+        setupOptionsButton(this.deleteButton, 50, 50);
+        this.deleteButton.setToolTipText("Delete Snippet");
+
     }
 
     private void handleOrderBySelected(int selectedOrderType){
@@ -398,6 +417,12 @@ public class AllSnippetsForm {
             return false;
         }
 
+        if(Globals.currentSnippetState.equals(SnippetState.SNIPPET_ADD) && Globals.snippetHelper.checkNameExists(this.snippetNameTextField.getText())) {
+
+            JOptionPane.showMessageDialog(null, "Please make sure the name of the new snippet does not exist already!");
+            return false;
+        }
+
         return true;
     }
 
@@ -550,12 +575,13 @@ public class AllSnippetsForm {
 
         this.searchTextField.setEnabled(true);
         this.orderByDropdown.setEnabled(true);
-
+        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
+        newSnippet = false;
     }
 
     private void handleCancelButtonClicked(){
 
-        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
+
         checkCurrentSnippetState(Globals.currentSnippetState);
         this.allSnippets.setBackground(Color.WHITE);
         this.allSnippets.setEnabled(true);
@@ -574,9 +600,8 @@ public class AllSnippetsForm {
             changeProgramingLanguage("Text");
         }
 
-        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
         checkCurrentSnippetState(Globals.currentSnippetState);
-
+        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
         update();
     }
 

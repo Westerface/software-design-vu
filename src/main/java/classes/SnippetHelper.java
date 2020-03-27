@@ -117,6 +117,18 @@ public class SnippetHelper{
         return this.allSnippets;
     }
 
+    public boolean checkNameExists(String newSnippetName){
+
+        for(Snippet snippet : allSnippets){
+
+            if(snippet.getName().equals(newSnippetName)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public String toString(Snippet snippet) {
 
