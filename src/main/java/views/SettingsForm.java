@@ -6,6 +6,7 @@ import classes.ApplicationState;
 import classes.SnippetState;
 import globals.ColorThemes;
 import globals.Globals;
+import globals.GlobalsViews;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,17 +76,17 @@ public class SettingsForm {
 
     private void setupNavigationButtons(){
 
-        allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),30, 30));
-        setupOptionsButton(allSnippetsButton, 50, 50);
+        allSnippetsButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(allSnippetsButton, 50, 50, colorTheme);
 
-        addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),30, 30));
-        setupOptionsButton(addSnippetButton, 50, 50);
+        addSnippetButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(addSnippetButton, 50, 50, colorTheme);
 
-        settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),30, 30));
-        setupOptionsButton(settingsButton, 50, 50);
+        settingsButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(settingsButton, 50, 50, colorTheme);
 
-        dashboardButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),30, 30));
-        setupOptionsButton(dashboardButton, 50, 50);
+        dashboardButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(dashboardButton, 50, 50, colorTheme);
 
         allSnippetsButton.addActionListener(e -> handleAllSnippetsButton());
         addSnippetButton.addActionListener(e -> handleAddSnippetsButton());
@@ -124,32 +125,6 @@ public class SettingsForm {
             default:
                 throw new IllegalStateException("Unexpected value: " + Globals.settingsParser.getSettings().getColorTheme());
         }
-    }
-
-    private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height){
-
-        Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imageIcon = new ImageIcon(newimg);  // transform it back_
-        return imageIcon;
-    }
-    private void setupOptionsButton(JButton optionButton, int width, int height){
-
-        optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
-        optionButton.setFocusPainted(false);
-        optionButton.setBorderPainted(true);
-        optionButton.setMinimumSize(new Dimension(width,height));
-        optionButton.setPreferredSize(new Dimension(width,height));
-
-        optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(colorTheme.getOptionsButtonHoverBackgroundColor());
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
-            }
-        });
     }
 
     private void handleSettingsButtonClicked() {

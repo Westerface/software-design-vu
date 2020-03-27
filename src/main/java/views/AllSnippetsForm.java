@@ -3,6 +3,7 @@ package views;
 import classes.*;
 import globals.ColorThemes;
 import globals.Globals;
+import globals.GlobalsViews;
 import org.fife.ui.rsyntaxtextarea.*;
 import views.listCellRenderers.AllSnippetsCellRenderer;
 import views.listCellRenderers.FilterListCellRenderer;
@@ -140,19 +141,19 @@ public class AllSnippetsForm {
 
     private void setupAddCopyDeleteButtons(){
 
-        this.addButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_icon.png"),30, 30));
+        this.addButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/add_icon.png"),30, 30));
         //setupActionButton(this.addButton, 50, 50);
-        setupOptionsButton(this.addButton, 50, 50);
+        GlobalsViews.setupOptionsButton(this.addButton, 50, 50, colorTheme);
         this.addButton.setToolTipText("Add Snippet");
 
-        this.copyButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/copy_icon.png"),30, 30));
+        this.copyButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/copy_icon.png"),30, 30));
         //setupActionButton(this.addButton, 50, 50);
-        setupOptionsButton(this.copyButton, 50, 50);
+        GlobalsViews.setupOptionsButton(this.copyButton, 50, 50, colorTheme);
         this.copyButton.setToolTipText("Copy Snippet");
 
-        this.deleteButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/delete_icon.png"),30, 30));
+        this.deleteButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/delete_icon.png"),30, 30));
         //setupActionButton(this.addButton, 50, 50);
-        setupOptionsButton(this.deleteButton, 50, 50);
+        GlobalsViews.setupOptionsButton(this.deleteButton, 50, 50, colorTheme);
         this.deleteButton.setToolTipText("Delete Snippet");
 
     }
@@ -185,17 +186,17 @@ public class AllSnippetsForm {
 
     private void setupNavigationButtons(){
 
-        allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),30, 30));
-        setupOptionsButton(allSnippetsButton, 50, 50);
+        allSnippetsButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(allSnippetsButton, 50, 50, colorTheme);
 
-        addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),30, 30));
-        setupOptionsButton(addSnippetButton, 50, 50);
+        addSnippetButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(addSnippetButton, 50, 50, colorTheme);
 
-        settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),30, 30));
-        setupOptionsButton(settingsButton, 50, 50);
+        settingsButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(settingsButton, 50, 50, colorTheme);
 
-        dashboardButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),30, 30));
-        setupOptionsButton(dashboardButton, 50, 50);
+        dashboardButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),30, 30));
+        GlobalsViews.setupOptionsButton(dashboardButton, 50, 50, colorTheme);
 
         allSnippetsButton.addActionListener(e -> handleAllSnippetsButton());
         addSnippetButton.addActionListener(e -> handleAddSnippetsButton());
@@ -217,16 +218,7 @@ public class AllSnippetsForm {
         textArea.setCodeFoldingEnabled(true);
         textArea.setAutoIndentEnabled(true);
 
-//        InputStream in = getClass().getResourceAsStream("src/main/assets/textAreaThemes/dark.xml");
-//        try {
-//            Theme theme = Theme.load(in);
-//            theme.apply(textArea);
-//        } catch (IOException ioe) { // Never happens
-//            ioe.printStackTrace();
-//        }
-
         snippetContent.add(textArea);
-
     }
 
     private void handleSelectSnippet(){
@@ -700,36 +692,6 @@ public class AllSnippetsForm {
         }
 
         filterList();
-    }
-
-    private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height){
-
-        Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imageIcon = new ImageIcon(newimg);  // transform it back_
-
-        return imageIcon;
-    }
-    private void setupOptionsButton(JButton optionButton, int width, int height){
-
-        optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
-        optionButton.setFocusPainted(false);
-        optionButton.setBorderPainted(true);
-        optionButton.setMinimumSize(new Dimension(width,height));
-        optionButton.setPreferredSize(new Dimension(width,height));
-
-        optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-
-                optionButton.setBackground(colorTheme.getOptionsButtonHoverBackgroundColor());
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-
-                optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
-            }
-        });
     }
 
     private void handleSettingsButtonClicked() {
