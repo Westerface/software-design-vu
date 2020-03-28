@@ -5,13 +5,15 @@ import views.AllSnippetsForm;
 import views.DashboardForm;
 import views.SettingsForm;
 
+import java.io.IOException;
+
 public class ApplicationState {
 
     public static final String STATE_DASHBOARD      = "STATE_DASHBOARD";
     public static final String STATE_SETTINGS       = "STATE_SETTINGS";
     public static final String STATE_ADD_SNIPPET    = "STATE_ADD_SNIPPET";
 
-    public void changeState(String newState) {
+    public void changeState(String newState) throws IOException {
 
         Globals.currentState = newState;
         switch (newState){

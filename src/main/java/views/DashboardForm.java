@@ -3,6 +3,7 @@ package views;
 import classes.*;
 import globals.ColorThemes;
 import globals.Globals;
+import globals.GlobalsViews;
 import views.listCellRenderers.RecentlyAddedCellRenderer;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
+import java.io.IOException;
 
 public class DashboardForm {
     public JPanel mainPanel;
@@ -30,7 +32,9 @@ public class DashboardForm {
     public DefaultListModel<Snippet> recentlyAddedListModel;
     ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
 
-    public DashboardForm(){
+    private GlobalsViews globalsViews;
+
+    public DashboardForm() throws IOException {
 
         headerPannel.setBackground(colorTheme.getHeaderBackgroundColor());
         dashboardPannel.setBackground(colorTheme.getBackgroundColor());
@@ -40,7 +44,7 @@ public class DashboardForm {
         applicationName.setForeground(colorTheme.getHeaderTextColor());
 
         recentlyAddedListModel = new DefaultListModel<>();
-
+        globalsViews = new GlobalsViews();
         setupDashboard();
     }
 
@@ -48,17 +52,35 @@ public class DashboardForm {
 
         dashboardPannel.setBackground(colorTheme.getPanelBackgroundColor());
 
-        allSnippetsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),120, 120));
-        setupDashboadButton(allSnippetsButton);
-        allSnippetsButton.addActionListener(e -> handleAllSnippetsButton());
+        allSnippetsButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getSettingsIcon(),120, 120));
+        globalsViews.setupButtonVisual(allSnippetsButton, 150, 150, colorTheme, true);
+        allSnippetsButton.addActionListener(e -> {
+            try {
+                handleAllSnippetsButton();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        addSnippetButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),120, 120));
-        setupDashboadButton(addSnippetButton);
-        addSnippetButton.addActionListener(e -> handleAddSnippetsButton());
+        addSnippetButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getAddSnippetIcon(),120, 120));
+        globalsViews.setupButtonVisual(addSnippetButton, 150, 150, colorTheme, true);
+        addSnippetButton.addActionListener(e -> {
+            try {
+                handleAddSnippetsButton();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        settingsButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),120, 120));
-        setupDashboadButton(settingsButton);
-        settingsButton.addActionListener(e -> handleSettingsButtonClicked());
+        settingsButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getSettingsIcon(),120, 120));
+        globalsViews.setupButtonVisual(settingsButton, 150, 150, colorTheme, true);
+        settingsButton.addActionListener(e -> {
+            try {
+                handleSettingsButtonClicked();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         for(Snippet snippet : Globals.snippetHelper.getSnippetsOrderByDateDescending(Globals.snippetHelper.getAllSnippets())){
             recentlyAddedListModel.addElement(snippet);
@@ -85,13 +107,13 @@ public class DashboardForm {
                     JButton copyButton = new JButton("Copy");
                     JButton deleteButton = new JButton("Delete");
 
-                    editButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/edit_icon.png"),50, 50));
-                    copyButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/copy_icon.png"),50, 50));
-                    deleteButton.setIcon(getScaledImageIcons(new ImageIcon("src/main/assets/delete_icon.png"),50, 50));
+                    editButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getEditIcon(),50, 50));
+                    copyButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getCopyIcon(),50, 50));
+                    deleteButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getDeleteIcon(),50, 50));
 
-                    setupOptionsButton(editButton);
-                    setupOptionsButton(copyButton);
-                    setupOptionsButton(deleteButton);
+                    globalsViews.setupButtonVisual(editButton, 80, 80, colorTheme, false);
+                    globalsViews.setupButtonVisual(copyButton, 80, 80, colorTheme, false);
+                    globalsViews.setupButtonVisual(deleteButton, 80, 80, colorTheme, false);
 
                     //Add eventListeners
                     deleteButton.addActionListener(e -> handleDeleteButtonPressed(optionsDialog, index));
@@ -113,66 +135,6 @@ public class DashboardForm {
             }
         });
     }
-
-
-    private ImageIcon getScaledImageIcons(ImageIcon imageIcon, int width, int height){
-
-        Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imageIcon = new ImageIcon(newimg);  // transform it back_
-        return imageIcon;
-    }
-
-    private void setupDashboadButton(JButton dashboardButton){
-
-        dashboardButton.setBackground(colorTheme.getDashboardButtonBackgroundColor());
-        dashboardButton.setHorizontalTextPosition(JLabel.CENTER);
-        dashboardButton.setVerticalTextPosition(JLabel.BOTTOM);
-        dashboardButton.setForeground(colorTheme.getDashboardButtonTextColor());
-        dashboardButton.setFocusPainted(false);
-        dashboardButton.setBorderPainted(true);
-        dashboardButton.setBorder(BorderFactory.createLineBorder(colorTheme.getDashboardButtonBorderColor(), 4));
-
-        dashboardButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dashboardButton.setBackground(colorTheme.getDashboardButtonHoverBackgroundColor());
-                dashboardButton.setBorder(BorderFactory.createLineBorder(colorTheme.getDashboardButtonHoverBorderColor(), 4));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                dashboardButton.setBackground(colorTheme.getDashboardButtonBackgroundColor());
-                dashboardButton.setBorder(BorderFactory.createLineBorder(colorTheme.getDashboardButtonBorderColor(), 4));
-            }
-        });
-    }
-
-    private void setupOptionsButton(JButton optionButton){
-
-        optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
-        optionButton.setHorizontalTextPosition(JLabel.CENTER);
-        optionButton.setVerticalTextPosition(JLabel.BOTTOM);
-        optionButton.setForeground(colorTheme.getOptionsButtonTextColor());
-        optionButton.setFocusPainted(false);
-        optionButton.setBorderPainted(true);
-        optionButton.setFont(new Font("Andale Mono", Font.BOLD, 14));
-        optionButton.setBorder(BorderFactory.createLineBorder(colorTheme.getOptionsButtonBorderColor(), 2));
-        optionButton.setMinimumSize(new Dimension(80,80));
-        optionButton.setPreferredSize(new Dimension(80,80));
-
-        optionButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(colorTheme.getOptionsButtonHoverBackgroundColor());
-                optionButton.setBorder(BorderFactory.createLineBorder(colorTheme.getOptionsButtonHoverBorderColor(), 2));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                optionButton.setBackground(colorTheme.getOptionsButtonBackgroundColor());
-                optionButton.setBorder(BorderFactory.createLineBorder(colorTheme.getOptionsButtonBorderColor(), 2));
-            }
-        });
-    }
-
-
 
     private void setOptionsDialogSettings(JDialog optionsDialog){
         optionsDialog.pack();
@@ -219,20 +181,20 @@ public class DashboardForm {
         optionsDialog.dispose();
     }
 
-    private void handleSettingsButtonClicked() {
+    private void handleSettingsButtonClicked() throws IOException {
 
         Globals.currentState = ApplicationState.STATE_SETTINGS;
         new ApplicationState().changeState( Globals.currentState);
     }
 
-    private void handleAllSnippetsButton() {
+    private void handleAllSnippetsButton() throws IOException {
 
         Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
         Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
         new ApplicationState().changeState( Globals.currentState);
     }
 
-    private void handleAddSnippetsButton() {
+    private void handleAddSnippetsButton() throws IOException {
 
         Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
         Globals.currentSnippetState = SnippetState.SNIPPET_ADD;
@@ -249,7 +211,6 @@ public class DashboardForm {
 
         this.recentlyAddedListView.setModel(recentlyAddedListModel);
     }
-
 
 }
 

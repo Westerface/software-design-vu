@@ -9,7 +9,7 @@ import globals.Globals;
 import globals.GlobalsViews;
 
 import javax.swing.*;
-import java.awt.*;
+import java.io.IOException;
 
 public class SettingsForm {
     public JPanel mainPanel;
@@ -39,20 +39,17 @@ public class SettingsForm {
     public JButton allSnippetsButton;
     public JButton settingsButton;
 
-    //added so we can keep up with the current color theme since it will change when we change it in settings
     ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
+    private GlobalsViews globalsViews;
 
-    public SettingsForm(){
+    public SettingsForm() throws IOException {
 
+        globalsViews = new GlobalsViews();
+        globalsViews.setupNavigationButtons(allSnippetsButton, addSnippetButton,  settingsButton, dashboardButton,colorTheme);
         applicationName.setText(Globals.APPLICATION_NAME);
 
         headerPanel.setBackground(colorTheme.getHeaderBackgroundColor());
         applicationName.setForeground(colorTheme.getHeaderTextColor());
-//        applicationName.setForeground(ColorThemes.TEXT_COLOR);
-//
-//        headerPanel.setBackground(ColorThemes.HEADER_COLOR);
-//        headerPanel.setForeground(ColorThemes.TEXT_COLOR);
-
 
         for(String language : Globals.getAllProgramingLanguages()) {
             defaultLanguageComboBox.addItem(language);
@@ -71,27 +68,6 @@ public class SettingsForm {
         this.saveButton.addActionListener(e -> handleSaveButtonClick());
 
         setCurrentElements();
-        setupNavigationButtons();
-    }
-
-    private void setupNavigationButtons(){
-
-        allSnippetsButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/snippets_icon.png"),30, 30));
-        GlobalsViews.setupOptionsButton(allSnippetsButton, 50, 50, colorTheme);
-
-        addSnippetButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/add_snippet_icon.png"),30, 30));
-        GlobalsViews.setupOptionsButton(addSnippetButton, 50, 50, colorTheme);
-
-        settingsButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/settings_icon.png"),30, 30));
-        GlobalsViews.setupOptionsButton(settingsButton, 50, 50, colorTheme);
-
-        dashboardButton.setIcon(GlobalsViews.getScaledImageIcons(new ImageIcon("src/main/assets/menu_icon.png"),30, 30));
-        GlobalsViews.setupOptionsButton(dashboardButton, 50, 50, colorTheme);
-
-        allSnippetsButton.addActionListener(e -> handleAllSnippetsButton());
-        addSnippetButton.addActionListener(e -> handleAddSnippetsButton());
-        settingsButton.addActionListener(e -> handleSettingsButtonClicked());
-        dashboardButton.addActionListener(e -> handleDashboardButtonClicked());
     }
 
     private void handleSaveButtonClick(){
@@ -125,33 +101,5 @@ public class SettingsForm {
             default:
                 throw new IllegalStateException("Unexpected value: " + Globals.settingsParser.getSettings().getColorTheme());
         }
-    }
-
-    private void handleSettingsButtonClicked() {
-
-        Globals.currentState = ApplicationState.STATE_SETTINGS;
-        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
-        new ApplicationState().changeState( Globals.currentState);
-    }
-
-    private void handleAllSnippetsButton() {
-
-        Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
-        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
-        new ApplicationState().changeState( Globals.currentState);
-    }
-
-    private void handleAddSnippetsButton() {
-
-        Globals.currentState = ApplicationState.STATE_ADD_SNIPPET;
-        Globals.currentSnippetState = SnippetState.SNIPPET_ADD;
-        new ApplicationState().changeState( Globals.currentState);
-    }
-
-    private void handleDashboardButtonClicked() {
-
-        Globals.currentState = ApplicationState.STATE_DASHBOARD;
-        Globals.currentSnippetState = SnippetState.SNIPPET_NORMAL;
-        new ApplicationState().changeState( Globals.currentState);
     }
 }
