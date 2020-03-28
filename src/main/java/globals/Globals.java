@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Globals {
 
     public static final String APPLICATION_NAME = "Coniunx";
+    public static String folderPath = "";
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     public static String currentState = "";
     public static SnippetHelper snippetHelper = new SnippetHelper();
