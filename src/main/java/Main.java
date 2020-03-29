@@ -1,8 +1,12 @@
 import classes.ApplicationState;
 import globals.Globals;
+import globals.GlobalsFilesPath;
 import views.DashboardForm;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main {
 
@@ -10,23 +14,18 @@ public class Main {
 
     public static void main (String[] args) throws IOException {
 
-        if(args[0].equals("-p") || args[0].equals("--path")){
+        if(args.length > 1  && (args[0].equals("-p") || args[0].equals("--path"))){
 
-            Globals.folderPath = setUpFolderPath(args[1]);
-            System.out.println("FOLDER: " + Globals.folderPath);
+            GlobalsFilesPath.folderPath = setUpFolderPath(args[1]);
+            //System.out.println("FOLDER: " + GlobalsFilesPath.folderPath);
             Globals.currentState = ApplicationState.STATE_DASHBOARD;
             Globals.setFrame(new DashboardForm().mainPanel);
 
         } else {
 
-            System.out.println(
-                    "Please provide the path of the JSON files adding:\n " +
-                    "-p \"<path to json folder>\"\n" +
-                    "or\n" +
-                    "-path \"<path to json folder>\"\n"
-            );
-
-            System.exit(0);
+            GlobalsFilesPath.folderPath = setUpFolderPath(System.getProperty("user.home"));
+            Globals.currentState = ApplicationState.STATE_DASHBOARD;
+            Globals.setFrame(new DashboardForm().mainPanel);
         }
 
     }

@@ -3,6 +3,7 @@ package classes;
 import dataParsing.SnippetsParser;
 import globals.Globals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,7 +13,7 @@ public class SnippetHelper{
     private SnippetsParser parser;
     private ArrayList<Snippet> allSnippets;
 
-    public SnippetHelper(){
+    public SnippetHelper() throws IOException {
 
         this.parser = new SnippetsParser();
         this.allSnippets = parser.getAllSnippets();

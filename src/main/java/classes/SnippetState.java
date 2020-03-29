@@ -19,7 +19,7 @@ public class SnippetState {
 
     public static ArrayList<Snippet> getCurrentSnippetList(ArrayList<Snippet> snippetsFromList){
         ArrayList<Snippet> snippets = new ArrayList<>();
-        System.out.println("getSnippets");
+        //System.out.println("getSnippets");
 //        if(!Globals.isFilterSelected){
 //            snippets = Globals.snippetHelper.getAllSnippets();
 //            return snippets;
@@ -27,26 +27,26 @@ public class SnippetState {
             switch (Globals.currentSnippetOrder){
                 case SNIPPET_ORDER_NAME_ASCENDING:
                     snippets = Globals.snippetHelper.getSnippetsOrderByNameAscending(snippetsFromList);
-                    System.out.println("NameA");
+                    //System.out.println("NameA");
                     return snippets;
                  case SNIPPET_ORDER_NAME_DESCENDING:
                     snippets = Globals.snippetHelper.getSnippetsOrderByNameDescending(snippetsFromList);
-                     System.out.println("NameD");
+                     //System.out.println("NameD");
                     return snippets;
                 case SNIPPET_ORDER_DATE_ASCENDING:
                     snippets = Globals.snippetHelper.getSnippetsOrderByDateAscending(snippetsFromList);
-                    System.out.println("DateA");
+                    //System.out.println("DateA");
                     return snippets;
                 case SNIPPET_ORDER_DATE_DESCENDING:
                     snippets = Globals.snippetHelper.getSnippetsOrderByDateDescending(snippetsFromList);
-                    System.out.println("DateD");
+                    //System.out.println("DateD");
                     return snippets;
                 case SNIPPET_ORDER_DATE_MODIFIED:
                     snippets = Globals.snippetHelper.getSnippetsOrderByDateDescending(snippetsFromList);
                     return snippets;
                 default:
                     snippets = Globals.snippetHelper.getAllSnippets();
-                    System.out.println("DEF");
+                    //System.out.println("DEF");
                     return snippets;
             }
 //        }

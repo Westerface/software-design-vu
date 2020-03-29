@@ -52,7 +52,7 @@ public class DashboardForm {
 
         dashboardPannel.setBackground(colorTheme.getPanelBackgroundColor());
 
-        allSnippetsButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getSettingsIcon(),120, 120));
+        allSnippetsButton.setIcon(globalsViews.getScaledImageIcons(globalsViews.getSnippetsIcon(),120, 120));
         globalsViews.setupButtonVisual(allSnippetsButton, 150, 150, colorTheme, true);
         allSnippetsButton.addActionListener(e -> {
             try {
@@ -164,20 +164,20 @@ public class DashboardForm {
 
     private void handleDeleteButtonPressed(JDialog optionsDialog, int index){
 
-        System.out.println("DeletePresses");
+        //System.out.println("DeletePresses");
 
         Globals.snippetHelper.deleteSnippet(this.recentlyAddedListModel.elementAt(index));
         this.update();
-        System.out.println("ListUpdated");
+        //System.out.println("ListUpdated");
         optionsDialog.dispose();
     }
 
     private void handleCopyButtonPressed(JDialog optionsDialog, int index){
 
-        System.out.println("CopyPressed");
+        //System.out.println("CopyPressed");
         SingleClickCopy copyHelper = new SingleClickCopy();
         copyHelper.copy(this.recentlyAddedListModel.elementAt(index).getContent());
-        System.out.println("ContentCopied");
+        //System.out.println("ContentCopied");
         optionsDialog.dispose();
     }
 

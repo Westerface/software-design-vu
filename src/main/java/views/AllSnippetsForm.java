@@ -98,20 +98,39 @@ public class AllSnippetsForm {
         }
     }
 
-    private void setupListeners(){
+    private void setupListeners() throws IOException {
 
         this.snippetLanguageDropdown.addActionListener(e -> changeProgramingLanguage(String.valueOf(this.snippetLanguageDropdown.getSelectedItem())));
-        this.saveSnippetButton.addActionListener(e -> handleSaveSnippet());
         this.allSnippets.addListSelectionListener(e -> handleSelectSnippet());
-        this.addButton.addActionListener(e -> handleAddButtonClicked());
-        this.cancelButton.addActionListener(e -> handleCancelButtonClicked());
         this.categoriesFilterList.addListSelectionListener(e -> handleCategoryFilterSelected());
         this.programingLanguagesFilterList.addListSelectionListener(e -> handleProgrammingLanguageFilterSelected());
         this.cancelButton.setEnabled(false);
         this.orderByDropdown.addActionListener(e -> handleOrderBySelected(this.orderByDropdown.getSelectedIndex()));
-        checkCurrentSnippetState(Globals.currentSnippetState);
         this.deleteButton.addActionListener(e -> handleDeleteButtonClicked());
         this.copyButton.addActionListener(e -> handleCopyButtonClicked());
+
+        this.addButton.addActionListener(e -> {
+            try {
+                handleAddButtonClicked();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        this.saveSnippetButton.addActionListener(e -> {
+            try {
+                handleSaveSnippet();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        this.cancelButton.addActionListener(e -> {
+            try {
+                handleCancelButtonClicked();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        checkCurrentSnippetState(Globals.currentSnippetState);
 
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -163,7 +182,7 @@ public class AllSnippetsForm {
     }
 
     private void handleOrderBySelected(int selectedOrderType){
-        System.out.println(selectedOrderType);
+        //System.out.println(selectedOrderType);
         switch (selectedOrderType) {
             case 0:
                 Globals.currentSnippetOrder = SnippetState.SNIPPET_ORDER_NAME_ASCENDING;
@@ -188,7 +207,7 @@ public class AllSnippetsForm {
         }
     }
 
-    private void createTextArea(){
+    private void createTextArea() throws IOException {
 
         if(Globals.settingsParser.getSettings().getDefaultLanguage() != null && Globals.settingsParser.getSettings().getDefaultLanguage().length() > 0){
 
@@ -246,7 +265,7 @@ public class AllSnippetsForm {
         this.snippetLanguageDropdown.setBackground(Color.WHITE);
     }
 
-    public void createFilters(){
+    public void createFilters() throws IOException {
 
         DefaultListModel<String> programingLanguages = new DefaultListModel<>();
 
@@ -337,7 +356,7 @@ public class AllSnippetsForm {
         }
     }
 
-    private void handleSaveSnippet(){
+    private void handleSaveSnippet() throws IOException {
 
         if(!this.validateData()){
 
@@ -485,13 +504,13 @@ public class AllSnippetsForm {
     }
 
     
-    private void handleAddButtonClicked(){
+    private void handleAddButtonClicked() throws IOException {
 
         Globals.currentSnippetState = SnippetState.SNIPPET_ADD;
         checkCurrentSnippetState(Globals.currentSnippetState);
     }
 
-    private void checkCurrentSnippetState(String snippetState){
+    private void checkCurrentSnippetState(String snippetState) throws IOException {
 
         switch (snippetState){
             case SnippetState.SNIPPET_ADD:
@@ -509,7 +528,7 @@ public class AllSnippetsForm {
         }
     }
 
-    public void addSnippetState(){
+    public void addSnippetState() throws IOException {
 
         this.newSnippet = true;
         this.allSnippets.clearSelection();
@@ -555,7 +574,7 @@ public class AllSnippetsForm {
         newSnippet = false;
     }
 
-    private void handleCancelButtonClicked(){
+    private void handleCancelButtonClicked() throws IOException {
 
 
         checkCurrentSnippetState(Globals.currentSnippetState);

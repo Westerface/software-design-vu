@@ -40,6 +40,7 @@ public class SettingsForm {
     public JButton settingsButton;
 
     ColorTheme colorTheme = ColorThemes.getCurrentSelectedColorTheme();
+
     private GlobalsViews globalsViews;
 
     public SettingsForm() throws IOException {
@@ -85,7 +86,7 @@ public class SettingsForm {
     }
 
 
-    private void setCurrentElements(){
+    private void setCurrentElements() throws IOException {
         this.categoriesTextArea.setText(Globals.settingsParser.getSettings().getCategories());
         this.defaultLanguageComboBox.setSelectedItem(Globals.settingsParser.getSettings().getDefaultLanguage());
         switch (Globals.settingsParser.getSettings().getColorTheme()){

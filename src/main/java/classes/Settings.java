@@ -10,8 +10,8 @@ public class Settings {
 
     public Settings(){
 
-        this.defaultLanguage = "";
-        this.colorTheme = "thePink";
+        this.defaultLanguage = "Text";
+        this.colorTheme = "THE_GREEN";
         this.categories = "";
     }
 
