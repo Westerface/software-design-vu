@@ -455,18 +455,31 @@ Setting the values of the elements of teh screen.
 ## Object diagrams								
 Author(s): `Dimitar Georgiev, Iva Dimtirova, Stoyan Tsinov, Klimis Tsakiridis`
 
-Above you can find our object diagram. In some cases such as in the ApplicationState class, we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg:\
+Above you can find our object diagram. 
+In some cases such as in the ApplicationState class, we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg:\
+
 `Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);`\
+
 Here we are just using the `main panel` in order to repaint the current main from the panel. Since the mainPanel is public and we can access it like that we decided that storing it in the memory is a bit of overkill.\
+
 Furthermore, in the following paragraphs we will explain the logic behind why we create and how we use the created objects.\
+
 The main method is using the `ApplicationState` class in order to change the view and show the Dashboard screen. As discussed in Assignment 1 this will be our starting point. The `ApplicationState` class is using the changeState method to display the freshly created Dashboard panel.\
+
 The Dashboard screen contains a JList that will be populated with the `RecentlyAddedCellRenderer`. This object will draw the item per list row. When we double click we will get the option to edit/delete/copy a snippet and change the currentSnippetState in Globals. Both edit and copy functions are part of the `SnippetHelper` class which is instantiated only once in the Globals as static so we can use it any time we need to perform manipulations of the snippets. Since we have the copy to clipboard feature moved to a different class, we also create an object from it in order to use the copy method.\
+
 The class `DashboardForm` contains one class of instance `SnippetState`. The class sets the `currentSnippetState` in `Globals` accordingly in case the “All Snippets” or “Add snippet” button is activated. \
+
 The `Globals` class contains all objects and methods that are used more than once but need to be initialized only once in order to prevent any confusions of the system. It contains objects from type: `SnippetParser`, `SnippetHelper`, `SimpleDateFormat` and `JFrame`. All of the mentioned objects are accessed more than once, thus the access is static.\
+
 The `SnippetHelper` class contains a `SnippetParser` which will provide all of the snippets. The `SnippetParser` is initialized only once in order to make sure that we have only one instance of the snippets list. The helper contains a single instance of an `ArrayList<Snippet>`. This list is used in order to complete the desired snippet manipulations. When manipulation is requested this list will be the base for it, Depending on the manipulation a new updated list will be returned as a result. The new list will be used from the GUI to display the result from the search for example. The only exception is when we add/delete/edit snippets which we will use the object selected from the new list and add/edit/delete from the original list fetched from the parser. Doing so we will synchronize both lists to contain up to date objects as well as keep the `snippets.json` file up to date, since to reduce the chance of data loss we will update the file on every add/edit/delete request.\
+
 The `SettingsForm` contains an instance of the settings that are located in the `Globals`. When the user changes the settings we will use this reference and access the `SettingsParser` in order to update the new settings.\
+
 The `AllSnippetsForm` class contains `DefaultListModel` from type Snippet that will provide the data for the `AllSnippetCellRenderer` to create the all snippets list. The snippets will be taken from the `Globals.snippetHelper.getAllSnippets()` and will be populated in the `JList`. Moreover, The filters used have a custom made cell render as well in order for the items to selectable more than one at the time without refreshing the whole JList. The list is using an instance of `AllSnippetsCallRenderer` to accomplish this. The `currentSnippetOrder` object in Globals is responsible to keep the snippet order which the user has most recently chosen.\
-The SnippetParser will use the `Gson` object that is part of the `Gson` library and serialize or deserialize the snippets. The `gsonObject` uses the dateFormat object that will set the date format to the date when the snippet is formatted. Since we are sure the `snippets.json` file will contain a list with snippets we have to make sure that we note that to the `Gson` object in order to be able to parse the data properly. This is done by extracting the class type from the list using the `snippetListType` object.
+
+The SnippetParser will use the `Gson` object that is part of the `Gson` library and serialize or deserialize the snippets. The `gsonObject` uses the dateFormat object that will set the date format to the date when the snippet is formatted. Since we are sure the `snippets.json` file will contain a list with snippets we have to make sure that we note that to the `Gson` object in order to be able to parse the data properly. This is done by extracting the class type from the list using the `snippetListType` object.\
+
 The `SettingsParser` has the same logic as the SnippetParser with the difference that we do not use the type object since the settings can be only one. The data is handled with the same `Gson` library.
 
 
