@@ -15,7 +15,7 @@ public class SnippetHelper{
 
     public SnippetHelper() throws IOException {
 
-        this.parser = new SnippetsParser();
+        this.parser = SnippetsParser.getInstance();
         this.allSnippets = parser.getAllSnippets();
     }
 
@@ -100,22 +100,6 @@ public class SnippetHelper{
         Collections.reverse(listToSort);
 
         return listToSort;
-    }
-
-    /*
-     *
-     * Filtering of the snippets
-     * Both methods will return filtered list with snippets
-     *
-     */
-    public ArrayList<Snippet> getSnippetsFilteredByLanguage(String filterLanguage){
-
-        return this.allSnippets;
-    }
-
-    public ArrayList<Snippet> getSnippetsFilteredByCategory(ArrayList<String> categories){
-
-        return this.allSnippets;
     }
 
     public boolean checkNameExists(String newSnippetName){

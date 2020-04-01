@@ -17,10 +17,17 @@ public class SettingsParser {
     private String filePath;
     Settings settings;
 
-    public SettingsParser() {
+    private final static SettingsParser parser = new SettingsParser() ; //early init
+
+    private SettingsParser () {
         gsonObject = new Gson();
         this.filePath = GlobalsFilesPath.folderPath + "settings.json";
         this.settings = new Settings();
+    }
+
+
+    public static SettingsParser getInstance() {
+        return parser;
     }
 
     public Settings getSettings() throws IOException {

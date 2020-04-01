@@ -13,7 +13,7 @@ public class Globals {
     public static final String APPLICATION_NAME = "Coniunx";
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     public static String currentState = "";
-    public static SettingsParser settingsParser = new SettingsParser();
+    public static SettingsParser settingsParser = SettingsParser.getInstance();
     public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
     public static String currentSnippetState = SnippetState.SNIPPET_NORMAL;
     public static String currentSnippetOrder = SnippetState.SNIPPET_ORDER_NAME_ASCENDING;

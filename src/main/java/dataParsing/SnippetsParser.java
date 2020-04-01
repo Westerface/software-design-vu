@@ -1,11 +1,9 @@
 package dataParsing;
 
-import classes.Settings;
 import classes.Snippet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import globals.Globals;
 import globals.GlobalsFilesPath;
 
 import java.io.*;
@@ -19,11 +17,19 @@ public class SnippetsParser {
     Type snippetListType;
     ArrayList<Snippet> snippetList;
 
-    public SnippetsParser() {
+
+    private final static SnippetsParser parser = new SnippetsParser() ; //early init
+
+    private SnippetsParser () {
         this.gsonObject = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
         this.filePath = GlobalsFilesPath.folderPath + "snippets.json";
         this.snippetListType = new TypeToken<ArrayList<Snippet>>(){}.getType();
         this.snippetList = new ArrayList<>();
+    }
+
+
+    public static SnippetsParser getInstance() {
+        return parser;
     }
 
     public ArrayList<Snippet> getAllSnippets() throws IOException {
