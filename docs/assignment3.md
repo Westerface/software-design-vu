@@ -475,16 +475,66 @@ The `SettingsParser` has the same logic as the SnippetParser with the difference
 ## State machine diagrams									
 Author(s): `Dimitar Georgiev, Iva Dimtirova, Stoyan Tsinov, Klimis Tsakiridis`
 
-This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
+***State machine diagrams***
+In this section we are going to describe two states of our program. Alongside the description there are also 2 UML state machine diagrams to help the user better comprehend how our application works. The two states we are going to describe are the ‘Add Snippet’ state and the ‘Edit snippet’ state.
 
-For each state machine you have to provide:
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities, etc. in a narrative manner (you do not need to structure your description into tables in this case). We expect 3-4 lines of text for describing trivial or very simple state machines (e.g., those with one to three states), whereas you will provide longer descriptions (e.g., ~500 words) when describing more complex state machines.
+***Description of ‘Add Snippet’ state***
 
-The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
+`Figure representing the State Add snippet`\
+![Image of State Diagram](diagrams/assignment3/addsnippet_assignment3.png)
 
-Maximum number of words for this section: 4000
+To enter any state in our program the user first needs to open the application. This will take him to the Dashboard screen which is populated with various elements.
+
+In the Dashboard there is an option called ‘Add Snippet’. Clicking this option the program changes state and the user is now witnessing with a different interface.
+
+First we will describe what the interface looks like in this state. On the left side of the screen there is an empty searching bar, where the user can input the name of the snippet he is searching for. Underneath this bar there are two filter areas with click boxes. In the first table, the user has the option to use a programming language filter. Checkboxes are available for increased functionality. Various commonly used programming languages are previewed here such as C++, Java, Python etc. Using this filter the user ensures that the corresponding results will be snippets written with one of these language formats. The user also has the ability to check multiple boxes, thus making the program search for snippets of different languages. This is an implementation that was made in our final edition of our software.
+
+The second table, enables the user to filter his searching by category. This feature is a bit more vague. Upon creation of a snippet, the user is able to indicate what type of category his snippet is. Some examples could be formal, custom, tutorial etc. This way we provide our program with an extra feature and functionality. Our goal is to give the user the feeling that our snippet manager is as efficient as possible and provides him with all the features he would need. Again, check-boxes are used here to preview the objects, and once more the user can check multiple boxes for a more complex research.
+
+One of the most useful features of our software in terms of searching for snippets, is the ability to combine these two filters. The user has the option to choose from filters of both tables at the same time, creating an even more advanced research through the snippet list.
+
+These two cover the left part of the screen. On their right side there is a table that lists the existing snippets. Using the searching bar changes the look of this table. Whenever the user clicks on a snippet, its content is expanded in the text editor.
+
+On the left of the screen, and to the left side of the filter tables, there are four navigation buttons. The first button is dashboard and what it does is take the user back to the main interface of the program. The second one is add snippet. It takes the user to the page we are explaining now, with all the elements that are explained before and will be explained next. The third one is all snippets, which shows the user a list of the existing snippets. Finally, the button settings enables the user to choose between different theme colors. 
+
+On the top right, above the text editor there are three other buttons. Those are related to the text editor and are the add, edit and delete button. The add button lets the user create a new snippet. The same button exists in the dashboard as well and takes the program to the ‘Add snippet’ state which we are describing. The second button is the edit snippet. Pressing it allows the user to edit an existing snippet. Finally, the last button which is also different from the others (this one is red) is the delete button. Pressing this allows the user to delete a snippet. 
+
+The text editor covers more than half of the screen and lives in the right side of the screen. This is where the user can create new snippets, preview the contents of a selected snippet or edit an existing one. The text editor table has three empty bars at its top. These need to be filled in order for a new snippet to be created. The details the user has to fill are name, programming language and category. Underneath these bars there is an empty text editor field where the user can write his code. Our text editor also has text recognition. At the bottom of the text editor there is a wide ‘save’ button that saves the changes in the snippet; be it the creation of a new snippet or the editing of an already existing one.
+
+To enter the ‘Add snippet’ state the user has to press on the corresponding button from the Dashboard. That will take him to the interface described above. All the snippets will be previewed in the snippet list and all the filters will be disabled. The text editing area is blank and there are two buttons at its bottom; cancel and save.
+
+For the creation of a new snippet, the details described above need to be filled. However, out of the three labels, only the name is mandatory at this point. Programming language as well as category can be left blank. If a certain programming language is not chosen then the program will be default select ‘TEXT’. After this step, the user enters the blank text editing area to implement his snippet. There needs to be something here as well. This area cannot be blank, as the program will check for it before saving the snippet and the process will not be completed. In the case where one of name or text editing areas are blank, the program will throw a message to the user. This was also one of our latest implementations because we wanted to let the user know specifically what the issue is. The message varies depending on the situation. In case the name is already existent the message is “name already exists”. If the text editor is empty upon saving the snippet the message is “content empty”. Finally, if the name area is empty the message is “name empty”.
+
+Cancel is one of the two buttons on the bottom of the text editor. When it is pressed, both filter tables are activated. In addition to that, the snippets’ list is also activated. While writing in the text editor, these two features are deactivated and locked; they cannot be accessed. So, cancel removes all the previous work done; the name is removed and the name field is blank, programming language field resets and returns to ‘TEXT’ and the category as well as the text editing area are also cleared. It is important to note that the application does not crash when cancel is pressed. It keeps working as normal, certain features are just unlocked. 
+
+The other button is ‘Save’. When clicking ‘Save’ the program initiates checking if the details needed are correctly filled. This means that it ensures that a name for the snippet exists as well as the content is not empty. Then a new snippet is created. This snippet carries the data that were filled in the previous procedure. After that, the public class Globals is invoked. This is done in order to access the SnippetHelper. Through the SnippetHelper the program accesses the SnippetParser. The SnippetParser is used to add the new snippet in the list, as well as to pass the updated list to the update function.  The update function then converts the snippet objects to a JSON format and saves the JSON converted snippet in the file.
+
+***Description of ‘Edit Snippets’ state:***
+
+`Figure representing the Edit snippets (we consider manumulations in general as part of this state)`\
+![Image of State Diagram](diagrams/assignment3/editsnippets_assignment3.png)
+\
+The second state we are going to describe is ‘Edit Snippets’. 
+
+The first thing a user has to do is again, open the application. Doing so is getting him to the Dashboard state. Next, the user has to choose Add Snippet. This will unlock and enable the ‘All Snippets’ screen. Through the ‘All Snippets’ state the user can perform a series of activities such as sorting, searching, editing, adding or deleting a snippet. In that screen there are lists of filters as well as a list of Snippets. The text editor, which is on the left of the screen will be automatically filled with the chosen snippet. If the user chooses another snippet then its content as well as details (name, programing language) will be filled in the corresponding blank spaces on top of the text editor. Finally, at the bottom of the editor there is the ‘Save’ button. Any changes made, followed by a click on the save button will automatically update the current snippet. 
+
+When editing a snippet there are certain steps that need to be followed in order for the process to be successfully completed.
+
+Firstly, the name needs to be edited. This does not necessarily mean that the name needs to be changed. It means that the user has to make sure that a name for the snippet exists. Otherwise the process cannot be completed. In the naming process of a snippet two types of error might occur. The first is that the same name is already taken by another snippet. In that case an error message saying “name already exists” will pop. The second case is, as described before, the field for the name to be empty. The error message in this case will be “name empty” forcing the user to fill in a name in order to complete the process.
+
+The next data field is programming language. As in the ‘Add snippets’ state, this field can be left blank, in which case it will automatically be filled with the option ‘TEXT’, or not changed and hence inherit the previous programming language preference stated in that snippet. 
+
+In addition to programming language, category field can also be left unchanged. Again, the previous data will be preserved, if there was any.
+
+The previous two fields do not feel as mandatory as a name or the snippet’s content (which follows next). That is why we decided to not handle this with another error message of some sorts. 
+
+Finally, there is the content of the snippet. This is another mandatory field, that needs not be empty. So the user can either write new stuff down, edit some of the existing, or entirely change the content of the snippet. If the case is that the content of a snippet is left empty, an exception is thrown in the code and the user receives an error message saying “content empty” letting the user know that he needs to write something in order to proceed with saving the currently opened snippet. 
+
+When the user is done editing the snippet, the next he needs to do in order to complete the process is save his changes. Pressing save will cause the program to go through a number of steps. Validation of the data is the first step. That means that a check will be performed in order to ensure that a name does exist for the snippet and the content is not empty. Then the selected snippet object is taken from the Datamodel of the `JList` and is passed as a parameter inside Globals’ SnippetHelper. SnippetHelper  method has multiple functionalities. It can add a snippet, search, delete or edit. Searching can also be more complex and involve various filters as mentioned in the first section of this report. The snippets have their characteristics saved in a json files and each snippet has the same labels filled in. When the user performs a search for a specific programming language, say C++ for example, the corresponding function will return only those snippets where their json data in the query “programmingLanguage” have “C++” as a data. So combining filters will ultimately combine these two processes. `SnippetHelper` is also able to sort the list of existing snippets. This can be done in three ways. Sorting by name in an ascending or descending order, sorting by date, again, in ascending or descending order, and, lastly, sorting by date modified in ascending or descending order. 
+
+
+In this state, though, we will focus more on the editing method. To begin with, through snippetHelper the program moves to the updateSnippets method. The program uses this method to update the passed object in the allSnippetsList and send it back to the SnippetParser. In the SnippetParser the now updated list is used in the update function. There a conversion takes place that translates the snippet object to JSON format. After this is done, the new JSON-format outcome is saved in a file. Finally, in order to see the changes the data needs to be updated. So, the program updates the data model in the All Snippet Screen and the updated snippet becomes visible.
+
 
 ## Sequence diagrams									
 Author(s): `Dimitar Georgiev, Iva Dimtirova, Stoyan Tsinov, Klimis Tsakiridis`
@@ -719,6 +769,8 @@ or\
 `java -cp project.jar Main -p "<FULL FOLDER PATH>"`<br><br>
 ` <FULL FOLDER PATH>` is the place where you need to paste the full path you copied in step 2.
 
+***Video***\
+![Plase see our live demo (if video do not load it can be downloaded from the repository)](./video/demo_assignment3.mp4)
 
 ## References
 
