@@ -458,7 +458,7 @@ Author(s): `Dimitar Georgiev, Iva Dimtirova, Stoyan Tsinov, Klimis Tsakiridis`
 ![Image of Object Diagram](diagrams/assignment3/object_diagram_assignment3.png)
 
 Above you can find our object diagram. In some cases such as in the ApplicationState class, we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg:\
-`Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);`\
+`Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);`
 Here we are just using the `main panel` in order to repaint the current main from the panel. Since the mainPanel is public and we can access it like that we decided that storing it in the memory is a bit of overkill.\
 Furthermore, in the following paragraphs we will explain the logic behind why we create and how we use the created objects.\
 The main method is using the `ApplicationState` class in order to change the view and show the Dashboard screen. As discussed in Assignment 1 this will be our starting point. The `ApplicationState` class is using the changeState method to display the freshly created Dashboard panel.\
