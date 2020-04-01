@@ -458,7 +458,7 @@ Author(s): `Dimitar Georgiev, Iva Dimtirova, Stoyan Tsinov, Klimis Tsakiridis`
 Above you can find our object diagram. 
 In some cases such as in the ApplicationState class, we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg:
 
-`Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);`\
+`Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);`
 
 Here we are just using the `main panel` in order to repaint the current main from the panel. Since the mainPanel is public and we can access it like that we decided that storing it in the memory is a bit of overkill.
 
