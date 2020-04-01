@@ -12,7 +12,7 @@ public class Settings {
 
         this.defaultLanguage = "Text";
         this.colorTheme = "THE_GREEN";
-        this.categories = "";
+        this.categories = "Category 1";
     }
 
     public Settings(String defaultLanguage, String colorTheme, String categories) {

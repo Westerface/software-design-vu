@@ -539,6 +539,8 @@ public class AllSnippetsForm {
         this.categoryTextField.setText("");
         this.cancelButton.setEnabled(true);
 
+
+
         this.programingLanguagesFilterList.setEnabled(false);
         this.programingLanguagesFilterList.setBackground(Color.LIGHT_GRAY);
         this.categoriesFilterList.setEnabled(false);
@@ -548,11 +550,12 @@ public class AllSnippetsForm {
         this.orderByDropdown.setEnabled(false);
 
 
-        if(Globals.settingsParser.getSettings().getDefaultLanguage() != null || Globals.settingsParser.getSettings().getDefaultLanguage().equals("")){
+        if(Globals.settingsParser.getSettings().getDefaultLanguage() != null || !Globals.settingsParser.getSettings().getDefaultLanguage().equals("")){
 
-            changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
+            this.snippetLanguageDropdown.setSelectedItem(Globals.settingsParser.getSettings().getDefaultLanguage());
+            this.changeProgramingLanguage(Globals.settingsParser.getSettings().getDefaultLanguage());
         }else{
-
+            this.snippetLanguageDropdown.setSelectedItem("Text");
             changeProgramingLanguage("Text");
         }
     }
