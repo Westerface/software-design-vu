@@ -13,7 +13,6 @@ A number of changes were made in the code and documentation of our Code Snippet 
 - The code classes were separated accordingly, resulting in a more organized code
 - The multiplicity was added in the Class Diagram
 - The UML constructs in the class diagram were fixed and are now suitable for a class diagram
-- STATE_ALL_SNIPPETS was added to the class diagram
 - Private operations were signed accordingly in the class diagram (-)
 - The missing relationships in the object diagram were added
 - The "Main" structure in the object diagram was fixed and now is a rectangular structure
@@ -454,6 +453,9 @@ Setting the values of the elements of teh screen.
 
 ## Object diagrams								
 Author(s): `Dimitar Georgiev, Iva Dimtirova, Stoyan Tsinov, Klimis Tsakiridis`
+
+`Figure representing the UML diagram`\
+![Image of Object Diagram](diagrams/assignment3/object_diagram_assignment3.png)
 
 Above you can find our object diagram. In some cases such as in the ApplicationState class, we have an instance of a class but we do not keep it in object since we are using only one field/method of it. Eg:\
 `Globals.mainFrame.getContentPane().add(new DashboardForm().mainPanel);`\
