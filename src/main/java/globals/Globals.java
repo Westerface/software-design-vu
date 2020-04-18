@@ -1,9 +1,10 @@
 package globals;
 
-import classes.SnippetHelper;
+import classes.*;
 import dataParsing.SettingsParser;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -12,9 +13,31 @@ public class Globals {
     public static final String APPLICATION_NAME = "Coniunx";
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     public static String currentState = "";
-    public static SnippetHelper snippetHelper = new SnippetHelper();
-    public static SettingsParser settingsParser = new SettingsParser();
+    public static SettingsParser settingsParser = SettingsParser.getInstance();
     public static JFrame mainFrame = new JFrame(Globals.APPLICATION_NAME);
+    public static String currentSnippetState = SnippetState.SNIPPET_NORMAL;
+    public static String currentSnippetOrder = SnippetState.SNIPPET_ORDER_NAME_ASCENDING;
+    public static boolean isFilterSelected = false;
+
+    public static SnippetHelper snippetHelper;
+
+    static {
+        try {
+            snippetHelper = new SnippetHelper();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String currentColorTheme;
+
+    static {
+        try {
+            currentColorTheme = settingsParser.getSettings().getColorTheme();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void setFrame(JPanel panel){
         mainFrame.setContentPane(panel);
@@ -25,7 +48,7 @@ public class Globals {
         mainFrame.setVisible(true);
     }
 
-    public static ArrayList<String> getAllCategories(){
+    public static ArrayList<String> getAllCategories() throws IOException {
 
         ArrayList<String> categories = new ArrayList<>();
 
@@ -58,5 +81,9 @@ public class Globals {
         return langauges;
     }
 
-    public static String[] colorThemesNames = {"Light","Dark","Moonlight"};
+    public static String[] colorThemesNames = {
+            "The Pink",
+            "The Orange",
+            "The Green"
+    };
 }

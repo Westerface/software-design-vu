@@ -11,7 +11,14 @@ public class Snippet {
     private String content;
     private String categories;
 
-    public Snippet(){}
+    public Snippet(){
+        this.id = 1001;
+        this.name = "\"Hello World\" in Java";
+        this.programingLanguage = "Java";
+        this.dateCreated = new Date();
+        this.content = "public static void main(String args[]){\n\tSystem.out.println(\"Hello World!!!\")";
+        this.categories = "";
+    }
 
     public Snippet(int id, String name, String programingLanguage, Date dateCreated, String content, String categories) {
         this.id = id;

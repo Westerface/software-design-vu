@@ -4,11 +4,9 @@ import classes.Snippet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import globals.GlobalsFilesPath;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -19,22 +17,35 @@ public class SnippetsParser {
     Type snippetListType;
     ArrayList<Snippet> snippetList;
 
-    public SnippetsParser() {
 
+    private final static SnippetsParser parser = new SnippetsParser() ; //early init
+
+    private SnippetsParser () {
         this.gsonObject = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-        this.filePath = "src/main/java/JSONFiles/snippets.json";
+        this.filePath = GlobalsFilesPath.folderPath + "snippets.json";
         this.snippetListType = new TypeToken<ArrayList<Snippet>>(){}.getType();
         this.snippetList = new ArrayList<>();
     }
 
-    public ArrayList<Snippet> getAllSnippets(){
+
+    public static SnippetsParser getInstance() {
+        return parser;
+    }
+
+    public ArrayList<Snippet> getAllSnippets() throws IOException {
 
         try {
-
             this.snippetList = this.gsonObject.fromJson(new FileReader(this.filePath), this.snippetListType);
         } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            Snippet defaultSnippet = new Snippet();
+            this.snippetList.add(defaultSnippet);
 
-            e.printStackTrace();
+            updateSnippets(this.snippetList);
+
+        } finally {
+
+            this.snippetList = this.gsonObject.fromJson(new FileReader(this.filePath), this.snippetListType);
         }
 
         return this.snippetList;
